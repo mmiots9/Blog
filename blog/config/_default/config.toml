@@ -1,4 +1,4 @@
-baseURL = "https:/miotsdata.netlify.app"
+baseURL = "https://miotsdata.netlify.app"
 title = "Miots data"
 theme = "hugo-theme-zzo"
 
