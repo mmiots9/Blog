@@ -40,7 +40,7 @@
 [[main]]
   parent = "pillole"
   name = "Scienza"
-  url = "pillole/scienze"
+  url = "pillole/scienza"
 
 [[main]]
   identifier = "publications"
