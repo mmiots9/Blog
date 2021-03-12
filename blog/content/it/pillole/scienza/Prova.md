@@ -1,6 +1,6 @@
 ---
 title: "Prova"
-date: 12-03-2021
+date: 12/03/2021
 description: "prova"
 draft: false
 hideToc: false
@@ -19,6 +19,6 @@ categories:
 image:
 author: Matteo Miotto
 authorEmoji: 🤖
-authorImage: "/images/whoami/me.jepg"
+authorImage: "/images/whoami/me.jpeg"
 ---
 ma che bella
