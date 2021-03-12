@@ -6,7 +6,7 @@
 
 [[main]]
   identifier = "archive"
-  name = "Archivio"
+  name = "Archive"
   url = "archive"
   weight = 2
 
@@ -18,32 +18,32 @@
 
 [[main]]
   parent = "R"
-  name = "Teoria"
+  name = "Theory"
   url = "R/teoria"
   
 [[main]]
   parent = "R"
-  name = "Miei codici"
+  name = "My codes"
   url = "R/miei_codici"
 
 [[main]]
   identifier = "pillole"
-  name = "Pillole"
+  name = "Pills"
   url = "pillole"
   weight = 4
     
 [[main]]
   parent = "pillole"
-  name = "Analisi dati"
+  name = "Data analysis"
   url = "pillole/analisi_dati"
   
 [[main]]
   parent = "pillole"
-  name = "Scienza"
+  name = "Science"
   url = "pillole/scienza"
 
 [[main]]
   identifier = "publications"
-  name = "Pubblicazioni"
+  name = "Publications"
   url = "publications"
   weight = 5
