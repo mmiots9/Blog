@@ -39,7 +39,7 @@ header:
   imagePosition: center
   imageRepeat: no-repeat
   imageSize: cover
-  imageSrc: images/header/prova.jpg
+  imageSrc: images/header/prova.png
   paddingX: 50
   paddingY: 0
   spaceBetweenTitleSubtitle: 20
@@ -68,7 +68,7 @@ header:
     imagePosition: center
     imageRepeat: no-repeat
     imageSize: cover
-    imageSrc: images/header/prova.jpg
+    imageSrc: images/header/prova.png
     paddingX: 50
     paddingY: 0
     spaceBetweenTitleSubtitle: 20
@@ -82,7 +82,7 @@ header:
     imagePosition: center
     imageRepeat: no-repeat
     imageSize: cover
-    imageSrc: images/header/prova.jpg
+    imageSrc: images/header/prova.png
     paddingX: 50
     paddingY: 0
     spaceBetweenTitleSubtitle: 20
@@ -96,7 +96,7 @@ header:
     imagePosition: center
     imageRepeat: no-repeat
     imageSize: cover
-    imageSrc: images/header/prova.jpg
+    imageSrc: images/header/prova.png
     paddingX: 50
     paddingY: 0
     spaceBetweenTitleSubtitle: 20
