@@ -1,5 +1,5 @@
-baseURL: http://example.org
-title: Hugo Zzo Theme
+baseURL: miotsdata.netlify.app
+title: Miots data
 theme: hugo-theme-zzo
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: yes
