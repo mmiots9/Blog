@@ -1,6 +1,6 @@
-baseURL = "http://example.org"
-title = "Hugo Zzo Theme"
-theme = "zzo"
+baseURL = "https:/miotsdata.netlify.app"
+title = "Miots data"
+theme = "hugo-theme-zzo"
 
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
