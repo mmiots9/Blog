@@ -1,0 +1,49 @@
+[[main]]
+  identifier = "about"
+  name = "Chi sono"
+  url = "about"
+  weight = 1
+
+[[main]]
+  identifier = "archive"
+  name = "Archivio"
+  url = "archive"
+  weight = 2
+
+[[main]]
+  identifier = "R"
+  name = "R"
+  url = "R"
+  weight = 3
+
+[[main]]
+  parent = "R"
+  name = "Teoria"
+  url = "R/teoria"
+  
+[[main]]
+  parent = "R"
+  name = "Miei codici"
+  url = "R/miei_codici"
+
+[[main]]
+  identifier = "pillole"
+  name = "Pillole"
+  url = "pillole"
+  weight = 4
+    
+[[main]]
+  parent = "pillole"
+  name = "Analisi dati"
+  url = "pillole/analisi_dati"
+  
+[[main]]
+  parent = "pillole"
+  name = "Scienza"
+  url = "pillole/scienza"
+
+[[main]]
+  identifier = "publications"
+  name = "Pubblicazioni"
+  url = "publications"
+  weight = 5
