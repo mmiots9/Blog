@@ -37,14 +37,7 @@ Test
 
 {{< /highlight >}}
 
-{{< codes java r >}}
-  {{< code >}}
-
-  ```java
-  System.out.println('Hello World!');
-  ```
-
-  {{< /code >}}
+{{< codes r >}}
 
   {{< code >}}
 
