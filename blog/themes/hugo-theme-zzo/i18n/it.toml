@@ -1,0 +1,119 @@
+[search-placeholder]
+other = "Cerca"
+
+[summary-dateformat]
+other = "02/01/2006"
+
+[reading-time]
+other = "min lettura"
+
+[tags]
+other = "Tags"
+
+[categories]
+other = "Catsgorie"
+
+[series]
+other = "Serie"
+
+[archive-dateformat]
+other = "02/01/2006"
+
+[talks-dateformat]
+other = "02/01/2006"
+
+[single-dateformat]
+other = "02/01/2006"
+
+[pub-dateformat]
+other = "02/01/2006"
+
+[resume-dateformat]
+other = "02/01/2006"
+
+[single-related]
+other = "Leggi anche"
+
+[single-writtenBy]
+other = "SCRITTO DA"
+
+[toc-label]
+other = "Contenuto"
+
+[counter-site-pv]
+other = "Total views"
+
+[counter-site-uv]
+other = "Visitatori"
+
+[counter-page-pv]
+other = "views"
+
+[donate-message]
+other = "Supporta l'autore con"
+
+[share-message]
+other = "Condividi"
+
+[contact-name]
+other = "Nome"
+
+[contact-email]
+other = "E-mail"
+
+[contact-tel]
+other = "Tel"
+
+[contact-file]
+other = "File"
+
+[contact-message]
+other = "Messaggio"
+
+[contact-send]
+other = "Invia"
+
+[contact-browse]
+other = "Consulta"
+
+[tooltip-home]
+other = "Home"
+
+[tooltip-written]
+other = "Scritto il"
+
+[tooltip-modified]
+other = "Modificato il"
+
+[tooltip-reading-time]
+other = "Tempo di lettura"
+
+[showcase-overview]
+other = "Overview"
+
+[showcase-pinned]
+other = "Fissato"
+
+[nojs-message]
+other = "Per una migliore visione, attiva JavaScript"
+
+[posts-by-order]
+other = "POST MIGLIORI"
+
+[skin-dark]
+other = "dark"
+
+[skin-light]
+other = "light"
+
+[skin-hacker]
+other = "hacker"
+
+[skin-solarized]
+other = "solarized"
+
+[skin-kimbie]
+other = "kimbie"
+
+[no-contents]
+other = "Nothing to Display"
