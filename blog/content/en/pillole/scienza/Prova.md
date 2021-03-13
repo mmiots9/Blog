@@ -44,4 +44,22 @@ Test
   System.out.println('Hello World!');
   ```
 
+{{< /code >}}
+
+{{< codes java javascript >}}
+  {{< code >}}
+
+  ```java
+  System.out.println('Hello World!');
+  ```
+
   {{< /code >}}
+
+  {{< code >}}
+
+  ```javascript
+  console.log('Hello World!');
+  ```
+  
+  {{< /code >}}
+{{< /codes >}}
