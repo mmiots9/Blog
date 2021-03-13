@@ -38,9 +38,10 @@ Test
 {{< /highlight >}}
 
 
-{{< highlight >}}
+{{< code >}}
 
-<title>Example HTML5 Document</title>
-Test
+  ```java
+  System.out.println('Hello World!');
+  ```
 
-{{< /highlight >}}
+  {{< /code >}}
