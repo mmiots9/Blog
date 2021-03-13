@@ -1,7 +1,10 @@
 ---
 date: "2021-03-12"
-description: Collaborazioni-Articoli
+description:
 title: Articoli
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
 ---
-## Collaborazioni
+
 

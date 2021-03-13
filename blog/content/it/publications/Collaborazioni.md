@@ -1,10 +1,11 @@
 ---
 date: "2021-03-12"
-description: Pubblicazioni-collaborazioni
+description: 
 title: Collaborazioni
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
 ---
-## Collaborazioni
-
 Ho avuto modo di collaborare per la stesura dei seguenti articoli:
 
   * Stanno finendo i posti in terapia intensiva: tutti i dati della catastrofe sanitaria - E. Serafini per TPI - 09/03/2020 ([link](https://www.tpi.it/cronaca/coronavirus-italia-terapia-intensiva-posti-dati-catastrofe-20200309561803/))
