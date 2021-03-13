@@ -7,7 +7,7 @@ draft: false
 hideToc: false
 enableToc: true
 enableTocContent: false
-tocFolding: false
+tocFolding: true
 tocPosition: inner
 tocLevels: ["h2", "h3", "h4"]
 tags:
