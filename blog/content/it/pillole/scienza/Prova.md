@@ -6,8 +6,8 @@ description: "prova"
 draft: false
 hideToc: false
 enableToc: true
-enableTocContent: false
-tocFolding: true
+enableTocContent: true
+tocFolding: false
 tocPosition: inner
 tocLevels: ["h2", "h3", "h4"]
 tags:
