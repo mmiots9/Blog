@@ -28,3 +28,21 @@ cdcd
 
 ### cc
 ma che bella
+
+{{< codes java javascript >}}
+  {{< code >}}
+
+  ```java
+  System.out.println('Hello World!');
+  ```
+
+  {{< /code >}}
+
+  {{< code >}}
+
+  ```javascript
+  console.log('Hello World!');
+  ```
+  
+  {{< /code >}}
+{{< /codes >}}

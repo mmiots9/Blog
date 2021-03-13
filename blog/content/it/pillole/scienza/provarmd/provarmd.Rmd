@@ -8,13 +8,33 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(collapse = TRUE, comment = "")
 ```
 
 ## R Markdown
 
 
-```{r cars}
+```{r}
 summary(cars)
 ```
 
+
+
+
+{{< codes java javascript >}}
+  {{< code >}}
+
+  ```java
+  System.out.println('Hello World!');
+  ```
+
+  {{< /code >}}
+
+  {{< code >}}
+
+  ```javascript
+  console.log('Hello World!');
+  ```
+  
+  {{< /code >}}
+{{< /codes >}}
