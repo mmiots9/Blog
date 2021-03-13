@@ -36,3 +36,11 @@ ma che bella
 Test
 
 {{< /highlight >}}
+
+
+{{< highlight >}}
+
+<title>Example HTML5 Document</title>
+Test
+
+{{< /highlight >}}
