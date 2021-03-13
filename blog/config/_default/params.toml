@@ -108,7 +108,7 @@ fullContents = false
 # comment
 enableComment = true
 disqus_shortname = ""
-commento = true
+commento = false
 
 [telegram]
   enable = false
@@ -122,8 +122,8 @@ commento = true
   clientSecret = ""       # Your client secret
 
 [utterances]       # https://utteranc.es/
-  owner = ""              # Your GitHub ID
-  repo = ""               # The repo to store comments
+  owner = "67107582"              # Your GitHub ID
+  repo = "mmiots9/Commenti-blog"               # The repo to store comments
 
 [gitalk]           # Gitalk is a comment system based on GitHub issues. see https://github.com/gitalk/gitalk
   owner = ""              # Your GitHub ID
