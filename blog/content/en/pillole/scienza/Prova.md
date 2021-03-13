@@ -37,16 +37,7 @@ Test
 
 {{< /highlight >}}
 
-
-{{< code >}}
-
-  ```java
-  System.out.println('Hello World!');
-  ```
-
-{{< /code >}}
-
-{{< codes java javascript >}}
+{{< codes java r >}}
   {{< code >}}
 
   ```java
@@ -57,8 +48,8 @@ Test
 
   {{< code >}}
 
-  ```javascript
-  console.log('Hello World!');
+  ```r
+  print('Hello World!');
   ```
   
   {{< /code >}}
