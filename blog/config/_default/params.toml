@@ -107,7 +107,7 @@ fullContents = false
 
 # comment
 enableComment = true
-disqus_shortname = ""
+disqus_shortname = "utterances"
 commento = false
 
 [telegram]
