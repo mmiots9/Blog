@@ -1,5 +1,5 @@
 ---
 date: "2021-03-12"
-description: Collaborazioni
+description: Insieme di articoli di cui sono co-autore o collaboratore
 title: Pubblicazioni
 ---

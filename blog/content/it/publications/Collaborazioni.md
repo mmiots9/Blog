@@ -1,6 +1,6 @@
 ---
 date: "2021-03-12"
-description: 
+description: Articoli dibulgativi a cui ho contribuito
 title: Collaborazioni
 author: Matteo Miotto
 authorEmoji: 🤖

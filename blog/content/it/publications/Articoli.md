@@ -1,6 +1,6 @@
 ---
 date: "2021-03-12"
-description:
+description: Articoli scientifici che mi vedono come autore
 title: Articoli
 author: Matteo Miotto
 authorEmoji: 🤖
