@@ -11,8 +11,8 @@ themecolor = ""
 themeOptions = ["dark", "light"]
 notAllowedTypesInHome = ["about"]
 notAllowedTypesInHomeSidebar = ["about", "archive"]
-notAllowedTypesInArchive = ["about"]
-notAllowedTypesInHomeFeed = ["about", "archive"]
+notAllowedTypesInArchive = ["about", "publications"]
+notAllowedTypesInHomeFeed = ["about", "archive", "publications"]
 
 viewportSize = "normal" # widest, wider, wide, normal, narrow
 enableUiAnimation = true
