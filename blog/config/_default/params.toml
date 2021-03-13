@@ -9,7 +9,7 @@ meta_image = ""
 themecolor = ""
 
 themeOptions = ["dark", "light"]
-notAllowedTypesInHome = ["about"]
+notAllowedTypesInHome = ["about", "publications"]
 notAllowedTypesInHomeSidebar = ["about", "archive"]
 notAllowedTypesInArchive = ["about", "publications"]
 notAllowedTypesInHomeFeed = ["about", "archive", "publications"]
