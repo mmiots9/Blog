@@ -108,7 +108,7 @@ fullContents = false
 # comment
 enableComment = true
 disqus_shortname = ""
-commento = false
+commento = true
 
 [telegram]
   enable = false
@@ -190,10 +190,10 @@ commento = false
   google-scholar = ""
 
 [donationOptions]
-  enable = false
+  enable = true
   alipay = "" 
   wechat = ""
-  paypal = ""
+  paypal = "https://www.paypal.com/donate?hosted_button_id=F83GSN87TD2JE"
   patreon = ""
 
 # possible share name: ["facebook","twitter", "reddit", "linkedin", "tumblr", "weibo", "douban", "line", "pocket", "feedly", "hatena", "pinterest", "delicious", "google"]
