@@ -24,11 +24,57 @@ authorImage: "/images/whoami/me.jpeg"
 ---
 
 ## Directory
-
 Vediamo ora i comandi base per gestire la directory di lavoro.
-Per prima cosa vediamo come controllare quale sia la cartella di lavoro, ovvero quella che R legge (andando a prendere file e salvandoli su):
-```{r}
+
+### In che directory sono?
+Per prima cosa vediamo come controllare quale sia la directory di lavoro, ovvero quella che R legge (andando a prendere file e salvandoli su):
+``` R
 getwd()
 ```
 Basta questo comando, non bisogna inserire NIENTE dentro le parentesi. 
-Quello che ritorna è una stringa contentente il path della cartella di lavoro. È quindi utile di solito salvarselo in una variabile da inserire in funzioni che si usano più avanti magari. 
+Quello che ritorna è una stringa contentente il path della directory di lavoro. È quindi utile di solito salvarselo in una variabile da inserire in funzioni che si usano più avanti magari. 
+
+### Come cambio la directory di lavoro?
+Per cambiare la directory di lavoro si usa il seguente comando:
+``` R
+setwd("path")
+```
+Rimpiazzare *path* con quello desiderato. Per confermare il cambio usare `getwd()`.
+
+## Pacchetti
+Passiamo ora a vedere i comandi base per gestire quello che concerne i pacchetti.
+
+### Lista pacchetti installati
+C'è un utilissimo comando per vedere la lista di tutti i pacchetti installati. Questo comando però ritorna un vettore caratteri difficile da leggere, per questo motivo presento un codice che seleziona solo il nome del pacchetto, la versione e le cndizioni affinchè funzionino.
+``` R
+installed.packages()[,c(3,5)]
+```
+
+### Installare un nuovo pacchetto
+Se il pacchetto richiesto non è nella lista o se si sa già che bisogna installarlo *de novo*, si usa questo comando:
+``` R
+install.packages("pacchetto")
+```
+
+### Lista pacchetti caricati
+Per vedere quali pacchetti sono attualmente attivi si usa questo comando:
+``` R
+(.packages())
+```
+Ritorna un vettore caratteri con l'elenco dei pacchetti attivi
+
+### Caricare un pacchetto
+Se il pacchetto che vogliamo utilizzare non è nei pacchetti attivi, o se sappiamo già non esserci, usiamo questo comando:
+``` R
+library(pacchetti)
+```
+*Pacchetti* può essre un solo pacchetto o anche un vettore caratteri di puù pacchetti.
+
+
+
+
+
+
+
+
+
