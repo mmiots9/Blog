@@ -1,8 +1,8 @@
 ---
-title: "Comandi base environment R"
+title: "R environment commands"
 date: 2021-03-14
 modified: 
-description: "Elenco di comandi basilari per gestire l'environment di R"
+description: "List of useful commands to manage R environment"
 draft: false
 hideToc: false
 enableToc: true
@@ -14,9 +14,9 @@ tags:
 - R
 - environment
 series:
-- R base
+- R basic
 categories:
-- R teoria
+- R theory
 image: "/images/R/Teoria/r_symbol.jpeg"
 author: Matteo Miotto
 authorEmoji: 🤖
@@ -24,17 +24,17 @@ authorImage: "/images/whoami/me.jpeg"
 ---
 
 ## Directory
-Vediamo ora i comandi base per gestire la directory di lavoro.
+Let's see basic commands that help us to manage the working directory.
 
-### In che directory sono?
-Per prima cosa vediamo come controllare quale sia la directory di lavoro, ovvero quella che R legge (andando a prendere file e salvandoli su):
+### Which is the current working directory?
+Firstly, to evaluate which is the current working directory (the one in which files are saved and the one that R reads) we use:
 ``` R
 getwd()
 ```
-Basta questo comando, non bisogna inserire NIENTE dentro le parentesi. 
-Quello che ritorna è una stringa contentente il path della directory di lavoro. È quindi utile di solito salvarselo in una variabile da inserire in funzioni che si usano più avanti magari. 
+DO NOT type anything in the brackets.
+It returns a string representing the path of the working directory. It could be useful to store it in a variable in order to easily use it in other functions.
 
-### Come cambio la directory di lavoro?
+### How to change the working directory?
 Per cambiare la directory di lavoro si usa il seguente comando:
 ``` R
 setwd("path")
