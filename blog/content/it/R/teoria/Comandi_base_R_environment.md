@@ -26,10 +26,8 @@ authorImage: "/images/whoami/me.jpeg"
 ## Directory
 
 Vediamo ora i comandi base per gestire la directory di lavoro.
-
 Per prima cosa vediamo come controllare quale sia la cartella di lavoro, ovvero quella che R legge (andando a prendere file e salvandoli su):
-
-``` r
+```{r}
 getwd()
 ```
 Basta questo comando, non bisogna inserire NIENTE dentro le parentesi. 
