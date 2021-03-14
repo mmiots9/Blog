@@ -45,7 +45,7 @@ Rimpiazzare *path* con quello desiderato. Per confermare il cambio usare `getwd(
 Passiamo ora a vedere i comandi base per gestire quello che concerne i pacchetti.
 
 ### Lista pacchetti installati
-C'è un utilissimo comando per vedere la lista di tutti i pacchetti installati. Questo comando però ritorna un vettore caratteri difficile da leggere, per questo motivo presento un codice che seleziona solo il nome del pacchetto, la versione e le cndizioni affinchè funzionino.
+C'è un utilissimo comando per vedere la lista di tutti i pacchetti installati. Questo comando però ritorna un vettore caratteri difficile da leggere, per questo motivo presento un codice che seleziona solo il nome del pacchetto, la versione e le condizioni affinchè funzionino.
 ``` R
 installed.packages()[,c(3,5)]
 ```

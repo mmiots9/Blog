@@ -35,35 +35,44 @@ DO NOT type anything in the brackets.
 It returns a string representing the path of the working directory. It could be useful to store it in a variable in order to easily use it in other functions.
 
 ### How to change the working directory?
-Per cambiare la directory di lavoro si usa il seguente comando:
+To change the current working directory, type:
 ``` R
 setwd("path")
 ```
-Rimpiazzare *path* con quello desiderato. Per confermare il cambio usare `getwd()`.
+Replace *path* with the desired one. To confirm that the wd is changed, use `getwd()`.
 
-## Pacchetti
-Passiamo ora a vedere i comandi base per gestire quello che concerne i pacchetti.
+## Packages
+Now, we're going to see how to handle packages
 
-### Lista pacchetti installati
-C'è un utilissimo comando per vedere la lista di tutti i pacchetti installati. Questo comando però ritorna un vettore caratteri difficile da leggere, per questo motivo presento un codice che seleziona solo il nome del pacchetto, la versione e le cndizioni affinchè funzionino.
+### Installed packages
+There is a useful command to retrieve the list of installed packages; unfortunately it returns a character vector that is difficult to read. For this reason, int the following code there is an extra part that allows us to obtain only the name of the packages, their versions and their depends.
 ``` R
 installed.packages()[,c(3,5)]
 ```
 
-### Installare un nuovo pacchetto
-Se il pacchetto richiesto non è nella lista o se si sa già che bisogna installarlo *de novo*, si usa questo comando:
+To quickly evaluate if a package is present, we can use:
 ``` R
-install.packages("pacchetti")
+"package" %in% installed.packages()[,1]
 ```
-Per **disinstallare** un pacchetto: `uninstall.pachages("pacchetti")`.
-*Pacchetti* può essere un solo pacchetto o anche un vettore caratteri di puù pacchetti.
 
-### Lista pacchetti caricati
-Per vedere quali pacchetti sono attualmente attivi si usa questo comando:
+### Install new package
+If the required package is not in that list or if we know that it should be installed, we use:
+``` R
+install.packages("packages")
+```
+To **uninstall** a package: `uninstall.pachages("packages")`.
+*Packages* inside brackets could be a single package or a vector of more packages.
+
+### Loaded packages
+To retrieve which packages are active we use this command:
 ``` R
 (.packages())
 ```
-Ritorna un vettore caratteri con l'elenco dei pacchetti attivi
+It returns a character vector with all the active packages.
+To quickly evaluate if a package is loaded, we can use:
+``` R
+"package" %in% (.packages())
+```
 
 ### Caricare un pacchetto
 Se il pacchetto che vogliamo utilizzare non è nei pacchetti attivi, o se sappiamo già non esserci, usiamo questo comando:
