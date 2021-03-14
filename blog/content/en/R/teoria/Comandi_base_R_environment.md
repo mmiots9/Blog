@@ -22,7 +22,7 @@ author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
 ---
-
+<div style="text-align: justify;">
 ## Directory
 Let's see basic commands that help us to manage the working directory.
 
@@ -113,6 +113,6 @@ Se si vuole caricare la history precedentemente salvata in un file:
 ``` R
 loadhistory("filename.Rhistory")
 ```
-
+</div>
 
 

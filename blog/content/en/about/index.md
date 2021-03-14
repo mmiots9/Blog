@@ -4,7 +4,7 @@ description: Hugo, the world’s fastest framework for building websites
 title: About
 type: about
 ---
-
+<div style="text-align: justify;">
 Hi everyone,
 Here I introduce myself and quickly present this project entitled "Miots data".
 
@@ -25,6 +25,6 @@ Finally, always during the bad period of the pandemic, I felt the need to fight 
 
 I've already written too much,
 I hope you will find this project useful and interesting, and that you want to support it by sharing with your friends/relatives.
-
+</div>
 
 

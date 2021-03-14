@@ -4,7 +4,7 @@ description: Descrizione
 title: Chi sono
 type: about
 ---
-
+<div style="text-align: justify;">
 Ciao a tutti, 
 sfrutto questa pagina per presentarmi e presentare velocemente questo progetto dal titolo "Miots data".
 
@@ -25,7 +25,7 @@ Infine, sempre durante il brutto periodo della pandemia, ho sentito il forte bis
 
 Ho già scritto troppo,
 Mi auguro possiate trovare questo progetto utile ed interessante, e che vogliate sostenere questo progetto condividendolo coi vostri amici/parenti.
-
+</div>
 
 
 
