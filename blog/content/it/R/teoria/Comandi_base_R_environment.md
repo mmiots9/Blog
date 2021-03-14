@@ -72,11 +72,22 @@ library(pacchetti)
 ```
 Per disattivare un pacchetto: `detach(package:pacchetto, unload = TRUE)`.
 
-## 
+## Environment
+Vediamo ora come gestire le variabili nell'environment.
 
+### Lista variabili
+Per vedere quali variabili sono salvate nell'environment usiamo:
+``` R
+ls()
+```
+Ritorna un vettore coi nomi di tutte le variabili salvate.
 
-
-
+### Rimuovere una variabile
+Per rimuovere una variabile si usa la funzione:
+``` R
+rm(variabile)
+```
+*Variabile* può essere il nome di una variabile o una lista di variabili (NON vettore). Va da sè che per eliminare più variabili si usa `rm(list = c(variabili))` e per **eliminare tutte le variabili** `rm(list = ls())`.
 
 
 
