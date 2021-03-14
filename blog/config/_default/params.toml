@@ -55,6 +55,7 @@ pinIcon = "📌"
 tagIcon = "🏷️"
 publicationIcon = "📚"
 typeIcon = "🎯"
+text-align = "justify"
 
 # whoami
 myname = "Matteo Miotto"
