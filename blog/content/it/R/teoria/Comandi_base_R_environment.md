@@ -53,8 +53,10 @@ installed.packages()[,c(3,5)]
 ### Installare un nuovo pacchetto
 Se il pacchetto richiesto non è nella lista o se si sa già che bisogna installarlo *de novo*, si usa questo comando:
 ``` R
-install.packages("pacchetto")
+install.packages("pacchetti")
 ```
+Per **disinstallare** un pacchetto: `uninstall.pachages("pacchetti")`.
+*Pacchetti* può essere un solo pacchetto o anche un vettore caratteri di puù pacchetti.
 
 ### Lista pacchetti caricati
 Per vedere quali pacchetti sono attualmente attivi si usa questo comando:
@@ -68,9 +70,9 @@ Se il pacchetto che vogliamo utilizzare non è nei pacchetti attivi, o se sappia
 ``` R
 library(pacchetti)
 ```
-*Pacchetti* può essre un solo pacchetto o anche un vettore caratteri di puù pacchetti.
+Per disattivare un pacchetto: `detach(package:pacchetto, unload = TRUE)`.
 
-
+## 
 
 
 
