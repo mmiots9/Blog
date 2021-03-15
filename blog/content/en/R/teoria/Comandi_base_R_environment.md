@@ -49,7 +49,6 @@ There is a useful command to retrieve the list of installed packages; unfortunat
 ``` R
 installed.packages()[,c(3,5)]
 ```
-
 To quickly evaluate if a package is present, we can use:
 ``` R
 "package" %in% installed.packages()[,1]
@@ -74,42 +73,42 @@ To quickly evaluate if a package is loaded, we can use:
 "package" %in% (.packages())
 ```
 
-### Caricare un pacchetto
-Se il pacchetto che vogliamo utilizzare non è nei pacchetti attivi, o se sappiamo già non esserci, usiamo questo comando:
+### Load a package
+If our package is not loaded and we want to load it, we have to type:
 ``` R
-library(pacchetti)
+library(pachages)
 ```
-Per disattivare un pacchetto: `detach(package:pacchetto, unload = TRUE)`.
+To **unload** a package:`detach(package:pacchetto, unload = TRUE)`
 
 ## Environment
-Vediamo ora come gestire le variabili nell'environment.
+Let's see how to handle environment variables.
 
-### Lista variabili
-Per vedere quali variabili sono salvate nell'environment usiamo:
+### Variable list
+To retrieve which variables are stored:
 ``` R
 ls()
 ```
-Ritorna un vettore coi nomi di tutte le variabili salvate.
+It returns a vactor with the names of the stored variables.
 
-### Rimuovere una variabile
-Per rimuovere una variabile si usa la funzione:
+### Remove variables
+This is the function that removes variables:
 ``` R
-rm(variabile)
+rm(variable)
 ```
-*Variabile* può essere il nome di una variabile o una lista di variabili (NON vettore). Va da sè che per eliminare più variabili si usa `rm(list = c(variabili))` e per **eliminare tutte le variabili** `rm(list = ls())`.
+*Variable*  could be both the name of a variable or a list of variable (NOT a vector). So, in order to remove more variables we should use `rm(list = c(variables))`, and to **remove all variables** `rm(list = ls())`.
 
 ## History
-La history rappresenta un elemento molto importante quando si lavora su alcuni progetti, per questo ci sono varie funzioni che ci permettono di sfruttarne le potenzialità.
+History is a fundamental element when we're working on projects. For this reason, there are a couple of functions that we must know.
 
-### Salvare la history
-È sempre utile salvare la history quando si stanno facendo varie prove per una funzione o per una analisi. Per farlo si usa:
+### Save the history
+Saving the history is useful when we are testing some codes, some functions or doing an analysis. To do it:
 ``` R
 savehistory("filename.Rhistory")
 ```
-Il file viene salvato nella directory di lavoro, per cambiare posto inserire il path nel filename.
+This file is stored in the current working directory, to change directory we shoul insert the path in the filename.
 
-### Caricare la history
-Se si vuole caricare la history precedentemente salvata in un file:
+### load the history
+To load the history from a saved file:
 ``` R
 loadhistory("filename.Rhistory")
 ```

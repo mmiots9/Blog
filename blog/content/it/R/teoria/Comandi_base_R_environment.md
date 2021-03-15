@@ -49,6 +49,10 @@ C'è un utilissimo comando per vedere la lista di tutti i pacchetti installati. 
 ``` R
 installed.packages()[,c(3,5)]
 ```
+Un modo per vedere velocemente se un pacchetto è installato è:
+``` R
+"pacchetti" %in% installed.packages()[,1]
+```
 
 ### Installare un nuovo pacchetto
 Se il pacchetto richiesto non è nella lista o se si sa già che bisogna installarlo *de novo*, si usa questo comando:
@@ -63,7 +67,11 @@ Per vedere quali pacchetti sono attualmente attivi si usa questo comando:
 ``` R
 (.packages())
 ```
-Ritorna un vettore caratteri con l'elenco dei pacchetti attivi
+Ritorna un vettore caratteri con l'elenco dei pacchetti attivi.
+Per sapere se un pacchetto è caricato:
+``` R
+"pacchetti" %in% (.packages())
+```
 
 ### Caricare un pacchetto
 Se il pacchetto che vogliamo utilizzare non è nei pacchetti attivi, o se sappiamo già non esserci, usiamo questo comando:
