@@ -7,7 +7,7 @@ draft: false
 hideToc: false
 enableToc: true
 enableTocContent: true
-tocFolding: false
+tocFolding: true
 tocPosition: inner
 tocLevels: ["h2", "h3", "h4"]
 tags:
@@ -22,6 +22,9 @@ image: "/images/R/Teoria/r_symbol.jpeg"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
+editor_options: 
+  markdown: 
+    wrap: sentence
 ---
 
 <script src="Indroduzone a ggplot2_files/header-attrs/header-attrs.js"></script>
@@ -30,15 +33,8 @@ authorImage: "/images/whoami/me.jpeg"
 <div style="text-align: justify;">
 <p>Ggplot2 è un utilissimo pacchetto grafico che ci permette di ricreare praticamente qualunque tipologia di grafico, esattamente nel modo in cui l’abbiamo pensato, grazie ad una vasta gamma di funzioni di personalizzazione e di pacchetti aggiuntivi compatibili.
 In questo post partiamo vedendo le basi di questo pacchetto, ovvero come creare grafici basilari analizzando le 3 componenti necessarie per la creazione di un grafico con Ggplot2.</p>
-<p>Quando parlo di “componenti”, mi riferisco a tipologie di comandi che bisogna inserire per la costruzione di un grafico con questo pacchetto. Queste componenti sono in tutto 8:
-* Data
-* Mapping
-* Geometries
-* Statistics
-* Scales
-* Facets
-* Coordinates
-* Theme</p>
+<p>Quando parlo di “componenti”, mi riferisco a tipologie di comandi che bisogna inserire per la costruzione di un grafico con questo pacchetto.
+Queste componenti sono in tutto 8: * Data * Mapping * Geometries * Statistics * Scales * Facets * Coordinates * Theme</p>
 <p>Oggi ci focalizzeremo sulle prime 3, in quanto sono le uniche 3 di cui ggplot2 ha bisogno di informazioni; le altre infatti possono essere omesse in quanto hanno già dei valori di default.
 Di seguito una versione minimal del comando da utilizzare per creare un grafico con ggplot2:</p>
 <pre class="r"><code>ggplot(data = &lt;data&gt;) +
@@ -46,15 +42,17 @@ Di seguito una versione minimal del comando da utilizzare per creare un grafico 
 <p>Spesso <code>data =</code> e <code>mapping =</code> sono sottointesi.</p>
 <div id="data" class="section level2">
 <h2>Data</h2>
-<p>Partiamo dalla parte più semplice, ovvero <em>data</em>. A &lt;data&gt; va sostituito il dafarame/tibble da cui prendere i dati.
+<p>Partiamo dalla parte più semplice, ovvero <em>data</em>.
+A &lt;data&gt; va sostituito il dafarame/tibble da cui prendere i dati.
 In questo post useremo dataframe standard di R come <em>mtcars</em>, <em>iris</em>, e altri…</p>
 </div>
 <div id="geometries" class="section level2">
 <h2>Geometries</h2>
-<p>Il secondo comando da definire è quello legato alle geometrie, ovvero alla forme che dovranno assumere i dati nel grafico. Le classiche geometri sono <code>geom_point()</code> per gli scatter plot, <code>geom_bar()</code> e <code>geom_col()</code> per i barplot, <code>geom_boxplot()</code> per i boxplot e via dicendo.
-Le geometrie sono davvero tante, e sono legate anche al concetto di <em>statistics</em>. Verranno affrontate le relazioni in un post dedicato.
+<p>Il secondo comando da definire è quello legato alle geometrie, ovvero alla forme che dovranno assumere i dati nel grafico.
+Le classiche geometri sono <code>geom_point()</code> per gli scatter plot, <code>geom_bar()</code> e <code>geom_col()</code> per i barplot, <code>geom_boxplot()</code> per i boxplot e via dicendo.
+Le geometrie sono davvero tante, e sono legate anche al concetto di <em>statistics</em>.
+Verranno affrontate le relazioni in un post dedicato.
 Di seguito un paio di esempi giusto per far vedere vari tipi di <code>geom_</code>.</p>
-<pre class="r"><code>ggarrange(pnt, sm, nrow=2)</code></pre>
 <div class="figure"><span id="fig:geom1"></span>
 <img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2_files/figure-html/geom1-1.png" alt="Stessi dati ma geom_ diverse. In alto geom_point(), in basso geom_smooth()" width="672" />
 <p class="caption">
@@ -103,9 +101,9 @@ Fig.4: Scatter plot a cui sono stati cambiati forma e colore dei punti
 </div>
 <div id="cambiare-estetiche-in-base-ad-unaltra-variabile" class="section level3">
 <h3>Cambiare estetiche in base ad un’altra variabile</h3>
-<p>Le stesse estetiche di sopra possono essere cambiate anche in base ad una variabile/condizione. In questo caso si mappano dentro <code>aes()</code> in quanto non tutte le osservazioni avranno le stesse caratteristiche estetiche nel grafico.
-<em>Esempio</em>
-Si vogliano evidenziare in uno scatter plot tra mpg e hp, quali vetture pesano meno di 3.250.</p>
+<p>Le stesse estetiche di sopra possono essere cambiate anche in base ad una variabile/condizione.
+In questo caso si mappano dentro <code>aes()</code> in quanto non tutte le osservazioni avranno le stesse caratteristiche estetiche nel grafico.
+<em>Esempio</em> Si vogliano evidenziare in uno scatter plot tra mpg e hp, quali vetture pesano meno di 3.250.</p>
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = wt &lt; 3.25))</code></pre>
 <div class="figure"><span id="fig:scatter3"></span>

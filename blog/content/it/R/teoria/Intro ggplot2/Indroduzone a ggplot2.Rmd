@@ -7,7 +7,7 @@ draft: false
 hideToc: false
 enableToc: true
 enableTocContent: true
-tocFolding: false
+tocFolding: true
 tocPosition: inner
 tocLevels: ["h2", "h3", "h4"]
 tags:
@@ -22,44 +22,47 @@ image: "/images/R/Teoria/r_symbol.jpeg"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
+editor_options: 
+  markdown: 
+    wrap: sentence
 ---
+::: {style="text-align: justify;"}
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggpubr)
 ```
-<div style="text-align: justify;">
 
 Ggplot2 è un utilissimo pacchetto grafico che ci permette di ricreare praticamente qualunque tipologia di grafico, esattamente nel modo in cui l'abbiamo pensato, grazie ad una vasta gamma di funzioni di personalizzazione e di pacchetti aggiuntivi compatibili.
-In questo post partiamo vedendo le basi di questo pacchetto, ovvero come creare grafici basilari analizzando le 3 componenti necessarie per la creazione di un grafico con Ggplot2.  
+In questo post partiamo vedendo le basi di questo pacchetto, ovvero come creare grafici basilari analizzando le 3 componenti necessarie per la creazione di un grafico con Ggplot2.
 
-Quando parlo di "componenti", mi riferisco a tipologie di comandi che bisogna inserire per la costruzione di un grafico con questo pacchetto. Queste componenti sono in tutto 8:
-* Data
-* Mapping
-* Geometries
-* Statistics
-* Scales
-* Facets
-* Coordinates
-* Theme
+Quando parlo di "componenti", mi riferisco a tipologie di comandi che bisogna inserire per la costruzione di un grafico con questo pacchetto.
+Queste componenti sono in tutto 8: \* Data \* Mapping \* Geometries \* Statistics \* Scales \* Facets \* Coordinates \* Theme
 
 Oggi ci focalizzeremo sulle prime 3, in quanto sono le uniche 3 di cui ggplot2 ha bisogno di informazioni; le altre infatti possono essere omesse in quanto hanno già dei valori di default.
 Di seguito una versione minimal del comando da utilizzare per creare un grafico con ggplot2:
 
-``` R
+``` {.r}
 ggplot(data = <data>) +
   <geom_function>(mapping = aes(<mapping>))
 ```
+
 Spesso `data =` e `mapping =` sono sottointesi.
 
 ## Data
-Partiamo dalla parte più semplice, ovvero *data*. A \<data\> va sostituito il dafarame/tibble da cui prendere i dati. 
+
+Partiamo dalla parte più semplice, ovvero *data*.
+A \<data\> va sostituito il dafarame/tibble da cui prendere i dati.
 In questo post useremo dataframe standard di R come *mtcars*, *iris*, e altri...
 
 ## Geometries
-Il secondo comando da definire è quello legato alle geometrie, ovvero alla forme che dovranno assumere i dati nel grafico. Le classiche geometri sono `geom_point()` per gli scatter plot, `geom_bar()` e `geom_col()` per i barplot, `geom_boxplot()` per i boxplot e via dicendo.
-Le geometrie sono davvero tante, e sono legate anche al concetto di *statistics*. Verranno affrontate le relazioni in un post dedicato.
+
+Il secondo comando da definire è quello legato alle geometrie, ovvero alla forme che dovranno assumere i dati nel grafico.
+Le classiche geometri sono `geom_point()` per gli scatter plot, `geom_bar()` e `geom_col()` per i barplot, `geom_boxplot()` per i boxplot e via dicendo.
+Le geometrie sono davvero tante, e sono legate anche al concetto di *statistics*.
+Verranno affrontate le relazioni in un post dedicato.
 Di seguito un paio di esempi giusto per far vedere vari tipi di `geom_`.
+
 ```{r geom, tidy=FALSE, message = FALSE, results='hide', echo=F}
 pnt <- ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
@@ -67,7 +70,7 @@ sm <- ggplot(data = mtcars) +
   geom_smooth(mapping = aes(x = mpg, y = hp), se = F)
 ```
 
-```{r geom1, fig.cap='Stessi dati ma geom_ diverse. In alto geom_point(), in basso geom_smooth()', tidy=FALSE, message = FALSE}
+```{r geom1, fig.cap='Stessi dati ma geom_ diverse. In alto geom_point(), in basso geom_smooth()', tidy=FALSE, message = FALSE, echo=FALSE}
 ggarrange(pnt, sm, nrow=2)
 ```
 
@@ -82,6 +85,7 @@ ggplot(mtcars, aes(x = mpg, y = hp)) +
 ```
 
 ## Mapping
+
 Tramite il mapping noi andiamo a dire a ggplot quali variabili plottare e a definire altri parametri estetici come colore, riempimento, forma ecc.
 Vediamo subito tramite qualche esempio come funziona:
 
@@ -89,9 +93,11 @@ Vediamo subito tramite qualche esempio come funziona:
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 ```
+
 In questo esempio c'era uno scatter plot (geom_point, ma lo vedremo più avanti) molto semplice, in cui sono state mappate in x e y le colonne `mpg` e `hp` del dataset `mtcars`.
 
 ### Cambiare estetiche a tutto il grafico
+
 Se vogliamo cambiare estetiche quali colori, forme ecc di tutto ciò che è plottato bisogna mettere queste specifiche al di fuori di`aes()`.
 Per esempio, se si vogliono cambiare forma e colore dei punti plottati nel grafico precente, si procede così:
 
@@ -99,19 +105,24 @@ Per esempio, se si vogliono cambiare forma e colore dei punti plottati nel grafi
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), color = "blue", shape = 3)
 ```
+
 Ci sono varie estetiche nel grafico che si possono modificare, ogni \<geom\> ha la sua, per questo non verranno analizzate nel dettaglio in questo post.
 
 ### Cambiare estetiche in base ad un'altra variabile
-Le stesse estetiche di sopra possono essere cambiate anche in base ad una variabile/condizione. In questo caso si mappano dentro `aes()` in quanto non tutte le osservazioni avranno le stesse caratteristiche estetiche nel grafico.
-*Esempio*
-Si vogliano evidenziare in uno scatter plot tra mpg e hp, quali vetture pesano meno di 3.250.
+
+Le stesse estetiche di sopra possono essere cambiate anche in base ad una variabile/condizione.
+In questo caso si mappano dentro `aes()` in quanto non tutte le osservazioni avranno le stesse caratteristiche estetiche nel grafico.
+*Esempio* Si vogliano evidenziare in uno scatter plot tra mpg e hp, quali vetture pesano meno di 3.250.
+
 ```{r scatter3, fig.cap="Scatter plot con colorazioni diverse in base al peso dell'auto", tidy=FALSE}
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = wt < 3.25))
 ```
+
 Come si può vedere, è comparsa una legenda che ci aiuta a capire lo schema grafico utilizzato.
 
 Questo mappamento può essere fatto anche utilizzando una variabile categorica.
+
 ```{r aes vari, echo=F, results='hide', message=FALSE, tidy = FALSE}
 
 cl    <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, color = class)) + labs(title = "Colore")
@@ -125,35 +136,4 @@ forma <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, shape =
 ggarrange(cl, dimp, trasp, forma, 
           nrow = 2, ncol = 2)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
+:::
