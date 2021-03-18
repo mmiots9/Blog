@@ -1,0 +1,132 @@
+---
+title: "Introduction to GGPLOT2"
+date: 2021-03-18
+modified: 
+description: "Introduction to an advanced graphic package"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Graphs
+- Ggplot2
+series:
+- Graphic with ggplot2
+categories:
+- Graphs
+image: "/images/R/Teoria/ggplot2_logo.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+<script src="Indroduzone a ggplot2.en_files/header-attrs/header-attrs.js"></script>
+
+
+<div style="text-align: justify;">
+<p>Ggplot 2 is a very useful graphic package that allows us to recreate almost every type of graph in the exact way we imagine it, thanks to a huge number of functions and related packages.
+In this post, we will analyze the basis of this package, starting from how to create simple graphs analyzing the 3 indispensable components of the code.
+When I talk about “components”, I mean the different types of commands that are needed to create a graph with ggplot2.
+There are 8 components:</p>
+<ul>
+<li><p>Data</p></li>
+<li><p>Mapping</p></li>
+<li><p>Geometries</p></li>
+<li><p>Statistics</p></li>
+<li><p>Scales</p></li>
+<li><p>Facets</p></li>
+<li><p>Coordinates</p></li>
+<li><p>Theme</p></li>
+</ul>
+<p>Today, we will focus on the first 3 because those are the ones that requires informations by us; in fact, the others can be omitted since that already have default values.
+Here is representet the minimal version of the ggplo2 command:</p>
+<pre class="r"><code>ggplot(data = &lt;data&gt;) +
+  &lt;geom_function&gt;(mapping = aes(&lt;mapping&gt;))</code></pre>
+<p>Often, <code>data =</code> and <code>mapping =</code> are implied.</p>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>Let’s start with the easyest part, <em>data</em>.
+In the function above, &lt;data&gt; should be replaced with the dataframe/tibble from which data must be taken.
+In this post, we will use the standard dataframe <em>mtcars</em>.</p>
+<div id="geometries" class="section level2">
+<h2>Geometries</h2>
+<p>The second part of the code starts with the geom_function, that is the “geometry” that our graph must assume.
+The most used geometries are <code>geom_point()</code> for scatter plot, <code>geom_bar()</code> and <code>geom_col()</code> for barplots, <code>geom_boxplot()</code> for boxplot and so on so forth.
+There are lots of geometric functions, and they are strictly related to an other component, <em>statistics</em>. For these reasons, relationships between these two components will be analyzed in a future post.
+Below, two examples of different <code>geom_</code>.</p>
+<div class="figure"><span id="fig:geom1"></span>
+<img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/geom1-1.png" alt="Same data but with different geom_. Above, geom_pont(); below, geom_smooth()" width="672" />
+<p class="caption">
+Figure 1: Same data but with different geom_. Above, geom_pont(); below, geom_smooth()
+</p>
+</div>
+<p>An interesting feature of ggplo2 is the ease with which it is possible to use different geometric functions on the same (or different) data onto the same plot.
+All common characteristics must be put inside <code>ggplot()</code>, while geom-specific inputs must be explicated into the corresponding geometric function.
+For example, combining the two plots above:</p>
+<pre class="r"><code>ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point() +
+  geom_smooth(se = F)</code></pre>
+<div class="figure"><span id="fig:geom2"></span>
+<img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/geom2-1.png" alt="Union of two different geometries in the same plot" width="672" />
+<p class="caption">
+Figure 2: Union of two different geometries in the same plot
+</p>
+</div>
+</div>
+<div id="mapping" class="section level2">
+<h2>Mapping</h2>
+<p>Thorugh mapping inputs, we tell ggplot2 which variables to plot and other aesthetic parameters, such as color, fill, shape, and others.
+Let’s see how it works.</p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp))</code></pre>
+<div class="figure"><span id="fig:scatter"></span>
+<img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/scatter-1.png" alt="Basic scatter plot" width="672" />
+<p class="caption">
+Figure 3: Basic scatter plot
+</p>
+</div>
+<p>In this example, we told ggplot 2 which variables to plot in x an y axis in the <code>aes()</code> parameter.</p>
+<div id="change-aestheticsmapping-of-all-the-graph" class="section level3">
+<h3>Change aesthetics/mapping of all the graph</h3>
+<p>If we want to change some aesthetics (color, shape, …) to all the data in the graph, we have to specify them outside <code>aes()</code>.
+For example, here we changed both color and shape of all the points.</p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;, shape = 3)</code></pre>
+<div class="figure"><span id="fig:scatter2"></span>
+<img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/scatter2-1.png" alt="Points color and shape changed in a scatter plot" width="672" />
+<p class="caption">
+Figure 4: Points color and shape changed in a scatter plot
+</p>
+</div>
+<p>There a lots of aesthetics and mapping characteristics for each &lt;geom&gt;; for this reason, I will not discuss in details in this post. I suggest to look to the help file of each geometry.</p>
+</div>
+<div id="change-aestheticsmapping-based-on-a-third-variable." class="section level3">
+<h3>Change aesthetics/mapping based on a third variable.</h3>
+<p>The same aesthetics/mapping characteristics can be changed based on a third variable or condition.
+In this case, they sould be put inside <code>aes()</code>, since not all observation will have the same characteristics in the plot.
+<em>Example</em>
+We want to discriminate cars that weight less than 3.250 in a scatter plot of mpg and hp.</p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp, color = wt &lt; 3.25))</code></pre>
+<div class="figure"><span id="fig:scatter3"></span>
+<img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/scatter3-1.png" alt="Scatter plot with different colors based upon a condition" width="672" />
+<p class="caption">
+Figure 5: Scatter plot with different colors based upon a condition
+</p>
+</div>
+<p>As we can see, a legend that helps us understanding color mapping has appeared.</p>
+<p>This, and other mappings, can be done using also a categorical (or a continue) variable:</p>
+<div class="figure"><span id="fig:scatter4"></span>
+<img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/scatter4-1.png" alt="Four examples of how we can discriminate points based on a third variable: color, dimension, alpha and shape" width="672" />
+<p class="caption">
+Figure 6: Four examples of how we can discriminate points based on a third variable: color, dimension, alpha and shape
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>

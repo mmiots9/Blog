@@ -8,7 +8,7 @@ hideToc: false
 enableToc: true
 enableTocContent: true
 tocFolding: false
-tocPosition: inner
+tocPosition: outer
 tocLevels: ["h2", "h3", "h4"]
 tags:
 - R
@@ -23,6 +23,7 @@ authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
 ---
 <div style="text-align: justify;">
+
 ## Directory
 Vediamo ora i comandi base per gestire la directory di lavoro.
 

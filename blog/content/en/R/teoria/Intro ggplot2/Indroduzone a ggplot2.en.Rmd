@@ -1,0 +1,141 @@
+---
+title: "Introduction to GGPLOT2"
+date: 2021-03-18
+modified: 
+description: "Introduction to an advanced graphic package"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Graphs
+- Ggplot2
+series:
+- Graphic with ggplot2
+categories:
+- Graphs
+image: "/images/R/Teoria/ggplot2_logo.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+<div style="text-align: justify;"> 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggpubr)
+```
+
+Ggplot 2 is a very useful graphic package that allows us to recreate almost every type of graph in the exact way we imagine it, thanks to a huge number of functions and related packages.
+In this post, we will analyze the basis of this package, starting from how to create simple graphs analyzing the 3 indispensable components of the code.
+When I talk about "components", I mean the different types of commands that are needed to create a graph with ggplot2. 
+There are 8 components:
+
+* Data 
+
+* Mapping 
+
+* Geometries 
+
+* Statistics 
+
+* Scales 
+
+* Facets 
+
+* Coordinates 
+
+* Theme
+
+Today, we will focus on the first 3 because those are the ones that requires informations by us; in fact, the others can be omitted since that already have default values.
+Here is representet the minimal version of the ggplo2 command:
+``` r
+ggplot(data = <data>) +
+  <geom_function>(mapping = aes(<mapping>))
+```
+Often, `data =` and `mapping =` are implied.
+
+# Data
+Let's start with the easyest part, *data*.
+In the function above, \<data\> should be replaced with the dataframe/tibble from which data must be taken.
+In this post, we will use the standard dataframe *mtcars*.
+
+
+## Geometries
+The second part of the code starts with the geom_function, that is the "geometry" that our graph must assume. 
+The most used geometries are `geom_point()` for scatter plot, `geom_bar()` and `geom_col()` for barplots, `geom_boxplot()` for boxplot and so on so forth.
+There are lots of geometric functions, and they are strictly related to an other component, *statistics*. For these reasons, relationships between these two components will be analyzed in a future post.
+Below, two examples of different `geom_`.
+
+```{r geom, tidy=FALSE, message = FALSE, results='hide', echo=F}
+pnt <- ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp))
+sm <- ggplot(data = mtcars) +
+  geom_smooth(mapping = aes(x = mpg, y = hp), se = F)
+```
+
+```{r geom1, fig.cap='Same data but with different geom_. Above, geom_pont(); below, geom_smooth()', tidy=FALSE, message = FALSE, echo=FALSE}
+ggarrange(pnt, sm, nrow=2)
+```
+
+An interesting feature of ggplo2 is the ease with which it is possible to use different geometric functions on the same (or different) data onto the same plot.
+All common characteristics must be put inside `ggplot()`, while geom-specific inputs must be explicated into the corresponding geometric function.
+For example, combining the two plots above:
+
+```{r geom2, fig.cap="Union of two different geometries in the same plot",tidy=FALSE, message = FALSE}
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point() +
+  geom_smooth(se = F)
+```
+
+## Mapping
+Thorugh mapping inputs, we tell ggplot2 which variables to plot and other aesthetic parameters, such as color, fill, shape, and others.
+Let's see how it works.
+```{r scatter, fig.cap='Basic scatter plot', tidy=FALSE}
+ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp))
+```
+In this example, we told ggplot 2 which variables to plot in x an y axis in the `aes()` parameter.
+
+### Change aesthetics/mapping of all the graph
+If we want to change some aesthetics (color, shape, ...) to all the data in the graph, we have to specify them outside `aes()`.
+For example, here we changed both color and shape of all the points.
+
+```{r scatter2, fig.cap='Points color and shape changed in a scatter plot', tidy=FALSE}
+ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = "blue", shape = 3)
+```
+There a lots of aesthetics and mapping characteristics for each \<geom\>; for this reason, I will not discuss in details in this post. I suggest to look to the help file of each geometry.
+
+
+### Change aesthetics/mapping based on a third variable.
+The same aesthetics/mapping characteristics can be changed based on a third variable or condition.
+In this case, they sould be put inside `aes()`, since not all observation will have the same characteristics in the plot.
+*Example* 
+We want to discriminate cars that weight less than 3.250 in a scatter plot of mpg and hp.
+```{r scatter3, fig.cap="Scatter plot with different colors based upon a condition", tidy=FALSE}
+ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp, color = wt < 3.25))
+```
+As we can see, a legend that helps us understanding color mapping has appeared.
+
+This, and other mappings, can be done using also a categorical (or a continue) variable:
+```{r aes vari, echo=F, results='hide', message=FALSE, tidy = FALSE}
+
+cl    <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, color = class)) + labs(title = "Color")
+dimp  <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, size = class)) + labs(title = "Dimension")
+trasp <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, alpha = class)) + labs(title = "Alpha")
+forma <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, shape = class)) + labs(title = "Shape")
+
+```
+
+```{r scatter4,  fig.cap= "Four examples of how we can discriminate points based on a third variable: color, dimension, alpha and shape", tidy=FALSE, warning=FALSE, echo=FALSE}
+ggarrange(cl, dimp, trasp, forma, 
+          nrow = 2, ncol = 2)
+```
+</div>

@@ -4,12 +4,12 @@ date: 2021-03-18
 modified: 
 description: "Introduzione ad un pacchetto grafico avanzato rispetto a quello base di R"
 draft: false
-hideToc: false
-enableToc: true
-enableTocContent: true
+hideToc: true
+enableToc: false
+enableTocContent: false
 tocFolding: false
 tocPosition: inner
-tocLevels: ["h1","h2", "h3", "h4"]
+tocLevels: ["h1", "h2", "h3", "h4"]
 tags:
 - R
 - Grafici
@@ -18,34 +18,40 @@ series:
 - Grafica con ggplot2
 categories:
 - Grafici
-image: "/images/R/Teoria/r_symbol.jpeg"
+image: "/images/R/Teoria/ggplot2_logo.png"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
-editor_options: 
-  markdown: 
-    wrap: sentence
 ---
 
-<script src="Indroduzone a ggplot2_files/header-attrs/header-attrs.js"></script>
+<script src="Indroduzone a ggplot2.it_files/header-attrs/header-attrs.js"></script>
 
 
 <div style="text-align: justify;">
 <p>Ggplot2 è un utilissimo pacchetto grafico che ci permette di ricreare praticamente qualunque tipologia di grafico, esattamente nel modo in cui l’abbiamo pensato, grazie ad una vasta gamma di funzioni di personalizzazione e di pacchetti aggiuntivi compatibili.
 In questo post partiamo vedendo le basi di questo pacchetto, ovvero come creare grafici basilari analizzando le 3 componenti necessarie per la creazione di un grafico con Ggplot2.</p>
 <p>Quando parlo di “componenti”, mi riferisco a tipologie di comandi che bisogna inserire per la costruzione di un grafico con questo pacchetto.
-Queste componenti sono in tutto 8: * Data * Mapping * Geometries * Statistics * Scales * Facets * Coordinates * Theme</p>
+Queste componenti sono in tutto 8:</p>
+<ul>
+<li><p>Data</p></li>
+<li><p>Mapping</p></li>
+<li><p>Geometries</p></li>
+<li><p>Statistics</p></li>
+<li><p>Scales</p></li>
+<li><p>Facets</p></li>
+<li><p>Coordinates</p></li>
+<li><p>Theme</p></li>
+</ul>
 <p>Oggi ci focalizzeremo sulle prime 3, in quanto sono le uniche 3 di cui ggplot2 ha bisogno di informazioni; le altre infatti possono essere omesse in quanto hanno già dei valori di default.
 Di seguito una versione minimal del comando da utilizzare per creare un grafico con ggplot2:</p>
 <pre class="r"><code>ggplot(data = &lt;data&gt;) +
   &lt;geom_function&gt;(mapping = aes(&lt;mapping&gt;))</code></pre>
 <p>Spesso <code>data =</code> e <code>mapping =</code> sono sottointesi.</p>
-<div id="data" class="section level2">
-<h2>Data</h2>
+<div id="data" class="section level1">
+<h1>Data</h1>
 <p>Partiamo dalla parte più semplice, ovvero <em>data</em>.
 A &lt;data&gt; va sostituito il dafarame/tibble da cui prendere i dati.
-In questo post useremo dataframe standard di R come <em>mtcars</em>, <em>iris</em>, e altri…</p>
-</div>
+In questo post useremo il dataframe standard di R <em>mtcars</em>.</p>
 <div id="geometries" class="section level2">
 <h2>Geometries</h2>
 <p>Il secondo comando da definire è quello legato alle geometrie, ovvero alla forme che dovranno assumere i dati nel grafico.
@@ -54,7 +60,7 @@ Le geometrie sono davvero tante, e sono legate anche al concetto di <em>statisti
 Verranno affrontate le relazioni in un post dedicato.
 Di seguito un paio di esempi giusto per far vedere vari tipi di <code>geom_</code>.</p>
 <div class="figure"><span id="fig:geom1"></span>
-<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2_files/figure-html/geom1-1.png" alt="Stessi dati ma geom_ diverse. In alto geom_point(), in basso geom_smooth()" width="672" />
+<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/geom1-1.png" alt="Stessi dati ma geom_ diverse. In alto geom_point(), in basso geom_smooth()" width="672" />
 <p class="caption">
 Fig.1: Stessi dati ma geom_ diverse. In alto geom_point(), in basso geom_smooth()
 </p>
@@ -66,7 +72,7 @@ Per esempio, combinando i due plot di sopra:</p>
   geom_point() +
   geom_smooth(se = F)</code></pre>
 <div class="figure"><span id="fig:geom2"></span>
-<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2_files/figure-html/geom2-1.png" alt="Combinazione di due geometrie nello stesso grafico" width="672" />
+<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/geom2-1.png" alt="Combinazione di due geometrie nello stesso grafico" width="672" />
 <p class="caption">
 Fig.2: Combinazione di due geometrie nello stesso grafico
 </p>
@@ -79,12 +85,12 @@ Vediamo subito tramite qualche esempio come funziona:</p>
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))</code></pre>
 <div class="figure"><span id="fig:scatter"></span>
-<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2_files/figure-html/scatter-1.png" alt="Scatter plot base" width="672" />
+<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/scatter-1.png" alt="Scatter plot base" width="672" />
 <p class="caption">
 Fig.3: Scatter plot base
 </p>
 </div>
-<p>In questo esempio c’era uno scatter plot (geom_point, ma lo vedremo più avanti) molto semplice, in cui sono state mappate in x e y le colonne <code>mpg</code> e <code>hp</code> del dataset <code>mtcars</code>.</p>
+<p>In questo esempio c’era uno scatter plot molto semplice, in cui sono state mappate in x e y, dentro <code>aes()</code>, le colonne <code>mpg</code> e <code>hp</code> del dataset <code>mtcars</code>.</p>
 <div id="cambiare-estetiche-a-tutto-il-grafico" class="section level3">
 <h3>Cambiare estetiche a tutto il grafico</h3>
 <p>Se vogliamo cambiare estetiche quali colori, forme ecc di tutto ciò che è plottato bisogna mettere queste specifiche al di fuori di<code>aes()</code>.
@@ -92,7 +98,7 @@ Per esempio, se si vogliono cambiare forma e colore dei punti plottati nel grafi
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;, shape = 3)</code></pre>
 <div class="figure"><span id="fig:scatter2"></span>
-<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2_files/figure-html/scatter2-1.png" alt="Scatter plot a cui sono stati cambiati forma e colore dei punti" width="672" />
+<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/scatter2-1.png" alt="Scatter plot a cui sono stati cambiati forma e colore dei punti" width="672" />
 <p class="caption">
 Fig.4: Scatter plot a cui sono stati cambiati forma e colore dei punti
 </p>
@@ -103,22 +109,24 @@ Fig.4: Scatter plot a cui sono stati cambiati forma e colore dei punti
 <h3>Cambiare estetiche in base ad un’altra variabile</h3>
 <p>Le stesse estetiche di sopra possono essere cambiate anche in base ad una variabile/condizione.
 In questo caso si mappano dentro <code>aes()</code> in quanto non tutte le osservazioni avranno le stesse caratteristiche estetiche nel grafico.
-<em>Esempio</em> Si vogliano evidenziare in uno scatter plot tra mpg e hp, quali vetture pesano meno di 3.250.</p>
+<em>Esempio</em>
+Si vogliano evidenziare in uno scatter plot tra mpg e hp, quali vetture pesano meno di 3.250.</p>
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = wt &lt; 3.25))</code></pre>
 <div class="figure"><span id="fig:scatter3"></span>
-<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2_files/figure-html/scatter3-1.png" alt="Scatter plot con colorazioni diverse in base al peso dell'auto" width="672" />
+<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/scatter3-1.png" alt="Scatter plot con colorazioni diverse in base al peso dell'auto" width="672" />
 <p class="caption">
 Fig.5: Scatter plot con colorazioni diverse in base al peso dell’auto
 </p>
 </div>
 <p>Come si può vedere, è comparsa una legenda che ci aiuta a capire lo schema grafico utilizzato.</p>
-<p>Questo mappamento può essere fatto anche utilizzando una variabile categorica.</p>
+<p>Questo mappamento può essere fatto anche utilizzando una variabile categorica (o anche continua):</p>
 <div class="figure"><span id="fig:scatter4"></span>
-<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2_files/figure-html/scatter4-1.png" alt="Quattro esempi di come si possono evidenzire i punti in base ad una variabile categorica: colore, dimensione, trasparenza e forma" width="672" />
+<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/scatter4-1.png" alt="Quattro esempi di come si possono evidenzire i punti in base ad una variabile categorica: colore, dimensione, trasparenza e forma" width="672" />
 <p class="caption">
 Fig.6: Quattro esempi di come si possono evidenzire i punti in base ad una variabile categorica: colore, dimensione, trasparenza e forma
 </p>
+</div>
 </div>
 </div>
 </div>
