@@ -79,15 +79,16 @@ sm <- ggplot(data = mtcars) +
   geom_smooth(mapping = aes(x = mpg, y = hp), se = F)
 ```
 
-```{r geom1, fig.cap='Same data but with different geom_. Above, geom_pont(); below, geom_smooth()', tidy=FALSE, message = FALSE, echo=FALSE}
+```{r geom1, fig.cap='Same data but with different geom_. Above, geom_pont(); below, geom_smooth()', tidy=FALSE, message = FALSE, echo=FALSE, fig.align='center'}
 ggarrange(pnt, sm, nrow=2)
 ```
+
 
 An interesting feature of ggplo2 is the ease with which it is possible to use different geometric functions on the same (or different) data onto the same plot.
 All common characteristics must be put inside `ggplot()`, while geom-specific inputs must be explicated into the corresponding geometric function.
 For example, combining the two plots above:
 
-```{r geom2, fig.cap="Union of two different geometries in the same plot",tidy=FALSE, message = FALSE}
+```{r geom2, fig.cap="Union of two different geometries in the same plot",tidy=FALSE, message = FALSE, fig.align='center'}
 ggplot(mtcars, aes(x = mpg, y = hp)) +
   geom_point() +
   geom_smooth(se = F)
@@ -96,7 +97,7 @@ ggplot(mtcars, aes(x = mpg, y = hp)) +
 ## Mapping
 Thorugh mapping inputs, we tell ggplot2 which variables to plot and other aesthetic parameters, such as color, fill, shape, and others.
 Let's see how it works.
-```{r scatter, fig.cap='Basic scatter plot', tidy=FALSE}
+```{r scatter, fig.cap='Basic scatter plot', tidy=FALSE, fig.align='center'}
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 ```
@@ -106,7 +107,7 @@ In this example, we told ggplot 2 which variables to plot in x an y axis in the 
 If we want to change some aesthetics (color, shape, ...) to all the data in the graph, we have to specify them outside `aes()`.
 For example, here we changed both color and shape of all the points.
 
-```{r scatter2, fig.cap='Points color and shape changed in a scatter plot', tidy=FALSE}
+```{r scatter2, fig.cap='Points color and shape changed in a scatter plot', tidy=FALSE, fig.align='center'}
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), color = "blue", shape = 3)
 ```
@@ -118,7 +119,7 @@ The same aesthetics/mapping characteristics can be changed based on a third vari
 In this case, they sould be put inside `aes()`, since not all observation will have the same characteristics in the plot.
 *Example* 
 We want to discriminate cars that weight less than 3.250 in a scatter plot of mpg and hp.
-```{r scatter3, fig.cap="Scatter plot with different colors based upon a condition", tidy=FALSE}
+```{r scatter3, fig.cap="Scatter plot with different colors based upon a condition", tidy=FALSE, fig.align='center'}
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = wt < 3.25))
 ```
@@ -134,7 +135,7 @@ forma <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, shape =
 
 ```
 
-```{r scatter4,  fig.cap= "Four examples of how we can discriminate points based on a third variable: color, dimension, alpha and shape", tidy=FALSE, warning=FALSE, echo=FALSE}
+```{r scatter4,  fig.cap= "Four examples of how we can discriminate points based on a third variable: color, dimension, alpha and shape", tidy=FALSE, warning=FALSE, echo=FALSE, fig.align='center'}
 ggarrange(cl, dimp, trasp, forma, 
           nrow = 2, ncol = 2)
 ```

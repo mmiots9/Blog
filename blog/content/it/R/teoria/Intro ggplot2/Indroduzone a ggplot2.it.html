@@ -59,7 +59,7 @@ Le classiche geometri sono <code>geom_point()</code> per gli scatter plot, <code
 Le geometrie sono davvero tante, e sono legate anche al concetto di <em>statistics</em>.
 Verranno affrontate le relazioni in un post dedicato.
 Di seguito un paio di esempi giusto per far vedere vari tipi di <code>geom_</code>.</p>
-<div class="figure"><span id="fig:geom1"></span>
+<div class="figure" style="text-align: center"><span id="fig:geom1"></span>
 <img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/geom1-1.png" alt="Stessi dati ma geom_ diverse. In alto geom_point(), in basso geom_smooth()" width="672" />
 <p class="caption">
 Fig.1: Stessi dati ma geom_ diverse. In alto geom_point(), in basso geom_smooth()
@@ -71,7 +71,7 @@ Per esempio, combinando i due plot di sopra:</p>
 <pre class="r"><code>ggplot(mtcars, aes(x = mpg, y = hp)) +
   geom_point() +
   geom_smooth(se = F)</code></pre>
-<div class="figure"><span id="fig:geom2"></span>
+<div class="figure" style="text-align: center"><span id="fig:geom2"></span>
 <img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/geom2-1.png" alt="Combinazione di due geometrie nello stesso grafico" width="672" />
 <p class="caption">
 Fig.2: Combinazione di due geometrie nello stesso grafico
@@ -84,7 +84,7 @@ Fig.2: Combinazione di due geometrie nello stesso grafico
 Vediamo subito tramite qualche esempio come funziona:</p>
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))</code></pre>
-<div class="figure"><span id="fig:scatter"></span>
+<div class="figure" style="text-align: center"><span id="fig:scatter"></span>
 <img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/scatter-1.png" alt="Scatter plot base" width="672" />
 <p class="caption">
 Fig.3: Scatter plot base
@@ -97,7 +97,7 @@ Fig.3: Scatter plot base
 Per esempio, se si vogliono cambiare forma e colore dei punti plottati nel grafico precente, si procede così:</p>
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;, shape = 3)</code></pre>
-<div class="figure"><span id="fig:scatter2"></span>
+<div class="figure" style="text-align: center"><span id="fig:scatter2"></span>
 <img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/scatter2-1.png" alt="Scatter plot a cui sono stati cambiati forma e colore dei punti" width="672" />
 <p class="caption">
 Fig.4: Scatter plot a cui sono stati cambiati forma e colore dei punti
@@ -113,7 +113,7 @@ In questo caso si mappano dentro <code>aes()</code> in quanto non tutte le osser
 Si vogliano evidenziare in uno scatter plot tra mpg e hp, quali vetture pesano meno di 3.250.</p>
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = wt &lt; 3.25))</code></pre>
-<div class="figure"><span id="fig:scatter3"></span>
+<div class="figure" style="text-align: center"><span id="fig:scatter3"></span>
 <img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/scatter3-1.png" alt="Scatter plot con colorazioni diverse in base al peso dell'auto" width="672" />
 <p class="caption">
 Fig.5: Scatter plot con colorazioni diverse in base al peso dell’auto
@@ -121,7 +121,7 @@ Fig.5: Scatter plot con colorazioni diverse in base al peso dell’auto
 </div>
 <p>Come si può vedere, è comparsa una legenda che ci aiuta a capire lo schema grafico utilizzato.</p>
 <p>Questo mappamento può essere fatto anche utilizzando una variabile categorica (o anche continua):</p>
-<div class="figure"><span id="fig:scatter4"></span>
+<div class="figure" style="text-align: center"><span id="fig:scatter4"></span>
 <img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.it_files/figure-html/scatter4-1.png" alt="Quattro esempi di come si possono evidenzire i punti in base ad una variabile categorica: colore, dimensione, trasparenza e forma" width="672" />
 <p class="caption">
 Fig.6: Quattro esempi di come si possono evidenzire i punti in base ad una variabile categorica: colore, dimensione, trasparenza e forma

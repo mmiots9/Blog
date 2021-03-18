@@ -58,7 +58,7 @@ In this post, we will use the standard dataframe <em>mtcars</em>.</p>
 The most used geometries are <code>geom_point()</code> for scatter plot, <code>geom_bar()</code> and <code>geom_col()</code> for barplots, <code>geom_boxplot()</code> for boxplot and so on so forth.
 There are lots of geometric functions, and they are strictly related to an other component, <em>statistics</em>. For these reasons, relationships between these two components will be analyzed in a future post.
 Below, two examples of different <code>geom_</code>.</p>
-<div class="figure"><span id="fig:geom1"></span>
+<div class="figure" style="text-align: center"><span id="fig:geom1"></span>
 <img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/geom1-1.png" alt="Same data but with different geom_. Above, geom_pont(); below, geom_smooth()" width="672" />
 <p class="caption">
 Figure 1: Same data but with different geom_. Above, geom_pont(); below, geom_smooth()
@@ -70,7 +70,7 @@ For example, combining the two plots above:</p>
 <pre class="r"><code>ggplot(mtcars, aes(x = mpg, y = hp)) +
   geom_point() +
   geom_smooth(se = F)</code></pre>
-<div class="figure"><span id="fig:geom2"></span>
+<div class="figure" style="text-align: center"><span id="fig:geom2"></span>
 <img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/geom2-1.png" alt="Union of two different geometries in the same plot" width="672" />
 <p class="caption">
 Figure 2: Union of two different geometries in the same plot
@@ -83,7 +83,7 @@ Figure 2: Union of two different geometries in the same plot
 Let’s see how it works.</p>
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))</code></pre>
-<div class="figure"><span id="fig:scatter"></span>
+<div class="figure" style="text-align: center"><span id="fig:scatter"></span>
 <img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/scatter-1.png" alt="Basic scatter plot" width="672" />
 <p class="caption">
 Figure 3: Basic scatter plot
@@ -96,7 +96,7 @@ Figure 3: Basic scatter plot
 For example, here we changed both color and shape of all the points.</p>
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;, shape = 3)</code></pre>
-<div class="figure"><span id="fig:scatter2"></span>
+<div class="figure" style="text-align: center"><span id="fig:scatter2"></span>
 <img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/scatter2-1.png" alt="Points color and shape changed in a scatter plot" width="672" />
 <p class="caption">
 Figure 4: Points color and shape changed in a scatter plot
@@ -112,7 +112,7 @@ In this case, they sould be put inside <code>aes()</code>, since not all observa
 We want to discriminate cars that weight less than 3.250 in a scatter plot of mpg and hp.</p>
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = wt &lt; 3.25))</code></pre>
-<div class="figure"><span id="fig:scatter3"></span>
+<div class="figure" style="text-align: center"><span id="fig:scatter3"></span>
 <img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/scatter3-1.png" alt="Scatter plot with different colors based upon a condition" width="672" />
 <p class="caption">
 Figure 5: Scatter plot with different colors based upon a condition
@@ -120,7 +120,7 @@ Figure 5: Scatter plot with different colors based upon a condition
 </div>
 <p>As we can see, a legend that helps us understanding color mapping has appeared.</p>
 <p>This, and other mappings, can be done using also a categorical (or a continue) variable:</p>
-<div class="figure"><span id="fig:scatter4"></span>
+<div class="figure" style="text-align: center"><span id="fig:scatter4"></span>
 <img src="/en/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2.en_files/figure-html/scatter4-1.png" alt="Four examples of how we can discriminate points based on a third variable: color, dimension, alpha and shape" width="672" />
 <p class="caption">
 Figure 6: Four examples of how we can discriminate points based on a third variable: color, dimension, alpha and shape
