@@ -43,10 +43,24 @@ In questo post partiamo vedendo le basi di questo pacchetto, ovvero come creare 
 Di seguito una versione minimal del comando da utilizzare per creare un grafico con ggplot2:</p>
 <pre class="r"><code>ggplot(data = &lt;data&gt;) +
   &lt;geom_function&gt;(mapping = aes(&lt;mapping&gt;))</code></pre>
+<p>Spesso <code>data =</code> e <code>mapping =</code> sono sottointesi.</p>
 <div id="data" class="section level2">
 <h2>Data</h2>
 <p>Partiamo dalla parte più semplice, ovvero <em>data</em>. A &lt;data&gt; va sostituito il dafarame/tibble da cui prendere i dati.
 In questo post useremo dataframe standard di R come <em>mtcars</em>, <em>iris</em>, e altri…</p>
+</div>
+<div id="geometries" class="section level2">
+<h2>Geometries</h2>
+<p>Il secondo comando da definire è quello legato alle geometrie, ovvero alla forme che dovranno assumere i dati nel grafico. Le classiche geometri sono <code>geom_point()</code> per gli scatter plot, <code>geom_bar()</code> e <code>geom_col()</code> per i barplot, <code>geom_boxplot()</code> per i boxplot e via dicendo.
+Le geometrie sono davvero tante, e sono legate anche al concetto di <em>statistics</em>. Verranno affrontate le relazioni in un post dedicato.
+Di seguito un paio di esempi giusto per far vedere vari tipi di <code>geom_</code>.</p>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<div class="figure">
+<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2_files/figure-html/various_geom2-1.png" alt="Confronto di due diversi tipi di geom_ con gli stessi dati. Sopra geom_point(), message=FALSE, warning=FALSE, cache=TRUE, sotto geom_smooth()" width="672" />
+<p class="caption">
+(#fig:various_geom2)Confronto di due diversi tipi di geom_ con gli stessi dati. Sopra geom_point(), message=FALSE, warning=FALSE, cache=TRUE, sotto geom_smooth()
+</p>
+</div>
 </div>
 <div id="mapping" class="section level2">
 <h2>Mapping</h2>
@@ -54,11 +68,48 @@ In questo post useremo dataframe standard di R come <em>mtcars</em>, <em>iris</e
 Vediamo subito tramite qualche esempio come funziona:</p>
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))</code></pre>
-<div class="figure">
-<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2_files/figure-html/mpping%20base-1.png" alt="Scatter plot base" width="672" />
+<div class="figure"><span id="fig:scatter"></span>
+<img src="Indroduzone a ggplot2_files/figure-html/scatter-1.png" alt="Scatter plot base" width="672" />
 <p class="caption">
-(#fig:mpping base)Scatter plot base
+Fig.1: Scatter plot base
 </p>
+</div>
+<p>In questo esempio c’era uno scatter plot (geom_point, ma lo vedremo più avanti) molto semplice, in cui sono state mappate in x e y le colonne <code>mpg</code> e <code>hp</code> del dataset <code>mtcars</code>.</p>
+<div id="cambiare-estetiche-a-tutto-il-grafico" class="section level3">
+<h3>Cambiare estetiche a tutto il grafico</h3>
+<p>Se vogliamo cambiare estetiche quali colori, forme ecc di tutto ciò che è plottato bisogna mettere queste specifiche al di fuori di<code>aes()</code>.
+Per esempio, se si vogliono cambiare forma e colore dei punti plottati nel grafico precente, si procede così:</p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;, shape = 3)</code></pre>
+<div class="figure"><span id="fig:scatter2"></span>
+<img src="Indroduzone a ggplot2_files/figure-html/scatter2-1.png" alt="Scatter plot a cui sono stati cambiati forma e colore dei punti" width="672" />
+<p class="caption">
+Fig.2: Scatter plot a cui sono stati cambiati forma e colore dei punti
+</p>
+</div>
+<p>Ci sono varie estetiche nel grafico che si possono modificare, ogni &lt;geom&gt; ha la sua, per questo non verranno analizzate nel dettaglio in questo post.</p>
+</div>
+<div id="cambiare-estetiche-in-base-ad-unaltra-variabile" class="section level3">
+<h3>Cambiare estetiche in base ad un’altra variabile</h3>
+<p>Le stesse estetiche di sopra possono essere cambiate anche in base ad una variabile/condizione. In questo caso si mappano dentro <code>aes()</code> in quanto non tutte le osservazioni avranno le stesse caratteristiche estetiche nel grafico.
+<em>Esempio</em>
+Si vogliano evidenziare in uno scatter plot tra mpg e hp, quali vetture pesano meno di 3.250.</p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp, color = wt &lt; 3.25))</code></pre>
+<div class="figure"><span id="fig:scatter3"></span>
+<img src="Indroduzone a ggplot2_files/figure-html/scatter3-1.png" alt="Scatter plot con colorazioni diverse in base al peso dell'auto" width="672" />
+<p class="caption">
+Fig.3: Scatter plot con colorazioni diverse in base al peso dell’auto
+</p>
+</div>
+<p>Come si può vedere, è comparsa una legenda che ci aiuta a capire lo schema grafico utilizzato.</p>
+<p>Questo mappamento può essere fatto anche utilizzando una variabile categorica.</p>
+<div class="figure"><span id="fig:scatter4"></span>
+<img src="Indroduzone a ggplot2_files/figure-html/scatter4-1.png" alt="Quattro esempi di come si possono evidenzire i punti in base ad una variabile categorica: colore, dimensione, trasparenza e forma" width="672" />
+<p class="caption">
+Fig.4: Quattro esempi di come si possono evidenzire i punti in base ad una variabile categorica: colore, dimensione, trasparenza e forma
+</p>
+</div>
 </div>
 </div>
 </div>
