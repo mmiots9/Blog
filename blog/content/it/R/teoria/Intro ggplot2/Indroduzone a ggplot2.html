@@ -1,0 +1,64 @@
+---
+title: "Introduzione a GGPLOT2"
+date: 2021-03-18
+modified: 
+description: "Introduzione ad un pacchetto grafico avanzato rispetto a quello base di R"
+draft: false
+hideToc: false
+enableToc: true
+enableTocContent: true
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h2", "h3", "h4"]
+tags:
+- R
+- Grafici
+- Ggplot2
+series:
+- Grafica con ggplot2
+categories:
+- Grafici
+image: "/images/R/Teoria/r_symbol.jpeg"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+<script src="Indroduzone a ggplot2_files/header-attrs/header-attrs.js"></script>
+
+
+<div style="text-align: justify;">
+<p>Ggplot2 è un utilissimo pacchetto grafico che ci permette di ricreare praticamente qualunque tipologia di grafico, esattamente nel modo in cui l’abbiamo pensato, grazie ad una vasta gamma di funzioni di personalizzazione e di pacchetti aggiuntivi compatibili.
+In questo post partiamo vedendo le basi di questo pacchetto, ovvero come creare grafici basilari analizzando le 3 componenti necessarie per la creazione di un grafico con Ggplot2.</p>
+<p>Quando parlo di “componenti”, mi riferisco a tipologie di comandi che bisogna inserire per la costruzione di un grafico con questo pacchetto. Queste componenti sono in tutto 8:
+* Data
+* Mapping
+* Geometries
+* Statistics
+* Scales
+* Facets
+* Coordinates
+* Theme</p>
+<p>Oggi ci focalizzeremo sulle prime 3, in quanto sono le uniche 3 di cui ggplot2 ha bisogno di informazioni; le altre infatti possono essere omesse in quanto hanno già dei valori di default.
+Di seguito una versione minimal del comando da utilizzare per creare un grafico con ggplot2:</p>
+<pre class="r"><code>ggplot(data = &lt;data&gt;) +
+  &lt;geom_function&gt;(mapping = aes(&lt;mapping&gt;))</code></pre>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>Partiamo dalla parte più semplice, ovvero <em>data</em>. A &lt;data&gt; va sostituito il dafarame/tibble da cui prendere i dati.
+In questo post useremo dataframe standard di R come <em>mtcars</em>, <em>iris</em>, e altri…</p>
+</div>
+<div id="mapping" class="section level2">
+<h2>Mapping</h2>
+<p>Tramite il mapping noi andiamo a dire a ggplot quali variabili plottare e a definire altri parametri estetici come colore, riempimento, forma ecc.
+Vediamo subito tramite qualche esempio come funziona:</p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp))</code></pre>
+<div class="figure">
+<img src="/it/R/teoria/Intro ggplot2/Indroduzone%20a%20ggplot2_files/figure-html/mpping%20base-1.png" alt="Scatter plot base" width="672" />
+<p class="caption">
+(#fig:mpping base)Scatter plot base
+</p>
+</div>
+</div>
+</div>
