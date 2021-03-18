@@ -60,24 +60,32 @@ In questo post useremo dataframe standard di R come *mtcars*, *iris*, e altri...
 Il secondo comando da definire è quello legato alle geometrie, ovvero alla forme che dovranno assumere i dati nel grafico. Le classiche geometri sono `geom_point()` per gli scatter plot, `geom_bar()` e `geom_col()` per i barplot, `geom_boxplot()` per i boxplot e via dicendo.
 Le geometrie sono davvero tante, e sono legate anche al concetto di *statistics*. Verranno affrontate le relazioni in un post dedicato.
 Di seguito un paio di esempi giusto per far vedere vari tipi di `geom_`.
-
-```{r various_geom, tidy=FALSE, cache=TRUE, warning=FALSE, echo=FALSE, message=FALSE, }
-pnt <- ggplot(mtcars) + 
-  geom_point(aes(x = mpg, y = hp))
-sm <- ggplot(mtcars) + 
-  geom_smooth(aes(x = mpg, y = hp))
-
+```{r geom, tidy=FALSE, message = FALSE, results='hide', echo=F}
+pnt <- ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp))
+sm <- ggplot(data = mtcars) +
+  geom_smooth(mapping = aes(x = mpg, y = hp), se = F)
 ```
 
-```{r various_geom2, echo=FALSE, fig.cap="Confronto di due diversi tipi di geom_ con gli stessi dati. Sopra geom_point(), message=FALSE, warning=FALSE, cache=TRUE, sotto geom_smooth()", tidy=FALSE}
-ggarrange(pnt, sm, nrow = 2)
+```{r geom1, fig.cap='Stessi dati ma geom_ diverse. In alto geom_point(), in basso geom_smooth()', tidy=FALSE, message = FALSE}
+ggarrange(pnt, sm, nrow=2)
+```
+
+Una cosa interessante e molto utile di ggplot2 è la facilità con cui si possono usare più geometrie sugli stessi dati (o su dati diversi) in un solo plot.
+Tutte le caratteristiche comuni si mettono dentro `ggplot()`, mentre le caratteristiche peculiari si mettono dentro le geometrie.
+Per esempio, combinando i due plot di sopra:
+
+```{r geom2, fig.cap="Combinazione di due geometrie nello stesso grafico",tidy=FALSE, message = FALSE}
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point() +
+  geom_smooth(se = F)
 ```
 
 ## Mapping
 Tramite il mapping noi andiamo a dire a ggplot quali variabili plottare e a definire altri parametri estetici come colore, riempimento, forma ecc.
 Vediamo subito tramite qualche esempio come funziona:
 
-```{r scatter, fig.cap='Scatter plot base', tidy=FALSE, cache=TRUE}
+```{r scatter, fig.cap='Scatter plot base', tidy=FALSE}
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 ```
@@ -87,7 +95,7 @@ In questo esempio c'era uno scatter plot (geom_point, ma lo vedremo più avanti)
 Se vogliamo cambiare estetiche quali colori, forme ecc di tutto ciò che è plottato bisogna mettere queste specifiche al di fuori di`aes()`.
 Per esempio, se si vogliono cambiare forma e colore dei punti plottati nel grafico precente, si procede così:
 
-```{r scatter2, fig.cap='Scatter plot a cui sono stati cambiati forma e colore dei punti', tidy=FALSE, cache=TRUE}
+```{r scatter2, fig.cap='Scatter plot a cui sono stati cambiati forma e colore dei punti', tidy=FALSE}
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), color = "blue", shape = 3)
 ```
@@ -97,14 +105,14 @@ Ci sono varie estetiche nel grafico che si possono modificare, ogni \<geom\> ha 
 Le stesse estetiche di sopra possono essere cambiate anche in base ad una variabile/condizione. In questo caso si mappano dentro `aes()` in quanto non tutte le osservazioni avranno le stesse caratteristiche estetiche nel grafico.
 *Esempio*
 Si vogliano evidenziare in uno scatter plot tra mpg e hp, quali vetture pesano meno di 3.250.
-```{r scatter3, fig.cap="Scatter plot con colorazioni diverse in base al peso dell'auto", tidy=FALSE, cache=TRUE}
+```{r scatter3, fig.cap="Scatter plot con colorazioni diverse in base al peso dell'auto", tidy=FALSE}
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = wt < 3.25))
 ```
 Come si può vedere, è comparsa una legenda che ci aiuta a capire lo schema grafico utilizzato.
 
 Questo mappamento può essere fatto anche utilizzando una variabile categorica.
-```{r aes vari, echo=F, results='hide', message=FALSE, cache = TRUE, tidy = FALSE}
+```{r aes vari, echo=F, results='hide', message=FALSE, tidy = FALSE}
 
 cl    <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, color = class)) + labs(title = "Colore")
 dimp  <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, size = class)) + labs(title = "Dimensione")
@@ -113,7 +121,7 @@ forma <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, shape =
 
 ```
 
-```{r scatter4,  fig.cap= "Quattro esempi di come si possono evidenzire i punti in base ad una variabile categorica: colore, dimensione, trasparenza e forma", tidy=FALSE, cache=TRUE, warning=FALSE, echo=FALSE}
+```{r scatter4,  fig.cap= "Quattro esempi di come si possono evidenzire i punti in base ad una variabile categorica: colore, dimensione, trasparenza e forma", tidy=FALSE, warning=FALSE, echo=FALSE}
 ggarrange(cl, dimp, trasp, forma, 
           nrow = 2, ncol = 2)
 ```
