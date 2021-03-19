@@ -5,5 +5,3 @@ title: Archive
 titleWrap: wrap
 type: archive
 ---
-
-archive page
