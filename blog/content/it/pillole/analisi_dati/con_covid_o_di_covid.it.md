@@ -18,7 +18,7 @@ series:
 - Covid
 categories:
 - Pillole analisi dati
-image: "/images/R/Teoria/r_symbol.jpeg"
+image: "/images/Pillole/Analisi_dati/di_covid_o_con_covid/coronavirus.jpg"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"

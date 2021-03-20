@@ -2,7 +2,7 @@
 title: "Death FROM Covid or WITH Covid?"
 date: 2021-03-20
 modified: 
-description: 'Esempio di come una attenta analisi dei dati può aiutarci a comprendere meglio la questione "di Covid o con covid?'
+description: 'Example of the importance of a good analysis to answer the question "FROM Covid or WITH Covid?"'
 draft: false
 hideToc: false
 enableToc: true
@@ -18,7 +18,7 @@ series:
 - Covid
 categories:
 - Pillole analisi dati
-image: "/images/R/Teoria/r_symbol.jpeg"
+image: "/images/Pillole/Analisi_dati/di_covid_o_con_covid/coronavirus.jpg"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
