@@ -46,10 +46,13 @@ Siamo in una situazione esattamente opposta rispetto a quella dell'ipotesi inizi
 Quindi, non solo il Covid ha causato **direttamente** la morte di circa 75 mila persone, ma ha anche **indirettamente** provocato la morte di circa 10 mila persone (considerando il 2017) o di circa 40 mila (confrontando la media degli anni precedenti).
 Qualcuno potrebbe obiettare dicendo che è stato un anno particolarmente "nesfato" in generale, non a causa del Covid. 
 Per smentire questa possibilità, analizziamo i seguenti grafici:
-<img src="/images/Pillole/Analisi_dati/di_covid_o_con_covid/aumento_morti.png" width="700"/> 
+<img src="/images/Pillole/Analisi_dati/di_covid_o_con_covid/andamento_mesi.png" width="700" height="500"/> 
 In alto abbiamo il grafico relativo all'andamento del numero totale dei morti per ogni mese. Si vede come il 2020 si differenzi rispetto al quinquennio 2015-2019 grazie a due picchi: il primo in corrispondenza di marzo/aprile, il secondo a novembre. Nei mesi da maggio a settembre invece le due linee sono praticamente sovrapponbili, evidenziando come il 2020 sia esattamente in linea rispetto al quinquennio precedente in quel periodo.
 Questa dovrebbe già essere una prova del fatto che il 2020 non è stato un anno "nefasto" in generale. 
-La controprova è data dalla linea blu di quel grafico e dal grafico di sotto; infatti, la linea blu rappresentante i decessi "Covid" ha i picchi esattamente in corrispondenza 
+La controprova è data dalla linea blu di quel grafico e dal grafico di sotto; infatti, la linea blu rappresentante i decessi "Covid" ha i picchi esattamente in corrispondenza dei picchi dei morti totali del 2020. Inoltre, considerando il grafico di sotto, dove sono stati sottratti i morti "Covid" a quelli totali (linea verde sopra - linea blu), vediamo che l'andamento del 2020 è quasi del tutto simile a quello della media del quinquennio precedente, con ancora picchi a marzo (13 mila morti in più) e a novembre.
+Questa è la prova definitiva che i morti Covid sono morti DI Covid e non CON Covid, altrimenti come si spiegherebbe un aumento così importante della mortalità totale in corrispondenza dei picchi di mortalità Covid?
+
+
 
 
 
