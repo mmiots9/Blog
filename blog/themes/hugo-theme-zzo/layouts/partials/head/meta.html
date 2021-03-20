@@ -1,6 +1,7 @@
 {{ range .AlternativeOutputFormats }}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" title="{{ .Name }}" href="{{ .Permalink | safeURL }}">
 {{ end }}
+{{ if .Description }}
 <meta name="description" content="{{ .Description }}">
 {{ with $.Params.keywords }}
 <meta name="keywords" content="{{ delimit $.Params.keywords "," }}">
