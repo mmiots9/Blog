@@ -3,6 +3,7 @@
 {{ end }}
 {{ if .Description }}
 <meta name="description" content="{{ .Description }}">
+{{ end }}
 {{ with $.Params.keywords }}
 <meta name="keywords" content="{{ delimit $.Params.keywords "," }}">
 {{ end }}
