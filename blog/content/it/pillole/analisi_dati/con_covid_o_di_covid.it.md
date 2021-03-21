@@ -23,6 +23,7 @@ author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
 ---
+<div style="text-align: justify;">
 
 Come si può intuire dal titolo, l'obiettivo sarà cercare di rispondere alla famosa domanda che da un anno ci perseguta tramite un'analisi dei dati: sono morti DI Covid o CON Covid?. Per rispondere a questa domanda dobbiamo prima fare uno step indietro.
 
@@ -44,7 +45,7 @@ Ed eccoci arrivati al secondo mantra per coloro che sostengono che sia tutta una
 Poniamo per assurdo che questo ragionamento sia vero, e che quindi i numeri dei morti a causa del Covid siano stati gonfiati. Seguendo questo ragionamento, il numero di decessi dichiarati Covid dovrebbe essere SUPERIORE alla differenza che c'è tra il numero di morti nel 2020 e la media 2011-2019. Analizzando questi dati si scopre che i decessi dichiarati Covid sono stati 75,891 ([fonte](https://www.istat.it/it/files//2020/03/tabella-decessi-provinciali_fonte_istat_decessi_provinciali_per_covid_fonte_ISS_5marzo.xlsx)), mentre la differenza tra i morti 2020 e la media degli anni precedenti è di circa 114,910 unità. In pratica, escludendo le morti dichiarate Covid, sembrano esserci 39,019 morti in più rispetto alla media 2011-2019 e 10,782 rispetto al famoso 2017.
 Siamo in una situazione esattamente opposta rispetto a quella dell'ipotesi iniziale: non sono stati gonfiati i morti di Covid, semmai è più probabile siano stati sottostimati, o che la pressione ospedaliera provocata dalla pandemia abbia diminuito la capacità di servizio del sistema sanitario, causando così un aumento della mortaità generale. 
 Quindi, non solo il Covid ha causato **direttamente** la morte di circa 75 mila persone, ma ha anche **indirettamente** provocato la morte di circa 10 mila persone (considerando il 2017) o di circa 40 mila (confrontando la media degli anni precedenti).
-Qualcuno potrebbe obiettare dicendo che è stato un anno particolarmente "nesfato" in generale, non a causa del Covid. 
+Qualcuno potrebbe obiettare dicendo che è stato un anno particolarmente "nefasto" in generale, non a causa del Covid. 
 Per smentire questa possibilità, analizziamo i seguenti grafici:
 <img src="/images/Pillole/Analisi_dati/di_covid_o_con_covid/andamento_mesi.png" width="700" height="500"/> 
 In alto abbiamo il grafico relativo all'andamento del numero totale dei morti per ogni mese. Si vede come il 2020 si differenzi rispetto al quinquennio 2015-2019 grazie a due picchi: il primo in corrispondenza di marzo/aprile, il secondo a novembre. Nei mesi da maggio a settembre invece le due linee sono praticamente sovrapponbili, evidenziando come il 2020 sia esattamente in linea rispetto al quinquennio precedente in quel periodo.
@@ -52,6 +53,7 @@ Questa dovrebbe già essere una prova del fatto che il 2020 non è stato un anno
 La controprova è data dalla linea blu di quel grafico e dal grafico di sotto; infatti, la linea blu rappresentante i decessi "Covid" ha i picchi esattamente in corrispondenza dei picchi dei morti totali del 2020. Inoltre, considerando il grafico di sotto, dove sono stati sottratti i morti "Covid" a quelli totali (linea verde sopra - linea blu), vediamo che l'andamento del 2020 è quasi del tutto simile a quello della media del quinquennio precedente, con ancora picchi a marzo (13 mila morti in più) e a novembre.
 Questa è la prova definitiva che i morti Covid sono morti DI Covid e non CON Covid, altrimenti come si spiegherebbe un aumento così importante della mortalità totale in corrispondenza dei picchi di mortalità Covid?
 
+</div>
 
 
 
