@@ -3,7 +3,7 @@ title: "Prova citazioni"
 date: 2021-03-20
 modified: 
 description: 'Esempio di come una attenta analisi dei dati può aiutarci a comprendere meglio la questione "di Covid o con covid?'
-bibliography: "/content/it/pillole/analisi_dati/covid.bib"
+bibliography: covid.bib
 draft: false
 hideToc: false
 enableToc: true
