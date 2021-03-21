@@ -3,6 +3,7 @@ title: "Prova citazioni"
 date: 2021-03-20
 modified: 
 description: 'Esempio di come una attenta analisi dei dati può aiutarci a comprendere meglio la questione "di Covid o con covid?'
+bibliography: "covid.bib"
 draft: false
 hideToc: false
 enableToc: true
@@ -22,12 +23,11 @@ image: "/images/Pillole/Analisi_dati/di_covid_o_con_covid/coronavirus.jpg"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
-bibliography: covid.bib
 ---
 
 ## Ciao
 
-cdvfvfvfbvkjfdbk
+cdvfvfvfbvkjfdbk [see @ISTAT2021a]
 fkvbdfkvj
 kdfjbvkdfjvb [@ISTAT2021]
 Tramite lo Shapiro-test per la normalita vediamo che la distribuzione è normale (W = 0.90009, p-value = 0.2525); dunque, ne calcoliamo media e deviazione standard (631,235.8 e 19,944.2 rispettivamente) e useremo questi valori per descrivere la distribuzione. 
