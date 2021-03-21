@@ -29,18 +29,18 @@
 [[main]]
   identifier = "pillole"
   name = "Pills"
-  url = "pillole"
+  url = "pills"
   weight = 4
     
 [[main]]
-  parent = "pillole"
+  parent = "pills"
   name = "Data analysis"
-  url = "pillole/analisi_dati"
+  url = "pills/analisi_dati"
   
 [[main]]
-  parent = "pillole"
+  parent = "pills"
   name = "Science"
-  url = "pillole/scienza"
+  url = "pills/scienza"
 
 [[main]]
   identifier = "publications"
