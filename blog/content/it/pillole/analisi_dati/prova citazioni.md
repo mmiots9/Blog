@@ -27,8 +27,8 @@ authorImage: "/images/whoami/me.jpeg"
 
 ## Ciao
 
-cdvfvfvfbvkjfdbk [see @ISTAT2021a]
-fkvbdfkvj
+cdvfvfvfbvkjfdbk [see @ISTAT2021a] [@latexcompanion]
+fkvbdfkvj [@einstein]
 kdfjbvkdfjvb [@ISTAT2021]
 Tramite lo Shapiro-test per la normalita vediamo che la distribuzione è normale (W = 0.90009, p-value = 0.2525); dunque, ne calcoliamo media e deviazione standard (631,235.8 e 19,944.2 rispettivamente) e useremo questi valori per descrivere la distribuzione. 
 Nel 2020 sono stati registrati, purtroppo, 746,146 decessi; confrontando questo dato con la media dei 9 anni precedenti (631,235.8) si vede un **aumento del 15.57%** del numero di decessi. Paragonandolo al peggiore di quei 9 anni (il 2017, tanto caro a chi fa conforonti su fb), l'aumento è del 13.14%!
