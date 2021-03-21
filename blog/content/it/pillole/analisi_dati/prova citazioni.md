@@ -38,30 +38,35 @@ In rosso è evidenziato quanto il numero di morti del 2020 si distacchi dalla di
 Tornando un attimino ai numeri, il dato del 2020 si trova oltre le 5.5 deviazioni standard rispetto alla media del periodo 2011-2019, questo lo pone al 100-esimo percentile della distribuzione, con una probabilità di ottenere un valore ancora più a destra rispetto al 2020 pari a 4.166336e-09 (in percentuale uguale a 0.0000004166%). 
 Per farvi capire quanto sia piccolo questo numero: è come se la distribuzione di probabilità quei valori fosse lunga 10 km e il valore del 2020 si trovasse a 4 mm (millimetri!) dalla fine.
 
-## Ciao 2
+\begin{document}
 
-cdvfvfvfbvkjfdbk
-fkvbdfkvj
-kdfjbvkdfjvb
-Tramite lo Shapiro-test per la normalita vediamo che la distribuzione è normale (W = 0.90009, p-value = 0.2525); dunque, ne calcoliamo media e deviazione standard (631,235.8 e 19,944.2 rispettivamente) e useremo questi valori per descrivere la distribuzione. 
-Nel 2020 sono stati registrati, purtroppo, 746,146 decessi; confrontando questo dato con la media dei 9 anni precedenti (631,235.8) si vede un **aumento del 15.57%** del numero di decessi. Paragonandolo al peggiore di quei 9 anni (il 2017, tanto caro a chi fa conforonti su fb), l'aumento è del 13.14%!
-Se questa differenza non fosse chiara a numeri, ecco di seguito un grafico in cui è disegnata la distribuzione normale costruita secondo i parametri di cui sopra (media e sd).
-<img src="/images/Pillole/Analisi_dati/di_covid_o_con_covid/distr_2011_201920.png" width="700"/>
-In rosso è evidenziato quanto il numero di morti del 2020 si distacchi dalla distribuzione normale. Impressionante no?
-Tornando un attimino ai numeri, il dato del 2020 si trova oltre le 5.5 deviazioni standard rispetto alla media del periodo 2011-2019, questo lo pone al 100-esimo percentile della distribuzione, con una probabilità di ottenere un valore ancora più a destra rispetto al 2020 pari a 4.166336e-09 (in percentuale uguale a 0.0000004166%). 
-Per farvi capire quanto sia piccolo questo numero: è come se la distribuzione di probabilità quei valori fosse lunga 10 km e il valore del 2020 si trovasse a 4 mm (millimetri!) dalla fine.
+\section{First section}
 
-## Ciao 3
+This document is an example of \texttt{thebibliography} environment using 
+in bibliography management. Three items are cited: \textit{The \LaTeX\ Companion} 
+book \cite{latexcompanion}, the Einstein journal paper \cite{einstein}, and the 
+Donald Knuth's website \cite{knuthwebsite}. The \LaTeX\ related items are
+\cite{latexcompanion,knuthwebsite}. 
 
-cdvfvfvfbvkjfdbk
-fkvbdfkvj
-kdfjbvkdfjvb
-Tramite lo Shapiro-test per la normalita vediamo che la distribuzione è normale (W = 0.90009, p-value = 0.2525); dunque, ne calcoliamo media e deviazione standard (631,235.8 e 19,944.2 rispettivamente) e useremo questi valori per descrivere la distribuzione. 
-Nel 2020 sono stati registrati, purtroppo, 746,146 decessi; confrontando questo dato con la media dei 9 anni precedenti (631,235.8) si vede un **aumento del 15.57%** del numero di decessi. Paragonandolo al peggiore di quei 9 anni (il 2017, tanto caro a chi fa conforonti su fb), l'aumento è del 13.14%!
-Se questa differenza non fosse chiara a numeri, ecco di seguito un grafico in cui è disegnata la distribuzione normale costruita secondo i parametri di cui sopra (media e sd).
-<img src="/images/Pillole/Analisi_dati/di_covid_o_con_covid/distr_2011_201920.png" width="700"/>
-In rosso è evidenziato quanto il numero di morti del 2020 si distacchi dalla distribuzione normale. Impressionante no?
-Tornando un attimino ai numeri, il dato del 2020 si trova oltre le 5.5 deviazioni standard rispetto alla media del periodo 2011-2019, questo lo pone al 100-esimo percentile della distribuzione, con una probabilità di ottenere un valore ancora più a destra rispetto al 2020 pari a 4.166336e-09 (in percentuale uguale a 0.0000004166%). 
-Per farvi capire quanto sia piccolo questo numero: è come se la distribuzione di probabilità quei valori fosse lunga 10 km e il valore del 2020 si trovasse a 4 mm (millimetri!) dalla fine.
+\medskip
+
+\begin{thebibliography}{9}
+\bibitem{latexcompanion} 
+Michel Goossens, Frank Mittelbach, and Alexander Samarin. 
+\textit{The \LaTeX\ Companion}. 
+Addison-Wesley, Reading, Massachusetts, 1993.
+
+\bibitem{einstein} 
+Albert Einstein. 
+\textit{Zur Elektrodynamik bewegter K{\"o}rper}. (German) 
+[\textit{On the electrodynamics of moving bodies}]. 
+Annalen der Physik, 322(10):891–921, 1905.
+
+\bibitem{knuthwebsite} 
+Knuth: Computers and Typesetting,
+\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
+\end{thebibliography}
+
+\end{document}
 
 # References
