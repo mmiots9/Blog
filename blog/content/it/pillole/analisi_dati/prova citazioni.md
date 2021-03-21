@@ -27,7 +27,7 @@ authorImage: "/images/whoami/me.jpeg"
 
 ## Ciao
 
-cdvfvfvfbvkjfdbk [see @ISTAT2021a] [@latexcompanion]
+cdvfvfvfbvkjfdbk [see @comunali] [@provinciali]
 fkvbdfkvj [@einstein]
 kdfjbvkdfjvb [@ISTAT2021]
 Tramite lo Shapiro-test per la normalita vediamo che la distribuzione è normale (W = 0.90009, p-value = 0.2525); dunque, ne calcoliamo media e deviazione standard (631,235.8 e 19,944.2 rispettivamente) e useremo questi valori per descrivere la distribuzione. 
@@ -38,35 +38,5 @@ In rosso è evidenziato quanto il numero di morti del 2020 si distacchi dalla di
 Tornando un attimino ai numeri, il dato del 2020 si trova oltre le 5.5 deviazioni standard rispetto alla media del periodo 2011-2019, questo lo pone al 100-esimo percentile della distribuzione, con una probabilità di ottenere un valore ancora più a destra rispetto al 2020 pari a 4.166336e-09 (in percentuale uguale a 0.0000004166%). 
 Per farvi capire quanto sia piccolo questo numero: è come se la distribuzione di probabilità quei valori fosse lunga 10 km e il valore del 2020 si trovasse a 4 mm (millimetri!) dalla fine.
 
-\begin{document}
-
-\section{First section}
-
-This document is an example of \texttt{thebibliography} environment using 
-in bibliography management. Three items are cited: \textit{The \LaTeX\ Companion} 
-book \cite{latexcompanion}, the Einstein journal paper \cite{einstein}, and the 
-Donald Knuth's website \cite{knuthwebsite}. The \LaTeX\ related items are
-\cite{latexcompanion,knuthwebsite}. 
-
-\medskip
-
-\begin{thebibliography}{9}
-\bibitem{latexcompanion} 
-Michel Goossens, Frank Mittelbach, and Alexander Samarin. 
-\textit{The \LaTeX\ Companion}. 
-Addison-Wesley, Reading, Massachusetts, 1993.
-
-\bibitem{einstein} 
-Albert Einstein. 
-\textit{Zur Elektrodynamik bewegter K{\"o}rper}. (German) 
-[\textit{On the electrodynamics of moving bodies}]. 
-Annalen der Physik, 322(10):891–921, 1905.
-
-\bibitem{knuthwebsite} 
-Knuth: Computers and Typesetting,
-\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
-\end{thebibliography}
-
-\end{document}
 
 # References
