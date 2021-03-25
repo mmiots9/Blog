@@ -34,8 +34,8 @@ Grazie allo Shapiro-test, possiamo vedere che i dati si distribuiscono secondo u
 Passiamo ora al 2020: sono stati registrati, purtroppo, 746,146 decessi; confrontando questo dato con la media dei 9 anni precedenti (631,235.8) si vede un **aumento del 15.57%** del numero di morti. Paragonando questi numeri al peggiore di quei 9 anni, il 2017 – come tanto ama fare chi gioca con i numeri su Facebook – l’aumento è del 13.14%.
 
 Per rendere ancora più intuibili questi dati, ecco di seguito un grafico in cui è rappresentata la distribuzione normale costruita secondo i parametri di cui sopra (media e deviazione standard).
+<img src="/images/Pillole/Analisi_dati/di_covid_o_con_covid/normale_it.png" width="850"/>
 
-<img src="/images/Pillole/Analisi_dati/di_covid_o_con_covid/normale_it.png" width="700"/>
 
 La linea rossa mostra dove si colloca il 2020 in quanto a mortalità totale rispetto ai 9 anni precedenti, sottolineando quanto si distacchi dalla distribuzione normale.
 Impressionante, no?
@@ -48,8 +48,8 @@ Bene, a questo punto dovrebbe essere chiaro che l’impatto di questa “banale 
 Ed eccoci arrivati alla seconda parte del ritornello tanto ripetuto da coloro che sostengono sia tutta una grande farsa.
 Poniamo per assurdo che questa affermazione sia vera, e che quindi i numeri dei morti a causa del Covid siano stati gonfiati. Seguendo questa ipotesi, il numero di decessi dichiarati “Covid” dovrebbe essere *superiore* alla differenza che c’è tra il numero di morti nel 2020 e la media 2011-2019. Analizzando questi dati, emerge che i decessi dichiarati “Covid” sono stati 75,891 ([fonte](https://www.istat.it/it/files//2020/03/tabella-decessi-provinciali_fonte_istat_decessi_provinciali_per_covid_fonte_ISS_5marzo.xlsx)), e che la differenza tra questo dato e quello relativo alla media degli anni precedenti è di circa 114,910 unità. In pratica, escludendo le morti dichiarate “Covid”, sembrano esserci 39,019 morti in più rispetto alla media del periodo 2011-2019 e 10,782 rispetto al famigerato 2017.
 Siamo dunque in una situazione esattamente opposta rispetto a quella dell’ipotesi iniziale: non sono stati gonfiati i morti di Covid, anzi, è più probabile che siano stati sottostimati a causa dell’impossibilità di eseguire tamponi a tutti nelle fasi iniziali, e/o che la pressione ospedaliera provocata dalla pandemia abbia diminuito la capacità di servizio del sistema sanitario, causando così un aumento della mortalità generale.
-
 Quindi, non solo il Covid ha causato **direttamente** la morte di almeno 75 mila persone, ma ha anche **indirettamente** provocato la morte di circa 10 mila persone in più rispetto al 2017, e di 40 mila rispetto alla media degli anni precedenti.
+
 Qualcuno potrebbe obiettare dicendo che è stato un anno particolarmente “nefasto” in generale, non a causa del Covid.
 Per smentire questa possibilità, analizziamo i seguenti grafici:
 <img src="/images/Pillole/Analisi_dati/di_covid_o_con_covid/andamento_it.png" width="700"/> 
