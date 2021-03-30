@@ -1,6 +1,6 @@
 ---
 title: "Morti PER Covid o CON Covid?"
-date: 2021-03-20
+date: 2021-03-24
 modified: 
 description: 'Esempio di come una attenta analisi dei dati può aiutarci a comprendere meglio la questione "per Covid o con covid?'
 draft: false

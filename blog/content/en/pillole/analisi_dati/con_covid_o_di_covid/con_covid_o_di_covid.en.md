@@ -1,6 +1,6 @@
 ---
 title: "Death FROM Covid or WITH Covid?"
-date: 2021-03-20
+date: 2021-03-24
 modified: 
 description: 'Example of the importance of a good analysis to answer the question "FROM Covid or WITH Covid?"'
 draft: false

@@ -1,0 +1,95 @@
+---
+title: "My first function"
+date: 2021-03-30
+modified: 
+description: "Description of the first function I created in R: from why I created it to how it works"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Functions
+- Excel
+- Tables
+series:
+- My own functions
+categories:
+image: "/images/R/miei_codici/r.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+<div style="text-align: justify;"> 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(readxl)
+my_table <- read_excel("tm-998_data.xls")
+table_post <- read_excel("tm-998_data_mod.xlsx")
+```
+
+"You never forget your first... function". Yes, I know this isn't the right expression, but it still works.  
+Today, I'm here to show my first function, written during my thesis internship.  
+The aim of this post is not to analyze step by step the code of the function, but to understand why it was written, its use, the main feautures and how it could be improved.  
+**Disclaimer:** data shown in the table are fake.
+
+### Why it was written
+
+As for all the functions, it was written because I needed to save time in copying and pasting from an Excel file to another. In particular, during my thesis internship in the Viral Pathogenesis and Biosafety Unit, I used to work with PCR techniques to analyze transcriptional levels in Zika Virus-infected macrophages. PCR machine returned an Excel file like this:
+```{r, echo = FALSE}
+kable(my_table) %>%
+    scroll_box(height = "415px",  fixed_thead = F)
+```
+<br>
+What I had to do was copying ang pasting some cells into another Excel file (used by other lab members), in which for each gene I had the following table:
+
+```{r tabella come doveva venire, echo = FALSE}
+kable(table_post, align = "c", table.attr = "style='width:100%;'")
+```
+
+<br>
+As you can see by comparing the tables, the needed work is time-consuming and error-prone, since the rows are organized by the name of the sample and not by gene and each sample/gene combination is in duplicate.
+This means that every time I had to filter out by gene, carefully select the right cells, and paste them in the other file; you can clearly imagine how long it used take and how many mistakes had been made.
+
+For all these reasons, one night I decided to write a function that takes the PCR file and returns an Excel file with one gene table per sheet, all in ~20 seconds (and you will now see why it takes so much time).
+
+### Needed packages and function launch
+
+To launch the function, you just need to type the name of the function, with no input required; however, the following packages must be already installed in the machine:
+
+* readxl
+* svGUI
+* svDialogs
+* dplyr
+* xlsx
+
+### Main steps
+
+Let's see roughly how the function is organized, without going into the details of the code, as this is not the aim of this post.
+
+Since the function has no input, you have to somehow tell it which file to take: for this reason, the first line of code asks the user to choose the file of interest (via `file.choose ()`) and save the name/path into a character variable.
+The table is then imported into R; as you have noticed before, the table contains header rows and final rows that are not needed and that must be removed in such a way as to obtain an ordered table, with values in all the cells and with right column names: this is the first operation that the function implements on the table.
+
+Subsequently, the user is asked to indicate which columns to keep (Sample, Target, Ct mean and Ct sd), in order to extrapolate them and work on a smaller dataset, including only the required data. In this regard, since I only need Ct mean and sd, one duplicate for each gene/target combination is deleted.
+
+At this point everything is ready, thanks to a `for loop` in which one gene is taken into account in each iteration, the final Excel file is created and saved in the same folder as the original file.
+
+### Possible improvements
+
+Although in the eyes of the less experienced it may seem a well-done function (and I was convinced of it when I created it), now that I look at it with a more "trained" vision, I can guarantee that it can be improved in several points. In particular, there are several limits:
+
+* total absence of automation: the user must select one file at a time and also indicate the reference columns
+* length of the process: again, for the reasons above, there is a need for interaction with the user and, therefore, more time requested
+* possibility to work only if the analyses are done in duplicates, otherwise some rows of interest are deleted
+* output in Excel format only
+* one table per sheet in the output, it would be better to have the tables one below the other in one single sheet/file
+
+This is an example of how working more and more with R, you can notice inaccuracies and rookie "mistakes" - which are normal - and already have an idea of how you can improve your work, but this will be the content for a future post.
+
+</div>

@@ -1,0 +1,95 @@
+---
+title: "La mia prima funzione"
+date: 2021-03-30
+modified: 
+description: "Descrizione della prima funzione che ho creato con R: dal perchè l'ho creata a come funziona"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Funzioni
+- Excel
+- Tabelle
+series:
+- Le mie funzioni
+categories:
+image: "/images/R/miei_codici/r.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+<div style="text-align: justify;"> 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(readxl)
+my_table <- read_excel("tm-998_data.xls")
+table_post <- read_excel("tm-998_data_mod.xlsx")
+```
+
+
+Parafrasando una famosa frase, "la prima funzione non si scorda mai". Ed è proprio vero, per questo sono qui a descrivervi la mia prima funzione, scritta durante l'internato di tesi. 
+Lo scopo di questo post non è quello di mostrare il codice della funzione ed analizzarlo, quanto più capire il perchè è stata scritta, a cosa serviva, i suoi passaggi principali e come potrebbe essere migliorata.  
+**Disclaimer:** i dati che vedrete pubblicati in questa pagina sono fittizi.
+
+### Perchè?
+
+Come ogni funzione, ho sentito la necessità di crearla per ottimizzare i tempi. In particolare, durante il mio internato di tesi presso il laboratorio di Patogeni Virali e Biosicurezza, usavo spesso la PCR per ricavare dati relativi alla trascrizione di geni in macrofagi infettati dal virus Zika. La macchina della PCR forniva un file Excel come questo:
+```{r, echo = FALSE}
+kable(my_table) %>%
+    scroll_box(height = "415px",  fixed_thead = F)
+```
+ 
+<br>
+Quello che dovevo fare ogni volta era copiare e incollare determinate celle in un altro file Excel (fornito dal lab) in modo tale da ottenere, per ogni gene, la seguente tabella:
+
+```{r tabella come doveva venire, echo = FALSE}
+kable(table_post, align = "c", table.attr = "style='width:100%;'")
+```
+<br>
+Come si può vedere confrontando le due tabelle, il lavoro richiedeva molto tempo e attenzione, dal momento che le le righe sono ordinate in base al Sample Name e non al gene; quindi ogni volta dovevo filtrare per il gene, copiare e incollare solo le colonne corrette (Ct mean e Ct sd). 
+Neanche sto a dire il tempo perso e la quantità di errori che si commettevano: se notate bene ci sono due righe per ogni combinazione gene/sample in quanto in duplicato. 
+
+Per tutti questi motivi, una sera mi misi a scrivere una funzione che prendesse in pasto il file uscito dalla macchina e consegnasse un file Excel con un foglio per ogni gene in analisi, nel quale era riportata una tabella esattaente uguale a quella che mi serviva. Il tutto in meno di 20 secondi (capirete perchè ci metteva così tanto tempo).
+
+### Prerequisiti e lancio della funzione
+
+Per lanciare la funzione basta digitare il nome della funzione, senza alcun input; tuttavia, i seguenti pacchetti saranno caricati dalla funzione, ma devono essere già installati sulla macchina: 
+
+* readxl
+* svGUI
+* svDialogs
+* dplyr
+* xlsx
+
+### Principali step della funzione
+
+Vediamo ora a grandi linee come si organizzava la funzione, senza entrare nel merito del codice in quanto, come detto prima, non è l'obiettivo di questo post.
+
+Dal momento che la funzione non ha alcun input, bisogna in qualche modo dirgli quale file prendere: per questo motivo, la prima riga di codice chiedde all'utente di scegliere il file di interesse (tramite `file.choose()`) e salva il nome/path in una variabile.  
+La tabella viene dunque importata in R; come avrete notat prima, la tabella contiene delle righe di intestazione e delle righe finali che non servono e che vanno tolte in modo tale da ottenere una tabella ordinata, con valori in tutte le celle e con una corretta intestazione delle colonne: questa è la prima modifica che la funzione attua sulla tabella.
+
+Successivamente, viene chiesto all'utente di indicare quali sono le colonne da tenere (Sample, Target, Ct mean e Ct sd), in modo tale da estrapolarle e lavorare su un dataset più ristretto e con solo i dati necessari. A tal proposito, dal momento che mi servono solo media e sd dei Ct, un duplicato per ogni combinazione gene/target viene eliminato.
+
+A questo punto è tutto pronto, grazie ad un `for loop` nel quale viene preso in cosniderazione un gene per volta, viene creato il file Excel definitivo che verrà salvato nella stessa cartella del file originale.
+
+### Miglioramenti possibili
+
+Nonostante agli occhi dei meno esperti possa sembrare una funzione ben fatta (e ne ero convinto anche io all'inizio), ora che la riguardo con occhi più "allenati", posso garantirvi che ci sono un sacco di punti in cui è migliorabile. In particolare, ci sono alcuni limiti:
+
+* totale assenza di automazione: l'utente deve selezionare un file per volta e indicare anche le colonne di riferimento
+* lunghezza del processo: sempre per i motivi di sopra, c'è isogno di interazione con l'utente e quindi tempo in più
+* possibilità di lavorare solo se le analisi vengono fatte in duplicato, altrimenti vengono eliminae righe di interesse
+* output solo in formato Excel
+* una tabella per foglio nell'output: sarebbe meglio avere le tabelle una sotto l'altra in un unico file
+
+Questo è un esempio di come lavorando sempre più su R si possano notare imprecisioni ed "errori" da principiante - che sono più che normali - e di come si abbia già un'idea su come si possa migliorare il tutto, ma questo sarà oggetto di un futuro post.
+
+</div>

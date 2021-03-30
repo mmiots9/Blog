@@ -1,0 +1,2398 @@
+---
+title: "My first function"
+date: 2021-03-30
+modified: 
+description: "Description of the first function I created in R: from why I created it to how it works"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Functions
+- Excel
+- Tables
+series:
+- My own functions
+categories:
+image: "/images/R/miei_codici/r.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<div style="text-align: justify;">
+<p>“You never forget your first… function”. Yes, I know this isn’t the right expression, but it still works.<br />
+Today, I’m here to show my first function, written during my thesis internship.<br />
+The aim of this post is not to analyze step by step the code of the function, but to understand why it was written, its use, the main feautures and how it could be improved.<br />
+<strong>Disclaimer:</strong> data shown in the table are fake.</p>
+<div id="why-it-was-written" class="section level3">
+<h3>Why it was written</h3>
+As for all the functions, it was written because I needed to save time in copying and pasting from an Excel file to another. In particular, during my thesis internship in the Viral Pathogenesis and Biosafety Unit, I used to work with PCR techniques to analyze transcriptional levels in Zika Virus-infected macrophages. PCR machine returned an Excel file like this:
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:415px; ">
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Block Type
+</th>
+<th style="text-align:left;">
+96fast
+</th>
+<th style="text-align:left;">
+…3
+</th>
+<th style="text-align:left;">
+…4
+</th>
+<th style="text-align:left;">
+…5
+</th>
+<th style="text-align:left;">
+…6
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Chemistry
+</td>
+<td style="text-align:left;">
+SYBR_GREEN
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Experiment File Name
+</td>
+<td style="text-align:left;">
+E:-USER-998.eds
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Experiment Run End Time
+</td>
+<td style="text-align:left;">
+2020-09-16 17:36:48 PM CEST
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Instrument Type
+</td>
+<td style="text-align:left;">
+sds7500fast
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Passive Reference
+</td>
+<td style="text-align:left;">
+ROX
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample Name
+</td>
+<td style="text-align:left;">
+Target Name
+</td>
+<td style="text-align:left;">
+Cт
+</td>
+<td style="text-align:left;">
+Cт Mean
+</td>
+<td style="text-align:left;">
+Cт SD
+</td>
+<td style="text-align:left;">
+Ct Threshold
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+19.640373229980469
+</td>
+<td style="text-align:left;">
+19.780765533447266
+</td>
+<td style="text-align:left;">
+0.19854335486888885
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+19.92115592956543
+</td>
+<td style="text-align:left;">
+19.780765533447266
+</td>
+<td style="text-align:left;">
+0.19854335486888885
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.290117263793945
+</td>
+<td style="text-align:left;">
+24.952022552490234
+</td>
+<td style="text-align:left;">
+0.47813811898231506
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+24.613927841186523
+</td>
+<td style="text-align:left;">
+24.952022552490234
+</td>
+<td style="text-align:left;">
+0.47813811898231506
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.254941940307617
+</td>
+<td style="text-align:left;">
+30.524925231933594
+</td>
+<td style="text-align:left;">
+0.3818126916885376
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.794906616210938
+</td>
+<td style="text-align:left;">
+30.524925231933594
+</td>
+<td style="text-align:left;">
+0.3818126916885376
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+26.92424201965332
+</td>
+<td style="text-align:left;">
+27.035743713378906
+</td>
+<td style="text-align:left;">
+0.15768586099147797
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+27.147243499755859
+</td>
+<td style="text-align:left;">
+27.035743713378906
+</td>
+<td style="text-align:left;">
+0.15768586099147797
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.493007659912109
+</td>
+<td style="text-align:left;">
+26.470455169677734
+</td>
+<td style="text-align:left;">
+0.031894039362668991
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.447902679443359
+</td>
+<td style="text-align:left;">
+26.470455169677734
+</td>
+<td style="text-align:left;">
+0.031894039362668991
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+24.844993591308594
+</td>
+<td style="text-align:left;">
+24.112155914306641
+</td>
+<td style="text-align:left;">
+1.0363876819610596
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+23.37932014465332
+</td>
+<td style="text-align:left;">
+24.112155914306641
+</td>
+<td style="text-align:left;">
+1.0363876819610596
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+19.987825393676758
+</td>
+<td style="text-align:left;">
+19.965446472167969
+</td>
+<td style="text-align:left;">
+0.031648572534322739
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+19.94306755065918
+</td>
+<td style="text-align:left;">
+19.965446472167969
+</td>
+<td style="text-align:left;">
+0.031648572534322739
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.751449584960938
+</td>
+<td style="text-align:left;">
+25.805307388305664
+</td>
+<td style="text-align:left;">
+0.076166436076164246
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.859165191650391
+</td>
+<td style="text-align:left;">
+25.805307388305664
+</td>
+<td style="text-align:left;">
+0.076166436076164246
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.767412185668945
+</td>
+<td style="text-align:left;">
+30.850719451904297
+</td>
+<td style="text-align:left;">
+0.11781291663646698
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.934024810791016
+</td>
+<td style="text-align:left;">
+30.850719451904297
+</td>
+<td style="text-align:left;">
+0.11781291663646698
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+26.766836166381836
+</td>
+<td style="text-align:left;">
+26.863870620727539
+</td>
+<td style="text-align:left;">
+0.13722744584083557
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+26.960905075073242
+</td>
+<td style="text-align:left;">
+26.863870620727539
+</td>
+<td style="text-align:left;">
+0.13722744584083557
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.424724578857422
+</td>
+<td style="text-align:left;">
+26.374011993408203
+</td>
+<td style="text-align:left;">
+0.07171977311372757
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.323297500610352
+</td>
+<td style="text-align:left;">
+26.374011993408203
+</td>
+<td style="text-align:left;">
+0.07171977311372757
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.402254104614258
+</td>
+<td style="text-align:left;">
+25.564586639404297
+</td>
+<td style="text-align:left;">
+0.22957152128219604
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC 6h
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.726917266845703
+</td>
+<td style="text-align:left;">
+25.564586639404297
+</td>
+<td style="text-align:left;">
+0.22957152128219604
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+20.320545196533203
+</td>
+<td style="text-align:left;">
+20.252937316894531
+</td>
+<td style="text-align:left;">
+0.095610633492469788
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+20.185331344604492
+</td>
+<td style="text-align:left;">
+20.252937316894531
+</td>
+<td style="text-align:left;">
+0.095610633492469788
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.388547897338867
+</td>
+<td style="text-align:left;">
+25.423015594482422
+</td>
+<td style="text-align:left;">
+0.048746034502983093
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.457485198974609
+</td>
+<td style="text-align:left;">
+25.423015594482422
+</td>
+<td style="text-align:left;">
+0.048746034502983093
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.424283981323242
+</td>
+<td style="text-align:left;">
+30.483283996582031
+</td>
+<td style="text-align:left;">
+0.08343861997127533
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.54228401184082
+</td>
+<td style="text-align:left;">
+30.483283996582031
+</td>
+<td style="text-align:left;">
+0.08343861997127533
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+27.50013542175293
+</td>
+<td style="text-align:left;">
+27.068460464477539
+</td>
+<td style="text-align:left;">
+0.61048060655593872
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+26.636785507202148
+</td>
+<td style="text-align:left;">
+27.068460464477539
+</td>
+<td style="text-align:left;">
+0.61048060655593872
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+25.918970108032227
+</td>
+<td style="text-align:left;">
+26.166193008422852
+</td>
+<td style="text-align:left;">
+0.34962597489356995
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.413415908813477
+</td>
+<td style="text-align:left;">
+26.166193008422852
+</td>
+<td style="text-align:left;">
+0.34962597489356995
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.549455642700195
+</td>
+<td style="text-align:left;">
+25.439476013183594
+</td>
+<td style="text-align:left;">
+0.1555333286523819
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil 6h
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.329498291015625
+</td>
+<td style="text-align:left;">
+25.439476013183594
+</td>
+<td style="text-align:left;">
+0.1555333286523819
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+20.08906364440918
+</td>
+<td style="text-align:left;">
+20.097148895263672
+</td>
+<td style="text-align:left;">
+0.011432922445237637
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+20.105232238769531
+</td>
+<td style="text-align:left;">
+20.097148895263672
+</td>
+<td style="text-align:left;">
+0.011432922445237637
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.849300384521484
+</td>
+<td style="text-align:left;">
+25.935159683227539
+</td>
+<td style="text-align:left;">
+0.1214233860373497
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+26.021018981933594
+</td>
+<td style="text-align:left;">
+25.935159683227539
+</td>
+<td style="text-align:left;">
+0.1214233860373497
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+31.350503921508789
+</td>
+<td style="text-align:left;">
+31.301733016967773
+</td>
+<td style="text-align:left;">
+0.068972475826740265
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+31.252962112426758
+</td>
+<td style="text-align:left;">
+31.301733016967773
+</td>
+<td style="text-align:left;">
+0.068972475826740265
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+27.383247375488281
+</td>
+<td style="text-align:left;">
+27.352087020874023
+</td>
+<td style="text-align:left;">
+0.044067397713661194
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+27.320926666259766
+</td>
+<td style="text-align:left;">
+27.352087020874023
+</td>
+<td style="text-align:left;">
+0.044067397713661194
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.69500732421875
+</td>
+<td style="text-align:left;">
+26.680751800537109
+</td>
+<td style="text-align:left;">
+0.020160354673862457
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.666496276855469
+</td>
+<td style="text-align:left;">
+26.680751800537109
+</td>
+<td style="text-align:left;">
+0.020160354673862457
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.671287536621094
+</td>
+<td style="text-align:left;">
+25.666770935058594
+</td>
+<td style="text-align:left;">
+0.0063887881115078926
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC 6h
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.662252426147461
+</td>
+<td style="text-align:left;">
+25.666770935058594
+</td>
+<td style="text-align:left;">
+0.0063887881115078926
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+20.042705535888672
+</td>
+<td style="text-align:left;">
+20.082698822021484
+</td>
+<td style="text-align:left;">
+0.056559048593044281
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+20.122692108154297
+</td>
+<td style="text-align:left;">
+20.082698822021484
+</td>
+<td style="text-align:left;">
+0.056559048593044281
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.8763427734375
+</td>
+<td style="text-align:left;">
+25.880035400390625
+</td>
+<td style="text-align:left;">
+0.0052208146080374718
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.883726119995117
+</td>
+<td style="text-align:left;">
+25.880035400390625
+</td>
+<td style="text-align:left;">
+0.0052208146080374718
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+31.229412078857422
+</td>
+<td style="text-align:left;">
+31.258998870849609
+</td>
+<td style="text-align:left;">
+0.041843391954898834
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+31.28858757019043
+</td>
+<td style="text-align:left;">
+31.258998870849609
+</td>
+<td style="text-align:left;">
+0.041843391954898834
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+27.159099578857422
+</td>
+<td style="text-align:left;">
+27.170570373535156
+</td>
+<td style="text-align:left;">
+0.016223501414060593
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+27.182043075561523
+</td>
+<td style="text-align:left;">
+27.170570373535156
+</td>
+<td style="text-align:left;">
+0.016223501414060593
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.582208633422852
+</td>
+<td style="text-align:left;">
+26.690837860107422
+</td>
+<td style="text-align:left;">
+0.15362358093261719
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.799465179443359
+</td>
+<td style="text-align:left;">
+26.690837860107422
+</td>
+<td style="text-align:left;">
+0.15362358093261719
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.77208137512207
+</td>
+<td style="text-align:left;">
+25.828418731689453
+</td>
+<td style="text-align:left;">
+0.079671703279018402
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL Nil D1
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.884754180908203
+</td>
+<td style="text-align:left;">
+25.828418731689453
+</td>
+<td style="text-align:left;">
+0.079671703279018402
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+19.895290374755859
+</td>
+<td style="text-align:left;">
+19.918468475341797
+</td>
+<td style="text-align:left;">
+0.032777436077594757
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+19.941644668579102
+</td>
+<td style="text-align:left;">
+19.918468475341797
+</td>
+<td style="text-align:left;">
+0.032777436077594757
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.520210266113281
+</td>
+<td style="text-align:left;">
+25.508262634277344
+</td>
+<td style="text-align:left;">
+0.016897851601243019
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.496313095092773
+</td>
+<td style="text-align:left;">
+25.508262634277344
+</td>
+<td style="text-align:left;">
+0.016897851601243019
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.057857513427734
+</td>
+<td style="text-align:left;">
+30.062736511230469
+</td>
+<td style="text-align:left;">
+0.0068999449722468853
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.067615509033203
+</td>
+<td style="text-align:left;">
+30.062736511230469
+</td>
+<td style="text-align:left;">
+0.0068999449722468853
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+27.420682907104492
+</td>
+<td style="text-align:left;">
+27.437673568725586
+</td>
+<td style="text-align:left;">
+0.024028424173593521
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+27.45466423034668
+</td>
+<td style="text-align:left;">
+27.437673568725586
+</td>
+<td style="text-align:left;">
+0.024028424173593521
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.260444641113281
+</td>
+<td style="text-align:left;">
+26.347702026367188
+</td>
+<td style="text-align:left;">
+0.12340057641267776
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.434959411621094
+</td>
+<td style="text-align:left;">
+26.347702026367188
+</td>
+<td style="text-align:left;">
+0.12340057641267776
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.359561920166016
+</td>
+<td style="text-align:left;">
+25.348148345947266
+</td>
+<td style="text-align:left;">
+0.016142580658197403
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTRL CDC D1
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.336732864379883
+</td>
+<td style="text-align:left;">
+25.348148345947266
+</td>
+<td style="text-align:left;">
+0.016142580658197403
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+19.990224838256836
+</td>
+<td style="text-align:left;">
+19.982322692871094
+</td>
+<td style="text-align:left;">
+0.011173972859978676
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+19.974422454833984
+</td>
+<td style="text-align:left;">
+19.982322692871094
+</td>
+<td style="text-align:left;">
+0.011173972859978676
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.831789016723633
+</td>
+<td style="text-align:left;">
+25.692073822021484
+</td>
+<td style="text-align:left;">
+0.19758577644824982
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.552360534667969
+</td>
+<td style="text-align:left;">
+25.692073822021484
+</td>
+<td style="text-align:left;">
+0.19758577644824982
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.719028472900391
+</td>
+<td style="text-align:left;">
+30.761308670043945
+</td>
+<td style="text-align:left;">
+0.059793226420879364
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.8035888671875
+</td>
+<td style="text-align:left;">
+30.761308670043945
+</td>
+<td style="text-align:left;">
+0.059793226420879364
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+26.930835723876953
+</td>
+<td style="text-align:left;">
+26.874160766601562
+</td>
+<td style="text-align:left;">
+0.080151841044425964
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+26.817483901977539
+</td>
+<td style="text-align:left;">
+26.874160766601562
+</td>
+<td style="text-align:left;">
+0.080151841044425964
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.15199089050293
+</td>
+<td style="text-align:left;">
+26.175567626953125
+</td>
+<td style="text-align:left;">
+0.033342540264129639
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.19914436340332
+</td>
+<td style="text-align:left;">
+26.175567626953125
+</td>
+<td style="text-align:left;">
+0.033342540264129639
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.138555526733398
+</td>
+<td style="text-align:left;">
+25.358840942382812
+</td>
+<td style="text-align:left;">
+0.31153196096420288
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 Nil D1
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+25.579128265380859
+</td>
+<td style="text-align:left;">
+25.358840942382812
+</td>
+<td style="text-align:left;">
+0.31153196096420288
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+19.693199157714844
+</td>
+<td style="text-align:left;">
+19.692794799804688
+</td>
+<td style="text-align:left;">
+0.00057319714687764645
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+19.692388534545898
+</td>
+<td style="text-align:left;">
+19.692794799804688
+</td>
+<td style="text-align:left;">
+0.00057319714687764645
+</td>
+<td style="text-align:left;">
+0.33915683988368872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+25.209577560424805
+</td>
+<td style="text-align:left;">
+25.069972991943359
+</td>
+<td style="text-align:left;">
+0.19742932915687561
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+tXBP1
+</td>
+<td style="text-align:left;">
+24.930370330810547
+</td>
+<td style="text-align:left;">
+25.069972991943359
+</td>
+<td style="text-align:left;">
+0.19742932915687561
+</td>
+<td style="text-align:left;">
+0.52222729036036653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.504255294799805
+</td>
+<td style="text-align:left;">
+30.463470458984375
+</td>
+<td style="text-align:left;">
+0.057679817080497742
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+sXBP1
+</td>
+<td style="text-align:left;">
+30.422683715820312
+</td>
+<td style="text-align:left;">
+30.463470458984375
+</td>
+<td style="text-align:left;">
+0.057679817080497742
+</td>
+<td style="text-align:left;">
+0.5662700331258208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+27.132936477661133
+</td>
+<td style="text-align:left;">
+27.047580718994141
+</td>
+<td style="text-align:left;">
+0.12071262300014496
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+ATF4
+</td>
+<td style="text-align:left;">
+26.962223052978516
+</td>
+<td style="text-align:left;">
+27.047580718994141
+</td>
+<td style="text-align:left;">
+0.12071262300014496
+</td>
+<td style="text-align:left;">
+0.58827107235415099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+25.797645568847656
+</td>
+<td style="text-align:left;">
+26.164039611816406
+</td>
+<td style="text-align:left;">
+0.51816076040267944
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+CHOP
+</td>
+<td style="text-align:left;">
+26.530435562133789
+</td>
+<td style="text-align:left;">
+26.164039611816406
+</td>
+<td style="text-align:left;">
+0.51816076040267944
+</td>
+<td style="text-align:left;">
+0.23654008298589471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+24.931297302246094
+</td>
+<td style="text-align:left;">
+24.782367706298828
+</td>
+<td style="text-align:left;">
+0.21061959862709045
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M1 CDC D1
+</td>
+<td style="text-align:left;">
+BiP
+</td>
+<td style="text-align:left;">
+24.63343620300293
+</td>
+<td style="text-align:left;">
+24.782367706298828
+</td>
+<td style="text-align:left;">
+0.21061959862709045
+</td>
+<td style="text-align:left;">
+0.35245788740176781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Analysis Type
+</td>
+<td style="text-align:left;">
+Singleplex
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Endogenous Control
+</td>
+<td style="text-align:left;">
+GAPDH
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RQ Min/Max Confidence Level
+</td>
+<td style="text-align:left;">
+95.0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Reference Sample
+</td>
+<td style="text-align:left;">
+CTRL Nil 6h
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br>
+What I had to do was copying ang pasting some cells into another Excel file (used by other lab members), in which for each gene I had the following table:</p>
+<table style="width:100%;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Sample.Name
+</th>
+<th style="text-align:center;">
+Cт.Mean
+</th>
+<th style="text-align:center;">
+Sign
+</th>
+<th style="text-align:center;">
+Cт.SD
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+CTRL Nil 6h
+</td>
+<td style="text-align:center;">
+19.78077
+</td>
+<td style="text-align:center;">
+±
+</td>
+<td style="text-align:center;">
+0.1985434
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+CTRL CDC 6h
+</td>
+<td style="text-align:center;">
+19.96545
+</td>
+<td style="text-align:center;">
+±
+</td>
+<td style="text-align:center;">
+0.0316486
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+M1 Nil 6h
+</td>
+<td style="text-align:center;">
+20.25294
+</td>
+<td style="text-align:center;">
+±
+</td>
+<td style="text-align:center;">
+0.0956106
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+M1 CDC 6h
+</td>
+<td style="text-align:center;">
+20.09715
+</td>
+<td style="text-align:center;">
+±
+</td>
+<td style="text-align:center;">
+0.0114329
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+CTRL Nil D1
+</td>
+<td style="text-align:center;">
+20.08270
+</td>
+<td style="text-align:center;">
+±
+</td>
+<td style="text-align:center;">
+0.0565590
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+CTRL CDC D1
+</td>
+<td style="text-align:center;">
+19.91847
+</td>
+<td style="text-align:center;">
+±
+</td>
+<td style="text-align:center;">
+0.0327774
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+M1 Nil D1
+</td>
+<td style="text-align:center;">
+19.98232
+</td>
+<td style="text-align:center;">
+±
+</td>
+<td style="text-align:center;">
+0.0111740
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+M1 CDC D1
+</td>
+<td style="text-align:center;">
+19.69279
+</td>
+<td style="text-align:center;">
+±
+</td>
+<td style="text-align:center;">
+0.0005732
+</td>
+</tr>
+</tbody>
+</table>
+<p><br>
+As you can see by comparing the tables, the needed work is time-consuming and error-prone, since the rows are organized by the name of the sample and not by gene and each sample/gene combination is in duplicate.
+This means that every time I had to filter out by gene, carefully select the right cells, and paste them in the other file; you can clearly imagine how long it used take and how many mistakes had been made.</p>
+<p>For all these reasons, one night I decided to write a function that takes the PCR file and returns an Excel file with one gene table per sheet, all in ~20 seconds (and you will now see why it takes so much time).</p>
+</div>
+<div id="needed-packages-and-function-launch" class="section level3">
+<h3>Needed packages and function launch</h3>
+<p>To launch the function, you just need to type the name of the function, with no input required; however, the following packages must be already installed in the machine:</p>
+<ul>
+<li>readxl</li>
+<li>svGUI</li>
+<li>svDialogs</li>
+<li>dplyr</li>
+<li>xlsx</li>
+</ul>
+</div>
+<div id="main-steps" class="section level3">
+<h3>Main steps</h3>
+<p>Let’s see roughly how the function is organized, without going into the details of the code, as this is not the aim of this post.</p>
+<p>Since the function has no input, you have to somehow tell it which file to take: for this reason, the first line of code asks the user to choose the file of interest (via <code>file.choose ()</code>) and save the name/path into a character variable.
+The table is then imported into R; as you have noticed before, the table contains header rows and final rows that are not needed and that must be removed in such a way as to obtain an ordered table, with values in all the cells and with right column names: this is the first operation that the function implements on the table.</p>
+<p>Subsequently, the user is asked to indicate which columns to keep (Sample, Target, Ct mean and Ct sd), in order to extrapolate them and work on a smaller dataset, including only the required data. In this regard, since I only need Ct mean and sd, one duplicate for each gene/target combination is deleted.</p>
+<p>At this point everything is ready, thanks to a <code>for loop</code> in which one gene is taken into account in each iteration, the final Excel file is created and saved in the same folder as the original file.</p>
+</div>
+<div id="possible-improvements" class="section level3">
+<h3>Possible improvements</h3>
+<p>Although in the eyes of the less experienced it may seem a well-done function (and I was convinced of it when I created it), now that I look at it with a more “trained” vision, I can guarantee that it can be improved in several points. In particular, there are several limits:</p>
+<ul>
+<li>total absence of automation: the user must select one file at a time and also indicate the reference columns</li>
+<li>length of the process: again, for the reasons above, there is a need for interaction with the user and, therefore, more time requested</li>
+<li>possibility to work only if the analyses are done in duplicates, otherwise some rows of interest are deleted</li>
+<li>output in Excel format only</li>
+<li>one table per sheet in the output, it would be better to have the tables one below the other in one single sheet/file</li>
+</ul>
+<p>This is an example of how working more and more with R, you can notice inaccuracies and rookie “mistakes” - which are normal - and already have an idea of how you can improve your work, but this will be the content for a future post.</p>
+</div>
+</div>

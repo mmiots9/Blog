@@ -12,7 +12,7 @@ tocPosition: inner
 tocLevels: ["h2", "h3", "h4"]
 tags:
 - R
-- environment
+- Environment
 series:
 - R basic
 categories:
