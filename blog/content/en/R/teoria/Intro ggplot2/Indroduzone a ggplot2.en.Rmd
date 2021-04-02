@@ -52,8 +52,8 @@ There are 8 components:
 
 * Theme
 
-Today, we will focus on the first 3 because those are the ones that requires informations by us; in fact, the others can be omitted since that already have default values.
-Here is representet the minimal version of the ggplo2 command:
+Today, we will focus on the first 3 because those are the ones that requires inputs by us; in fact, the others can be omitted since they already have default values.
+Here is represented the minimal version of the ggplo2 command:
 ``` r
 ggplot(data = <data>) +
   <geom_function>(mapping = aes(<mapping>))
@@ -139,4 +139,7 @@ forma <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, shape =
 ggarrange(cl, dimp, trasp, forma, 
           nrow = 2, ncol = 2)
 ```
+
+Now, we've just seen how to create a simple plot using basic command of *ggplot2* package. In further posts, we will analyze the other components with examples and detailed explanations.
+
 </div>

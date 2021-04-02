@@ -1,7 +1,7 @@
 ---
 title: "Introduzione a GGPLOT2"
 date: 2021-03-18
-modified: 
+modified:
 description: "Introduzione ad un pacchetto grafico avanzato rispetto a quello base di R"
 draft: false
 hideToc: true
@@ -54,7 +54,7 @@ Queste componenti sono in tutto 8:
 * Theme
 
 Oggi ci focalizzeremo sulle prime 3, in quanto sono le uniche 3 di cui ggplot2 ha bisogno di informazioni; le altre infatti possono essere omesse in quanto hanno già dei valori di default.
-Di seguito una versione minimal del comando da utilizzare per creare un grafico con ggplot2:
+Di seguito una versione minimal del comando da utilizzare per creare un grafico base con ggplot2:
 
 ``` r
 ggplot(data = <data>) +
@@ -149,4 +149,7 @@ forma <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y=hwy, shape =
 ggarrange(cl, dimp, trasp, forma, 
           nrow = 2, ncol = 2)
 ```
+
+Ora abbiamo visto i comandi base per creare un plot con il pacchetto *ggplot2*, seguiranno post in cui si entrerà nel merito delle altre componenti, con esempi e spiegazioni più dettagliate.
+
 </div>
