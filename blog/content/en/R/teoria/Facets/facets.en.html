@@ -1,0 +1,179 @@
+---
+title: "GGPLOT2 facets"
+date: 2021-04-05
+modified:
+description: "Facets function in ggplot2: how to split data into multiple panels"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Graphs
+- Ggplot2
+- Facets
+- Panels
+series:
+- Graphic with ggplot2
+categories:
+- Graphs
+image: "/images/R/Teoria/facets.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div style="text-align: justify;">
+<p>In this post, we will analyze <em>Facets</em> function of Ggplot2: it allows us to split the data into multiple panels, based on one (or more) categorical variable(s).<br />
+There are two functions that can be used; we choose one or another according to the number of categorical variables and/or the type of graph we want:</p>
+<ul>
+<li><code>facet_wrap()</code>: when we have one categorical variable and we want to decide the number of rows/columns</li>
+<li><code>facet_grid()</code>: when we have two categorical variables or in particular cases with only one categorical variable</li>
+</ul>
+<p><strong>Important:</strong> I have only spoken about categorical variables; that’s because if we had continue variables, we would have one plot for each value of the continue variables, resulting in a very unclear bunch of small panels.</p>
+<div id="facet_wrap" class="section level2">
+<h2>Facet_wrap</h2>
+<p>This function is useful when we want to create more panels based on a categorical variable.<br />
+Let’s immediately see how to use it: the command is <code>facet_wrap( ~ categorical)</code></p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
+  facet_wrap(~ cyl)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetwrap"></span>
+<img src="/en/R/teoria/Facets/facets.en_files/figure-html/facetwrap-1.png" alt="Facet_wrap use example" width="672" />
+<p class="caption">
+Figure 1: Facet_wrap use example
+</p>
+</div>
+<p>As you can see, the function has split the scatter plot into 3 minor plots, one for each value of cyl (4, 6 and 8). This allows to avoid the so-called ‘overplotting’ phenomenon, that we have when too many data are plotted and, so, are different to distinghuish.</p>
+<p>After having seen the basic function call, let’s analyze the other inputs:</p>
+<ul>
+<li><code>nrow</code> o <code>ncol</code>: set the number of rows/columns into which divides the panels. It is useful with a consistent number of panels, because organizing them in a grid is better than to have them all shrink in horizontal or vertical</li>
+<li><code>dir</code>: used to define the horizonal ‘h’ or vertical ‘v’ of the panels; this means that we can decide in the panels should be divided by columns (as the figure above), or by rows</li>
+<li><code>drop</code>: logical value to set if empty panels (with no data) should be printed or not</li>
+<li><code>strip.position</code>: choose where to put the labels of the categorical variable, options are <em>top</em>, <em>bottom</em>, <em>left</em> or <em>right</em></li>
+</ul>
+<br>
+
+<div class="example">
+<span id="exm:facetwrapexample" class="example"><strong>Example 1  </strong></span>Modify figure <a href="#fig:facetwrap">1</a> graph in order to have it organized by rows and with the labels on the right
+</div>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
+  facet_wrap(~ cyl, dir = &quot;v&quot;, strip.position = &quot;right&quot;)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetwrapexamplefig"></span>
+<img src="/en/R/teoria/Facets/facets.en_files/figure-html/facetwrapexamplefig-1.png" alt="Example of a graph divided by rows and with the labels on the right" width="672" />
+<p class="caption">
+Figure 2: Example of a graph divided by rows and with the labels on the right
+</p>
+</div>
+<p>Among the options above, I did not mentioned a very important one, because I want to analyze it more in details now.<br />
+This option is <code>scales</code>, and it allows us to decide whether the axis limits should be the same for all the panels, or should be different, based on the value of the data that are shown: the options are <em>fixed</em> (same for all), <em>free</em> (both x and y axis are free), <em>free_x/y</em> (only x/y axes is free).<br />
+Let’s see an example, leaving free the x axis of figure <a href="#fig:facetwrap">1</a>.</p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
+  facet_wrap(~ cyl, scales = &quot;free_x&quot;)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetwrapscales"></span>
+<img src="/en/R/teoria/Facets/facets.en_files/figure-html/facetwrapscales-1.png" alt="Example of *scales = free_x*" width="672" />
+<p class="caption">
+Figure 3: Example of <em>scales = free_x</em>
+</p>
+</div>
+<p>In this way, all the panels are more focused on the data that are shown, BUT reducing very much the possibility of comparison among them. In fact, with different axes limits, comparing the distribution of the cars with 4 or 8 cylinders is way more tricky. So, when we have to use <em>scales</em>?<br />
+Scales results very useful with barplot, let’s see an example.</p>
+
+<div class="example">
+<span id="exm:facetwrapscalesexm" class="example"><strong>Example 2  </strong></span>We want to visualize the number of cars of the same manufacturer, divided by the class (mpg dataset).
+</div>
+With the basic code <code>facet_wrap(~ class, nrow = 1)</code>, we have:
+<div class="figure" style="text-align: center"><span id="fig:facetwrapscalesx1"></span>
+<img src="/en/R/teoria/Facets/facets.en_files/figure-html/facetwrapscalesx1-1.png" alt="Without *scales*" width="672" />
+<p class="caption">
+Figure 4: Without <em>scales</em>
+</p>
+</div>
+Ok, I know it is a mess. There are too many manufacturer that have no cars in some classes, leaving empty spaces that make it hard to read manufacturer names and visualize the bars.
+To adjust it, we should use <code>facet_wrap(~ class, nrow = 1, scales = "free_x")</code>:
+<div class="figure" style="text-align: center"><span id="fig:facetwrapscalesx2"></span>
+<img src="/en/R/teoria/Facets/facets.en_files/figure-html/facetwrapscalesx2-1.png" alt="With *scales* = &quot;free_x&quot;" width="672" />
+<p class="caption">
+Figure 5: With <em>scales</em> = “free_x”
+</p>
+</div>
+<p>As we can see, only the manufacturer with at least one car are now shown in each class. This make the graph clearer, more filled and readable. Yeah, <em>suv</em> class is still overcrowded and the names are hard to read; this happens because all classes occupy the same space in the x-axis of the figure, regardless of the number of car manufacturers it contains.
+Here, <em>facet_grid</em> can help us.</p>
+</div>
+<div id="facet_grid" class="section level2">
+<h2>Facet_grid</h2>
+<p>Prior to see how to improve the graph in figure <a href="#fig:facetwrapscalesx2">5</a>, we have to analyze the characteristics of <em>facet_grid</em> function.<br />
+As said in the intro, the difference between facet_grid and facet_wrap is that with the former is possible to create a grid of panels divided by two categorical variables (one in the columns, one in the rows).<br />
+The basic command is <code>facet_wrap(categoric_rows ~ categoric_columns)</code>, here it is an example:</p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
+  facet_grid(am ~ cyl)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetgrid"></span>
+<img src="/en/R/teoria/Facets/facets.en_files/figure-html/facetgrid-1.png" alt="Example of facet_grid use" width="672" />
+<p class="caption">
+Figure 6: Example of facet_grid use
+</p>
+</div>
+<p>The scatter plots are 6, divided into 2 rows (based on am values) and 3 columns (based on cyl values).<br />
+As we can guess, row and column numbers are determined by the number of categries in the categorical varibles, so we <strong>can’t</strong> set them.<br />
+But, which are the inputs of facet_grid function?</p>
+<ul>
+<li><code>scales</code>: as in <em>facet_wrap</em>, scales allows us to decide if the axes should have the same limits or not</li>
+<li><code>drop</code>: logical value to set if empty panels (with no data) should be printed or not</li>
+<li><code>switch</code>: it replaces <code>strip.position</code> of facet_wrap. The options are different, because here we have to specify the axis whose labels we want to change. The dafault values put the labels on the top (for x-axis) and on the right (for y-axis); by giving the name of the axis we want to change, the function sets the opposite with respect to the default values. We can also set ‘both’ to change both labels position</li>
+<li><code>margins</code>: this input is barely seen in other guides, but it can be useful. In fact, it gives the possibility to add summary panels in which all of the data of a row/column are plotted. The options are <em>TRUE</em> (to have both row and column summary), or the string of the name of the categorical variable we want (<strong>important:</strong> the string of the variable name, not just variable name as for aestethic. see the example below)</li>
+</ul>
+
+<div class="example">
+<span id="exm:facetrgridmarginsex" class="example"><strong>Example 3  </strong></span>Add to the panels in figure <a href="#fig:facetgrid">6</a> the summary panels for the variable “am”, also changing the position of the cyl labels.
+</div>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
+  facet_grid(am ~ cyl, margins = &quot;am&quot;, switch = &quot;x&quot;)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetgridmargins"></span>
+<img src="/en/R/teoria/Facets/facets.en_files/figure-html/facetgridmargins-1.png" alt="Example of the use *margins* in facet_grid" width="672" />
+<p class="caption">
+Figure 7: Example of the use <em>margins</em> in facet_grid
+</p>
+</div>
+<p>And here we have a third row, formed by the merge of the two panels above.</p>
+<p>Let’s now go back to the example <a href="#exm:facetwrapscalesexm">2</a>, how can we improve it with facet_grid?<br />
+One important thing that I haven’t said before is that facet_grid can even take a single categorical variable as input, while the other will be represented by a period (<code>.</code>). In addition, there is one more input that can be given to the function that I did not mention before: <code>space</code>.<br />
+Space is a bit like <code>scales</code>, but instead of setting the individual axes, it changes the “general” x and y axes of the graph, as if the graph grid had a general x and y axis.<br />
+Let’s get down to the practical side: the problem was that each class occupies the same space in the graph, regardless of the number of car manufacturers it contained. What space does is to organize the “general” axes in such a way that there is proportion between the various graphs. The possible options are the same as for scales: <em>free</em>, <em>free_x / y</em> and <em>fixed</em>.<br />
+Let’s see how it works, since it is easier to visualize than explain.</p>
+<pre class="r"><code>ggplot(data = mpg) +
+  geom_bar(aes(x = manufacturer)) +
+  facet_grid(. ~ class, scales = &quot;free_x&quot;, space = &quot;free_x&quot;) + 
+  theme(axis.text.x = element_text(angle = 45, hjust=1))</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetgridscalesspace"></span>
+<img src="/en/R/teoria/Facets/facets.en_files/figure-html/facetgridscalesspace-1.png" alt="With both *scales* and *space* = &quot;free_x&quot;" width="672" />
+<p class="caption">
+Figure 8: With both <em>scales</em> and <em>space</em> = “free_x”
+</p>
+</div>
+<p>You can immediately see how, compared to the graph in figure <a href="#fig:facetwrapscalesx2">5</a>, there is a proportion between the graphs representing the various classes; in fact, each car manufacturer occupies the same space on the x axis and all the bars have the same width.
+The graph is much clearer now, unfortunately the classes with few data have the name cut off; there are various options to fix this:</p>
+<ul>
+<li>decrease text size: not reccomended because they wold be too small to be read</li>
+<li>change graph type: one of the best options, since we should clearly understand our data and adapt the graph based on them, and NOT try to force the data to fit in a specific graph, even when they don’t allow us</li>
+<li>having such advanced ggplot2 graphic skills to create this graph:</li>
+</ul>
+<br>
+<div class="figure" style="text-align: center"><span id="fig:facetgridscalesspace2"></span>
+<img src="/en/R/teoria/Facets/facets.en_files/figure-html/facetgridscalesspace2-1.png" alt="Adavanced graph that allow us to read all class names" width="672" />
+<p class="caption">
+Figure 9: Adavanced graph that allow us to read all class names
+</p>
+</div>
+<p>If you pay enough attention, you will see an addition in the code of the graph in figure <a href="#fig:facetgridscalesspace">8</a>, that is the <code>theme</code> command. We have not talked about this topic yet, but as you will imagine it will be the subject of a future post; by now, I let you guess by yourself what it does, suggesting its use also for the creation of the graph in figure <a href="#fig:facetgridscalesspace2">9</a>.</p>
+</div>
+</div>

@@ -1,0 +1,184 @@
+---
+title: "Facets su GGPLOT2"
+date: 2021-04-05
+modified:
+description: "Analizziamo la componente facets di ggplot 2: come suddividere il grafico in più pannelli"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Grafici
+- Ggplot2
+- Facets
+- Pannelli
+series:
+- Grafica con ggplot2
+categories:
+- Grafici
+image: "/images/R/Teoria/facets.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div style="text-align: justify;">
+<p>In questo post analizziamo più nel dettaglio la componente <em>Facets</em> di ggplot2, la quale ci permette di dividere un grafico in più pannelli, ognuno corrispondente ad una categoria di una (o più) variabile categorica.
+Ci sono due comandi che si possono utilizzare, si sceglie in base al numero di variabili categoriche secondo cui si vogliono suddividere i dati e/o al tipo di grafico che si vuole ottenere:</p>
+<ul>
+<li><code>facet_wrap()</code>: nel caso in cui si voglia usare una sola variabile categorica e decidere il numero di pannelli per ogni riga/colonna</li>
+<li><code>facet_grid()</code>: nel caso in cui le variabili categoriche fossero due o in casi particolari di una sola variabile</li>
+</ul>
+<p><strong>NB:</strong> ho parlato di sole variabili categoriche, perchè nel caso di variabili continue si avrebbe un pannello per ogni valore della variabile continua utilizzata; il risultato sarebbe un insieme di grafici veramente poco chiaro.</p>
+<div id="facet_wrap" class="section level2">
+<h2>Facet_wrap</h2>
+<p>Questa funzione è utile quando si vogliono creare più pannelli in base ad una variabile categorica.<br />
+Vediamone subito come usarla: il comando è <code>facet_wrap( ~ categorica)</code>.</p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
+  facet_wrap(~ cyl)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetwrap"></span>
+<img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetwrap-1.png" alt="Esempio dell'uso di facet_wrap" width="672" />
+<p class="caption">
+Figura 1: Esempio dell’uso di facet_wrap
+</p>
+</div>
+<p>Come si può vedere, la funzione ha suddiviso lo scatter plot in 3 scatter plot, uno per ogni categoria di cyl (4, 6 e 8). In questo modo si evita il fenomeno chiamato ‘overplotting’, che si ha quando ci sono troppi punti plottati e diventa difficile distinguerli.</p>
+<p>Vediamo ora quali altri input si possono dare alla funzione:</p>
+<ul>
+<li><code>nrow</code> o <code>ncol</code>: difiniamo il numero di righe o colonne. Utile quando si hanno tanti pannelli per organizzarli in griglia piuttosto che averli tutti schiacciati o in orizzontale o in verticale<br />
+</li>
+<li><code>dir</code>: le opzioni sono ‘h’ o ‘v’, per definire l’orientamento verticale o orizzontale della suddivisione. In pratica, decidiamo se avere i grafici suddivisi per colonna, come nell’esempio, o per riga</li>
+<li><code>drop</code>: opzione importante se si vogliono eliminare i grafici corrispondenti alle categorie senza alcun dato (grafici vuoti). Le opzioni sono T (elimina) o F (mantieni tutti)<br />
+</li>
+<li><code>strip.position</code>: indichiamo la posizione delle etichette della variabile categorica con le parole <em>top</em>, <em>bottom</em>, <em>left</em> o <em>right</em></li>
+</ul>
+<br>
+
+<div class="example">
+<span id="exm:facetwrapexample" class="example"><strong>Esempio 1  </strong></span>Modificare il grafico <a href="#fig:facetwrap">1</a> in modo tale da averlo organizzato per righe e con le etichette a destra.
+</div>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
+  facet_wrap(~ cyl, dir = &quot;v&quot;, strip.position = &quot;right&quot;)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetwrapexamplefig"></span>
+<img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetwrapexamplefig-1.png" alt="Esempio di grafico suddiviso per riga e con le etichette della variabile categorica a destra" width="672" />
+<p class="caption">
+Figura 2: Esempio di grafico suddiviso per riga e con le etichette della variabile categorica a destra
+</p>
+</div>
+<p>Tra le opzioni di sopra non ne ho citata una molto importante, perchè vorrei analizzarla più nel dettaglio ora.<br />
+Questa opzione è chiamata <code>scales</code> e ci permette di decidere se gli assi saranno uguali tra i vari pannelli oppure saranno ‘liberi’, ovvero se in ogni pannello gli assi avranno range diversi in base ai dati che conterrà. Le opzioni sono: <em>fixed</em> (uguali in tutti), <em>free</em> (ogni dimensione è libera), <em>free_x/y</em> (solo una dimensione è libera).<br />
+Vediamo subito un esempio, lasciando libero l’asse x della figura <a href="#fig:facetwrap">1</a>.</p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
+  facet_wrap(~ cyl, scales = &quot;free_x&quot;)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetwrapscales"></span>
+<img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetwrapscales-1.png" alt="Esempio di *scales* libero sull'asse x" width="672" />
+<p class="caption">
+Figura 3: Esempio di <em>scales</em> libero sull’asse x
+</p>
+</div>
+<p>In questo modo i vari pannelli sono più “focalizzati” nella zona dove insistono i punti, limitando però la possibilità di confronto tra di loro. Infatti, con assi x diversi diventa più complicato confrontare la distribuzione delle auto con 4 cilindri rispetto a quelle con 8. Quindi, quando va usato <em>scales</em>?<br />
+Scales risulta molto utile quando si ha a che fare con barplot, vediamone un esempio.</p>
+<br>
+
+<div class="example">
+<span id="exm:facetwrapscalesexm" class="example"><strong>Esempio 2  </strong></span>Si vuole visualizzare il numero di auto di una stessa casa automobilistica in base alla classe (dataset mpg).
+</div>
+<p>Con il codice base <code>facet_wrap(~ class, nrow = 1)</code>, si ottiene il seguente grafico:</p>
+<div class="figure" style="text-align: center"><span id="fig:facetwrapscalesx1"></span>
+<img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetwrapscalesx1-1.png" alt="Senza *scales*" width="672" />
+<p class="caption">
+Figura 4: Senza <em>scales</em>
+</p>
+</div>
+<p>Lo dico io: non si capisce niente| Se notate, ci sono un sacco di case automobilistiche che non hanno auto in certe classi, che lasciano quindi dei vuoti che creano difficoltà nella lettura dei nomi delle case automobilistiche stesse e nella visualizzazione ottimale dei valori.<br />
+Per aggiustare questa oscenità, usiamo <code>facet_wrap(~ class, nrow = 1, scales = "free_x")</code>:</p>
+<div class="figure" style="text-align: center"><span id="fig:facetwrapscalesx2"></span>
+<img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetwrapscalesx2-1.png" alt="Con *scales* = &quot;free_x&quot;" width="672" />
+<p class="caption">
+Figura 5: Con <em>scales</em> = “free_x”
+</p>
+</div>
+<p>Come si vede, ora solo le case automobilistiche con almeno una auto sono rappresentate in ogni classe. Questo rende il grafico sicuramente più chiaro, meno vuoto e più leggibile. Certo, nella classe <em>suv</em> ancora non si riescono a leggere bene i nomi, questo perchè ogni classe occupa lo stesso spazio nel grafico, indipendentemente dal numero di case automobilistiche che contiene.<br />
+Qui ci viene in aiuto <em>facet_grid</em>.</p>
+</div>
+<div id="facet_grid" class="section level2">
+<h2>Facet_grid</h2>
+<p>Prima di vedere come migliorare ulteriormente il grafico in figura <a href="#fig:facetwrapscalesx2">5</a>, analizziamo le caratteristiche della funzione <em>facet_grid</em>.<br />
+Come detto nell’introduzione, la differenza rispetto alla funzione precedente risiede nella possibilità di creare una griglia di grafici che rappresenta i dati divisi secondo due variabili categoriche (una divisa per colonne e l’altra divisa per righe).<br />
+Il comando della funzione base è <code>facet_wrap(categorica_righe ~ categorica_colonne)</code>, di seguito un esempio.</p>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
+  facet_grid(am ~ cyl)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetgrid"></span>
+<img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetgrid-1.png" alt="Esempio dell'uso di facet_grid()" width="672" />
+<p class="caption">
+Figura 6: Esempio dell’uso di facet_grid()
+</p>
+</div>
+<p>Ora gli scatter plot sono 6, suddivisi in due righe (corrispondenti ai due valori di am) e tre colonne (relative ai diversi valori di cyl).<br />
+Come si può intuire, il numero di righe e di colonne è determinato dal numero di valori di ogni variabile categorica, <strong>non</strong> si può, dunque, indicare il numero di righe e/o colonne che dovrà avere il grafico.<br />
+Quali sono le impostazioni che si possono chiamare?</p>
+<ul>
+<li><code>scales</code>: in modo analogo a quello che fa in <em>facet_wrap</em>, scales ci permette di decidere se avere assi con range comuni per tutti i grafici oppure diversificati in base al range dei dati di ogni grafico</li>
+<li><code>drop</code>: opzione importante se si vogliono eliminare i grafici corrispondenti alle categorie senza alcun dato (grafici vuoti). Le opzioni sono T (elimina) o F (mantieni tutti)<br />
+</li>
+<li><code>switch</code>: sostituisce <code>strip.position</code> della funzione facet_wrap. Le opzioni però sono diverse, infatti va indicato l’asse per cui si vuole cambiare la posizione delle etichette rispetto a quella di default (alto per le x, destra per le y); il alternativa si può indicare “both” per avere un cambio su entrambi gli assi</li>
+<li><code>margins</code>: questa funzione non viene quasi mai citata, ma può risultare utile a volte. Infatti, dà la possibilità di aggiungere dei pannelli in cui sono graficati tutti i dati di ogni riga/colonna o di entrambe. Le opzioni sono <em>TRUE</em> per avere tutti i grafici sommatori, oppure la stringa corrispondente alla variabile categorica di cui vogliamo i grafici sommati</li>
+</ul>
+<br>
+
+<div class="example">
+<span id="exm:facetrgridmarginsex" class="example"><strong>Esempio 3  </strong></span>Aggiungere al grafico <a href="#fig:facetgrid">6</a> dei grafici sommatori per la variabile <em>am</em>, cambiando anche la posizione delle etichette di cyl.
+</div>
+<pre class="r"><code>ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
+  facet_grid(am ~ cyl, margins = &quot;am&quot;, switch = &quot;x&quot;)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetgridmargins"></span>
+<img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetgridmargins-1.png" alt="Esempio dell'uso di *margins* in facet_grid" width="672" />
+<p class="caption">
+Figura 7: Esempio dell’uso di <em>margins</em> in facet_grid
+</p>
+</div>
+<p>Ed ecco qui che è comparsa una terza riga, che vede grafici che sono l’unione di quelli sopra.</p>
+<p>Torniamo ora all’esempio <a href="#exm:facetwrapscalesexm">2</a>, come possiamo sistemarlo con facet_grid?<br />
+Una cosa importante che non ho detto prima, è che facet_grid può prendere come input anche una sola variabile categorica, mentre l’altra sarà rappresentata da un punto (<code>.</code>). In più, c’è un ulteriore input che si può dare alla funzione che non ho citato prima: <code>space</code>.<br />
+Space è un po’ come <code>scales</code>, ma al posto che settare i singoli assi, modifica gli assi x e y “generali” del grafico, come se la griglia di grafici avesse un asse x e un asse y propri.<br />
+Scendiamo più nel pratico, il problema di prima era che ogni classe occupava lo stesso spazio nel grafico, indipendentemente dal numero di case automobilistiche che conteneva. Quello che fa space è proprio organizzare gli assi “generali” in modo tale che ci sia proporzione tra i vari grafici. Le opzioni possibili sono le stesse di scales: <em>free</em>, <em>free_x/y</em> e <em>fixed</em>.<br />
+Vediamo subito come funziona, perchè risulta più facile da visualizzare che spiegare.</p>
+<pre class="r"><code>ggplot(data = mpg) +
+  geom_bar(aes(x = manufacturer)) +
+  facet_grid(. ~ class, scales = &quot;free_x&quot;, space = &quot;free_x&quot;) + 
+  theme(axis.text.x = element_text(angle = 45, hjust=1))</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:facetgridscalesspace"></span>
+<img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetgridscalesspace-1.png" alt="Con *scales* e *space* = &quot;free_x&quot;" width="672" />
+<p class="caption">
+Figura 8: Con <em>scales</em> e <em>space</em> = “free_x”
+</p>
+</div>
+<p>Si può subito vedere come, rispetto al grafico in figura <a href="#fig:facetwrapscalesx2">5</a>, ora ci sia proporzione tra i grafici rappresentanti le varie classi; infatti, ogni casa automobilistica occupa lo stesso spazio sull’asse x e le barre hanno tutte la stessa larghezza.<br />
+Il grafico è molto più chiaro ora, purtroppo le classi con poche occorrenze hanno il nome tagliato; ci sono varie opzioni per sistemare ciò:</p>
+<ul>
+<li>diminuire la dimensione del testo: sconsigliata perchè non si riuscirebbero a leggere</li>
+<li>cambiare tipologia di grafico: una delle opzioni migliori in quanto bisogna capire bene i dati con cui si ha a che fare ed adattare il tipo di grafico ad essi, non cercare di forzare le cose per avere il grafico che si vuole quando i dati non lo permettono</li>
+<li>avere conoscenze avanzate di ggplot2 e creare il grafico seguente:</li>
+</ul>
+<br>
+<div class="figure" style="text-align: center"><span id="fig:facetgridscalesspace2"></span>
+<img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetgridscalesspace2-1.png" alt="Grafico avanzato che permette di distinguere bene i nomi delle classi" width="672" />
+<p class="caption">
+Figura 9: Grafico avanzato che permette di distinguere bene i nomi delle classi
+</p>
+</div>
+<p>Se notate bene, vedrete nel codice del grafico in figura <a href="#fig:facetgridscalesspace">8</a> una aggiunta, ovvero il comando <code>theme</code>. Non abbiamo ancora affrontato questo argomento, ma come immaginerete sarà tema di un futuro post; per il momento vi lascio intuire da soli cosa faccia, suggerendo un suo utilizzo anche per la creazione del grafico in figura <a href="#fig:facetgridscalesspace2">9</a>.</p>
+</div>
+</div>

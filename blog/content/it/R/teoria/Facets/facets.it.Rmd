@@ -1,0 +1,174 @@
+---
+title: "Facets su GGPLOT2"
+date: 2021-04-05
+modified:
+description: "Analizziamo la componente facets di ggplot 2: come suddividere il grafico in più pannelli"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Grafici
+- Ggplot2
+- Facets
+- Pannelli
+series:
+- Grafica con ggplot2
+categories:
+- Grafici
+image: "/images/R/Teoria/facets.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+<div style="text-align: justify;"> 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggpubr)
+```
+
+In questo post analizziamo più nel dettaglio la componente *Facets* di ggplot2, la quale ci permette di dividere un grafico in più pannelli, ognuno corrispondente ad una categoria di una (o più) variabile categorica. 
+Ci sono due comandi che si possono utilizzare, si sceglie in base al numero di variabili categoriche secondo cui si vogliono suddividere i dati e/o al tipo di grafico che si vuole ottenere:
+
+* `facet_wrap()`: nel caso in cui si voglia usare una sola variabile categorica e decidere il numero di pannelli per ogni riga/colonna
+* `facet_grid()`: nel caso in cui le variabili categoriche fossero due o in casi particolari di una sola variabile 
+
+**NB:** ho parlato di sole variabili categoriche, perchè nel caso di variabili continue si avrebbe un pannello per ogni valore della variabile continua utilizzata; il risultato sarebbe un insieme di grafici veramente poco chiaro.
+
+## Facet_wrap
+
+Questa funzione è utile quando si vogliono creare più pannelli in base ad una variabile categorica.  
+Vediamone subito come usarla: il comando è `facet_wrap( ~ categorica)`.
+
+```{r facetwrap, fig.cap="Esempio dell'uso di facet_wrap", tidy=FALSE, fig.align='center'}
+ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = "blue") +
+  facet_wrap(~ cyl)
+```
+
+Come si può vedere, la funzione ha suddiviso lo scatter plot in 3 scatter plot, uno per ogni categoria di cyl (4, 6 e 8). In questo modo si evita il fenomeno chiamato 'overplotting', che si ha quando ci sono troppi punti plottati e diventa difficile distinguerli.
+
+Vediamo ora quali altri input si possono dare alla funzione:
+
+* `nrow` o `ncol`: difiniamo il numero di righe o colonne. Utile quando si hanno tanti pannelli per organizzarli in griglia piuttosto che averli tutti schiacciati o in orizzontale o in verticale  
+* `dir`: le opzioni sono 'h' o 'v', per definire l'orientamento verticale o orizzontale della suddivisione. In pratica, decidiamo se avere i grafici suddivisi per colonna, come nell'esempio, o per riga
+* `drop`:  opzione importante se si vogliono eliminare i grafici corrispondenti alle categorie senza alcun dato (grafici vuoti). Le opzioni sono T (elimina) o F (mantieni tutti)  
+* `strip.position`: indichiamo la posizione delle etichette della variabile categorica con le parole *top*, *bottom*, *left* o *right*  
+
+<br>
+```{example, facetwrapexample}  
+Modificare il grafico \@ref(fig:facetwrap) in modo tale da averlo organizzato per righe e con le etichette a destra.
+```
+
+```{r facetwrapexamplefig, fig.cap='Esempio di grafico suddiviso per riga e con le etichette della variabile categorica a destra', tidy=FALSE, fig.align='center'}
+ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = "blue") +
+  facet_wrap(~ cyl, dir = "v", strip.position = "right")
+```
+  
+Tra le opzioni di sopra non ne ho citata una molto importante, perchè vorrei analizzarla più nel dettaglio ora.   
+Questa opzione è chiamata `scales` e ci permette di decidere se gli assi saranno uguali tra i vari pannelli oppure saranno 'liberi', ovvero se in ogni pannello gli assi avranno range diversi in base ai dati che conterrà. Le opzioni sono: *fixed* (uguali in tutti), *free* (ogni dimensione è libera), *free_x/y* (solo una dimensione è libera).  
+Vediamo subito un esempio, lasciando libero l'asse x della figura \@ref(fig:facetwrap).
+
+```{r facetwrapscales, fig.cap="Esempio di *scales* libero sull'asse x", tidy=FALSE, fig.align='center'}
+ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = "blue") +
+  facet_wrap(~ cyl, scales = "free_x")
+```
+
+In questo modo i vari pannelli sono più "focalizzati" nella zona dove insistono i punti, limitando però la possibilità di confronto tra di loro. Infatti, con assi x diversi diventa più complicato confrontare la distribuzione delle auto con 4 cilindri rispetto a quelle con 8. Quindi, quando va usato *scales*?  
+Scales risulta molto utile quando si ha a che fare con barplot, vediamone un esempio.
+
+<br>
+```{example, facetwrapscalesexm}
+Si vuole visualizzare il numero di auto di una stessa casa automobilistica in base alla classe (dataset mpg). 
+```
+Con il codice base `facet_wrap(~ class, nrow = 1)`, si ottiene il seguente grafico:
+
+```{r facetwrapscalesx1, tidy=FALSE, fig.align='center', echo = FALSE, fig.cap = 'Senza *scales*'}
+ggplot(data = mpg) +
+  geom_bar(aes(x = manufacturer)) +
+  facet_wrap(~ class, nrow = 1) + 
+  theme(axis.text.x = element_text(angle = 45, hjust=1))
+```
+Lo dico io: non si capisce niente| Se notate, ci sono un sacco di case automobilistiche che non hanno auto in certe classi, che lasciano quindi dei vuoti che creano difficoltà nella lettura dei nomi delle case automobilistiche stesse e nella visualizzazione ottimale dei valori.  
+Per aggiustare questa oscenità, usiamo `facet_wrap(~ class, nrow = 1, scales = "free_x")`:
+
+```{r facetwrapscalesx2, tidy=FALSE, fig.align='center', echo = FALSE, fig.cap = 'Con *scales* = "free_x"'}
+ggplot(data = mpg) +
+  geom_bar(aes(x = manufacturer)) +
+  facet_wrap(~ class, nrow = 1, scales = "free_x") + 
+  theme(axis.text.x = element_text(angle = 45, hjust=1))
+```
+Come si vede, ora solo le case automobilistiche con almeno una auto sono rappresentate in ogni classe. Questo rende il grafico sicuramente più chiaro, meno vuoto e più leggibile. Certo, nella classe *suv* ancora non si riescono a leggere bene i nomi, questo perchè ogni classe occupa lo stesso spazio nel grafico, indipendentemente dal numero di case automobilistiche che contiene.  
+Qui ci viene in aiuto *facet_grid*.
+
+## Facet_grid  
+Prima di vedere come migliorare ulteriormente il grafico in figura \@ref(fig:facetwrapscalesx2), analizziamo le caratteristiche della funzione *facet_grid*.  
+Come detto nell'introduzione, la differenza rispetto alla funzione precedente risiede nella possibilità di creare una griglia di grafici che rappresenta i dati divisi secondo due variabili categoriche (una divisa per colonne e l'altra divisa per righe).  
+Il comando della funzione base è `facet_wrap(categorica_righe ~ categorica_colonne)`, di seguito un esempio.
+```{r facetgrid, fig.cap="Esempio dell'uso di facet_grid()", tidy=FALSE, fig.align='center'}
+ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = "blue") +
+  facet_grid(am ~ cyl)
+```
+
+Ora gli scatter plot sono 6, suddivisi in due righe (corrispondenti ai due valori di am) e tre colonne (relative ai diversi valori di cyl).  
+Come si può intuire, il numero di righe e di colonne è determinato dal numero di valori di ogni variabile categorica, **non** si può, dunque, indicare il numero di righe e/o colonne che dovrà avere il grafico.  
+Quali sono le impostazioni che si possono chiamare?  
+
+* `scales`: in modo analogo a quello che fa in *facet_wrap*, scales ci permette di decidere se avere assi con range comuni per tutti i grafici oppure diversificati in base al range dei dati di ogni grafico
+* `drop`: opzione importante se si vogliono eliminare i grafici corrispondenti alle categorie senza alcun dato (grafici vuoti). Le opzioni sono T (elimina) o F (mantieni tutti)  
+* `switch`: sostituisce `strip.position` della funzione facet_wrap. Le opzioni però sono diverse, infatti va indicato l'asse per cui si vuole cambiare la posizione delle etichette rispetto a quella di default (alto per le x, destra per le y); il alternativa si può indicare "both" per avere un cambio su entrambi gli assi
+* `margins`: questa funzione non viene quasi mai citata, ma può risultare utile a volte. Infatti, dà la possibilità di aggiungere dei pannelli in cui sono graficati tutti i dati di ogni riga/colonna o di entrambe. Le opzioni sono *TRUE* per avere tutti i grafici sommatori, oppure la stringa corrispondente alla variabile categorica di cui vogliamo i grafici sommati 
+
+<br>
+```{example, facetrgridmarginsex}  
+Aggiungere al grafico \@ref(fig:facetgrid) dei grafici sommatori per la variabile *am*, cambiando anche la posizione delle etichette di cyl.
+```
+```{r facetgridmargins, fig.cap = "Esempio dell'uso di *margins* in facet_grid", tidy=FALSE, fig.align='center'}
+ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp), color = "blue") +
+  facet_grid(am ~ cyl, margins = "am", switch = "x")
+```
+Ed ecco qui che è comparsa una terza riga, che vede grafici che sono l'unione di quelli sopra.
+
+Torniamo ora all'esempio \@ref(exm:facetwrapscalesexm), come possiamo sistemarlo con facet_grid?  
+Una cosa importante che non ho detto prima, è che facet_grid può prendere come input anche una sola variabile categorica, mentre l'altra sarà rappresentata da un punto (`.`). In più, c'è un ulteriore input che si può dare alla funzione che non ho citato prima: `space`.  
+Space è un po' come `scales`, ma al posto che settare i singoli assi, modifica gli assi x e y "generali" del grafico, come se la griglia di grafici avesse un asse x e un asse y propri.  
+Scendiamo più nel pratico, il problema di prima era che ogni classe occupava lo stesso spazio nel grafico, indipendentemente dal numero di case automobilistiche che conteneva. Quello che fa space è proprio organizzare gli assi "generali" in modo tale che ci sia proporzione tra i vari grafici. Le opzioni possibili sono le stesse di scales: *free*, *free_x/y* e *fixed*.  
+Vediamo subito come funziona, perchè risulta più facile da visualizzare che spiegare.
+
+```{r facetgridscalesspace, tidy=FALSE, fig.align='center', echo = TRUE, fig.cap = 'Con *scales* e *space* = "free_x"'}
+ggplot(data = mpg) +
+  geom_bar(aes(x = manufacturer)) +
+  facet_grid(. ~ class, scales = "free_x", space = "free_x") + 
+  theme(axis.text.x = element_text(angle = 45, hjust=1))
+```
+Si può subito vedere come, rispetto al grafico in figura \@ref(fig:facetwrapscalesx2), ora ci sia proporzione tra i grafici rappresentanti le varie classi; infatti, ogni casa automobilistica occupa lo stesso spazio sull'asse x e le barre hanno tutte la stessa larghezza.  
+Il grafico è molto più chiaro ora, purtroppo le classi con poche occorrenze hanno il nome tagliato; ci sono varie opzioni per sistemare ciò:
+
+* diminuire la dimensione del testo: sconsigliata perchè non si riuscirebbero a leggere
+* cambiare tipologia di grafico: una delle opzioni migliori in quanto bisogna capire bene i dati con cui si ha a che fare ed adattare il tipo di grafico ad essi, non cercare di forzare le cose per avere il grafico che si vuole quando i dati non lo permettono
+* avere conoscenze avanzate di ggplot2 e creare il grafico seguente:
+
+<br>
+```{r facetgridscalesspace2, tidy=FALSE, fig.align='center', echo = FALSE, fig.cap = 'Grafico avanzato che permette di distinguere bene i nomi delle classi'}
+ggplot(data = mpg) +
+  geom_bar(aes(x = manufacturer, fill = class)) +
+  facet_grid(. ~ class, scales = "free_x", space = "free_x") + 
+  theme(axis.text.x = element_text(angle = 45, hjust=1),
+        strip.background = element_blank(),
+        strip.text.x = element_blank(),
+        legend.position = "top") + 
+  guides(fill = guide_legend(nrow = 1))
+```
+Se notate bene, vedrete nel codice del grafico in figura \@ref(fig:facetgridscalesspace) una aggiunta, ovvero il comando `theme`. Non abbiamo ancora affrontato questo argomento, ma come immaginerete sarà tema di un futuro post; per il momento vi lascio intuire da soli cosa faccia, suggerendo un suo utilizzo anche per la creazione del grafico in figura \@ref(fig:facetgridscalesspace2).
+
+</div>

@@ -35,7 +35,7 @@ googleAnalytics = ""
     startLevel = 2
 
 [outputs]
-  home = ["HTML", "RSS", "SearchIndex", "JSON"]
+  home = ["HTML", "RSS", "SearchIndex", "json"]
   section = ["HTML", "RSS", "SearchIndex"]
   taxonomyTerm = ["HTML", "RSS", "SearchIndex"]
   taxonomy = ["HTML", "RSS", "SearchIndex"]
