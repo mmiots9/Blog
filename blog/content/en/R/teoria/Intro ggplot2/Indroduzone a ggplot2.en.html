@@ -28,20 +28,34 @@ authorImage: "/images/whoami/me.jpeg"
 
 
 <div style="text-align: justify;">
-<p>Ggplot 2 is a very useful graphic package that allows us to recreate almost every type of graph in the exact way we imagine it, thanks to a huge number of functions and related packages.
+Ggplot 2 is a very useful graphic package that allows us to recreate almost every type of graph in the exact way we imagine it, thanks to a huge number of functions and related packages.
 In this post, we will analyze the basis of this package, starting from how to create simple graphs analyzing the 3 indispensable components of the code.
 When I talk about “components”, I mean the different types of commands that are needed to create a graph with ggplot2.
-There are 8 components:</p>
-<ul>
-<li><p>Data</p></li>
-<li><p>Mapping</p></li>
-<li><p>Geometries</p></li>
-<li><p>Statistics</p></li>
-<li><p>Scales</p></li>
-<li><p>Facets</p></li>
-<li><p>Coordinates</p></li>
-<li><p>Theme</p></li>
-</ul>
+There are 8 components:
+<li>
+Data
+</li>
+<li>
+Mapping
+</li>
+<li>
+Geometries
+</li>
+<li>
+Statistics
+</li>
+<li>
+Scales
+</li>
+<li>
+Facets
+</li>
+<li>
+Coordinates
+</li>
+<li>
+Theme
+</li>
 <p>Today, we will focus on the first 3 because those are the ones that requires inputs by us; in fact, the others can be omitted since they already have default values.
 Here is represented the minimal version of the ggplo2 command:</p>
 <pre class="r"><code>ggplot(data = &lt;data&gt;) +

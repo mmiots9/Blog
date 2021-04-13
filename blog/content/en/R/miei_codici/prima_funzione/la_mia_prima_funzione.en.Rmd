@@ -39,7 +39,7 @@ Today, I'm here to show my first function, written during my thesis internship.
 The aim of this post is not to analyze step by step the code of the function, but to understand why it was written, its use, the main feautures and how it could be improved.  
 **Disclaimer:** data shown in the table are fake.
 
-### Why it was written
+### Aim
 
 As for all the functions, it was written because I needed to save time in copying and pasting from an Excel file to another. In particular, during my thesis internship in the Viral Pathogenesis and Biosafety Unit, I used to work with PCR techniques to analyze transcriptional levels in Zika Virus-infected macrophages. PCR machine returned an Excel file like this:
 ```{r, echo = FALSE}
@@ -59,15 +59,18 @@ This means that every time I had to filter out by gene, carefully select the rig
 
 For all these reasons, one night I decided to write a function that takes the PCR file and returns an Excel file with one gene table per sheet, all in ~20 seconds (and you will now see why it takes so much time).
 
-### Needed packages and function launch
+### Function command and required packages
 
 To launch the function, you just need to type the name of the function, with no input required; however, the following packages must be already installed in the machine:
+<li>readxl</li>
 
-* readxl
-* svGUI
-* svDialogs
-* dplyr
-* xlsx
+<li>svGUI</li>
+
+<li>svDialogs</li>
+
+<li>dplyr</li>
+
+<li>xlsx</li>
 
 ### Main steps
 
@@ -83,13 +86,16 @@ At this point everything is ready, thanks to a `for loop` in which one gene is t
 ### Possible improvements
 
 Although in the eyes of the less experienced it may seem a well-done function (and I was convinced of it when I created it), now that I look at it with a more "trained" vision, I can guarantee that it can be improved in several points. In particular, there are several limits:
+<li>total absence of automation: the user must select one file at a time and also indicate the reference columns</li>
 
-* total absence of automation: the user must select one file at a time and also indicate the reference columns
-* length of the process: again, for the reasons above, there is a need for interaction with the user and, therefore, more time requested
-* possibility to work only if the analyses are done in duplicates, otherwise some rows of interest are deleted
-* output in Excel format only
-* one table per sheet in the output, it would be better to have the tables one below the other in one single sheet/file
+<li>length of the process: again, for the reasons above, there is a need for interaction with the user and, therefore, more time requested</li>
 
-This is an example of how working more and more with R, you can notice inaccuracies and rookie "mistakes" - which are normal - and already have an idea of how you can improve your work, but this will be the content for a future post.
+<li>possibility to work only if the analyses are done in duplicates, otherwise some rows of interest are deleted</li>
+
+<li>output in Excel format only</li>
+
+<li>one table per sheet in the output, it would be better to have the tables one below the other in one single sheet/file</li>
+<br>
+This is an example of how working more and more with R, you can notice inaccuracies and rookie "mistakes" - which are normal - and already have an idea of how you can improve your work, but this will be the content of a future post.
 
 </div>

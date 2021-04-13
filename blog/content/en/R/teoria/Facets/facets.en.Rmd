@@ -35,9 +35,9 @@ library(ggpubr)
 
 In this post, we will analyze *Facets* function of Ggplot2: it allows us to split the data into multiple panels, based on one (or more) categorical variable(s).  
 There are two functions that can be used; we choose one or another according to the number of categorical variables and/or the type of graph we want:
+<li><code>facet_wrap()</code>: when we have one categorical variable and we want to decide the number of rows/columns</li>
 
-* `facet_wrap()`: when we have one categorical variable and we want to decide the number of rows/columns
-* `facet_grid()`: when we have two categorical variables or in particular cases with only one categorical variable
+<li><code>facet_grid()</code>: when we have two categorical variables or in particular cases with only one categorical variable</li>
 
 
 **Important:** I have only spoken about categorical variables; that's because if we had continue variables, we would have one plot for each value of the continue variables, resulting in a very unclear bunch of small panels.
@@ -56,12 +56,13 @@ ggplot(data = mtcars) +
 As you can see, the function has split the scatter plot into 3 minor plots, one for each value of cyl (4, 6 and 8). This allows to avoid the so-called 'overplotting' phenomenon, that we have when too many data are plotted and, so, are different to distinghuish.
 
 After having seen the basic function call, let's analyze the other inputs:
+<li><code>nrow</code> o <code>ncol</code>: set the number of rows/columns into which divides the panels. It is useful with a consistent number of panels, because organizing them in a grid is better than to have them all shrink in horizontal or vertical</li>
 
-* `nrow` o `ncol`: set the number of rows/columns into which divides the panels. It is useful with a consistent number of panels, because organizing them in a grid is better than to have them all shrink in horizontal or vertical
-* `dir`: used to define the horizonal 'h' or vertical 'v' of the panels; this means that we can decide in the panels should be divided by columns (as the figure above), or by rows
-* `drop`: logical value to set if empty panels (with no data) should be printed or not
-* `strip.position`: choose where to put the labels of the categorical variable, options are *top*, *bottom*, *left* or *right*  
+<li><code>dir</code>: used to define the horizonal ‘h’ or vertical ‘v’ of the panels; this means that we can decide in the panels should be divided by columns (as the figure above), or by rows</li>
 
+<li><code>drop</code>: logical value to set if empty panels (with no data) should be printed or not</li>
+
+<li><code>strip.position</code>: choose where to put the labels of the categorical variable, options are <em>top</em>, <em>bottom</em>, <em>left</em> or <em>right</em></li>
 <br>
 ```{example, facetwrapexample}  
 Modify figure \@ref(fig:facetwrap) graph in order to have it organized by rows and with the labels on the right
@@ -120,11 +121,15 @@ ggplot(data = mtcars) +
 The scatter plots are 6, divided into 2 rows (based on am values) and 3 columns (based on cyl values).  
 As we can guess, row and column numbers are determined by the number of categries in the categorical varibles, so we **can't** set them.  
 But, which are the inputs of facet_grid function?
+<li><code>scales</code>: as in <em>facet_wrap</em>, scales allows us to decide if the axes should have the same limits or not</li>
 
-* `scales`: as in *facet_wrap*, scales allows us to decide if the axes should have the same limits or not
-* `drop`: logical value to set if empty panels (with no data) should be printed or not
-* `switch`: it replaces `strip.position` of facet_wrap. The options are different, because here we have to specify the axis whose labels we want to change. The dafault values put the labels on the top (for x-axis) and on the right (for y-axis); by giving the name of the axis we want to change, the function sets the opposite with respect to the default values. We can also set 'both' to change both labels position
-* `margins`: this input is barely seen in other guides, but it can be useful. In fact, it gives the possibility to add summary panels in which all of the data of a row/column are plotted. The options are *TRUE* (to have both row and column summary), or the string of the name of the categorical variable we want (**important:** the string of the variable name, not just variable name as for aestethic. see the example below)  
+<li><code>drop</code>: logical value to set if empty panels (with no data) should be printed or not</li>
+
+<li><code>switch</code>: it replaces <code>strip.position</code> of facet_wrap. The options are different, because here we have to specify the axis whose labels we want to change. The dafault values put the labels on the top (for x-axis) and on the right (for y-axis); by giving the name of the axis we want to change, the function sets the opposite with respect to the default values. We can also set ‘both’ to change both labels position</li>
+
+<li><code>margins</code>: this input is barely seen in other guides, but it can be useful. In fact, it gives the possibility to add summary panels in which all of the data of a row/column are plotted. The options are <em>TRUE</em> (to have both row and column summary), or the string of the name of the categorical variable we want (<strong>important:</strong> the string of the variable name, not just variable name as for aestethic. see the example below)</li>
+
+ 
 
 ```{example, facetrgridmarginsex}  
 Add to the panels in figure \@ref(fig:facetgrid) the summary panels for the variable "am", also changing the position of the cyl labels.
@@ -150,11 +155,11 @@ ggplot(data = mpg) +
 ```
 You can immediately see how, compared to the graph in figure \@ref(fig:facetwrapscalesx2), there is a proportion between the graphs representing the various classes; in fact, each car manufacturer occupies the same space on the x axis and all the bars have the same width.
 The graph is much clearer now, unfortunately the classes with few data have the name cut off; there are various options to fix this:
+<li>decrease text size: not reccomended because they wold be too small to be read</li>
 
-* decrease text size: not reccomended because they wold be too small to be read
-* change graph type: one of the best options, since we should clearly understand our data and adapt the graph based on them, and NOT try to force the data to fit in a specific graph, even when they don't allow us
-* having such advanced ggplot2 graphic skills to create this graph:
+<li>change graph type: one of the best options, since we should clearly understand our data and adapt the graph based on them, and NOT try to force the data to fit in a specific graph, even when they don’t allow us</li>
 
+<li>having such advanced ggplot2 graphic skills to create this graph:</li>
 <br>
 ```{r facetgridscalesspace2, tidy=FALSE, fig.align='center', echo = FALSE, fig.cap = 'Adavanced graph that allow us to read all class names'}
 ggplot(data = mpg) +

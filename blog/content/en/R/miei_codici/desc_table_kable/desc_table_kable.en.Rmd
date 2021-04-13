@@ -1,0 +1,115 @@
+---
+title: "Desc_table and desc_kable"
+date: 2021-04-13
+modified: 
+description: "Functions that allow to build a descriptive statistical table for a two-sample dataset, also evaluating any statistical differences between them"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Functions
+- Descriptive statistics
+- Tables
+- P-value
+series:
+- My own functions
+categories:
+image: "/images/R/miei_codici/r.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+::: {style="text-align: justify;"}
+<style>
+table { 
+    background-color: white !important;
+    color: black !important;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(mrt.functions)
+library(kableExtra)
+```
+
+Today, I want to show you two very similar functions that I have developed these days, following a request for help from a friend of mine: `desc_table` and` desc_kable`.
+
+### Aim
+
+My friend needed help to do the descriptive statistics of her dataset, comparing the control group with the experimental one. This gave me the idea of a function that would do everything by itself and return the classic table of the descriptive function (usually table 1 of papers), in which on the rows there are the various variables, and the columns represent the values of the experimental groups and the p-value associated with the comparison for each variable.  
+Here is an example of the table structure:
+
+```{r tabella1, echo = FALSE}
+variable <- c("Continuous", "Categoric")
+control <- cases <- c("mean ± SD", "n (%)")
+`p-value` <- c(rep("p-value", 2))
+
+df <- data.frame(variable, control, cases, `p-value`)
+colnames(df)[4] <- "p-value"
+
+kable(df, align = "c", table.attr = "style='width:80%; margin-left:auto;margin-right:auto'") 
+```
+<br>
+
+Although they are very similar, the two functions differ in the purpose of the output. In fact, `desc_table` provides a table similar to the one above, with an additional column representing the statistical method used to calculate the p-value; the goal is to have a raw output which can be manually modified. 
+On the contrary, `desc_kable` returns a kableExtra character vector containing the code of the kable, which can be saved as an image. The column of the statistical method is replaced by indexes and footnotes (later, we'll see an example to better highlight the differences).
+
+Since the functions are identical in terms of inputs, and very similar in the steps, I will describe how `desc_table` works, leaving the explanation of the differences to the [output] section.
+
+### Function command and inputs
+
+The function is called with the command `desc_table (data =, group.var =, cont.var =, cat.var =, paired =)`.  
+Quickly, `data` is the dataset to consider. `group.var`,` cont.var` and `cat.var` require strings (or vectors of strings) corresponding to the variable that groups the dataset, and the continuous and categorical variables to be considered, respectively. They can be omitted or set `= NA`.  
+**Important:** `group.var` MUST split the dataset into only <ins>two</ins> groups.   
+`paired` is a logical input, which will be used to determine if the tests for continuous variables are * paired * or not. By default it is `F`. \
+**Data** is the only *necessary* input to be provided to the function; variables can be omitted and paired has a default value.
+
+### Main steps
+
+As for [my first function](https://miotsdata.netlify.app/it/r/miei_codici/prima_function/la_mia_prima_function/), the purpose of the post is not to go into the details of the function; for this reason, I will overview of the main steps of the function.  
+The first thing the function does is to evaluate if the three variable inputs have been given, otherwise it will open a dialog box with the list of variables and ask the user to indicate the missing ones. There will be a prompt for each variable that has not been entered in the input.  
+If you decide to **not** want continuous or categorical variables, there are two options: put them `= NA` as input or to select` 0` as the choice in the corresponding dialog box.
+
+Once all the variables to be considered have been defined, the function will first identify the tests to be used for the continues (paired t-test, 2 sample t-test or Welch's t-test for parametric; Wilcoxon or Mann-Whitney for non parameterics) and then those for the categorical ones (chi-squared test, chi-squared test with continuity correction or Fisher exact test).  
+At this point, all the information are ready and the table is built.
+
+### Output
+
+Let's now see how functions provide different outputs with the same inputs.
+
+```{example}
+Divide the *mtcars* dataset according to the dichotomous variable *am* and analyze the continuous variables *mpg* and *disp*, and the categorical ones *cyl* and *vs*.
+```
+
+#### desc_table
+
+```{r desctable, comment = ""}
+desc_table(mtcars, group.var = "am", cont.var = c("mpg", "disp"), cat.var = c("cyl", "vs"))
+```
+
+As you can see, a table with 5 columns (variable, value_1 group variable, value_2 group variable, p-value and method) is provided. The names of the columns of the group variable values are provided in such a way as to exactly reflect their names in the initial dataset, with the addition of their numerosity.  
+The table is ready to be exported to a txt or csv file and opened with other programs to be modified.
+
+#### desc_kable
+
+```{r desckable, comment = ""}
+desc_kable(mtcars, group.var = "am", cont.var = c("mpg", "disp"), cat.var = c("cyl", "vs"))
+```
+
+You can immediately notice the differences with the previous table. The output is a table, but in reality the output is a 'kableExtra' chr vector containing the string that R reads to show the kable. This table is aesthetically better and more intuitive: there is no longer the method column, replaced by footnotes and quotes on the variable names; there is the appearance of the name of the grouping variable ("am" in this example, which was not there before). Furthermore, for an aesthetic question, the p-values have been approximated (<0.01, not in example, <0.001 or to the third decimal place for those > 0.01).
+
+**Important**: The function provides a table with the writings and lines in black, in order to be able to display it correctly in a dark theme (as in this case), it is necessary to indicate the style of the tables at the beginning of the file (in this case, white background and black lettering) with css code.
+
+### Possible improvements
+
+To date, I don't see any particular shortcomings in these functions, but surely in a few months they will come out thanks to a "more expert" eye, as in the case of my first function.
+
+
+:::

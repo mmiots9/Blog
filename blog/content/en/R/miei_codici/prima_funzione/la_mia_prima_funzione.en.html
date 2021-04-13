@@ -34,8 +34,8 @@ authorImage: "/images/whoami/me.jpeg"
 Today, I’m here to show my first function, written during my thesis internship.<br />
 The aim of this post is not to analyze step by step the code of the function, but to understand why it was written, its use, the main feautures and how it could be improved.<br />
 <strong>Disclaimer:</strong> data shown in the table are fake.</p>
-<div id="why-it-was-written" class="section level3">
-<h3>Why it was written</h3>
+<div id="aim" class="section level3">
+<h3>Aim</h3>
 As for all the functions, it was written because I needed to save time in copying and pasting from an Excel file to another. In particular, during my thesis internship in the Viral Pathogenesis and Biosafety Unit, I used to work with PCR techniques to analyze transcriptional levels in Zika Virus-infected macrophages. PCR machine returned an Excel file like this:
 <div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:415px; ">
 <table>
@@ -2364,16 +2364,24 @@ As you can see by comparing the tables, the needed work is time-consuming and er
 This means that every time I had to filter out by gene, carefully select the right cells, and paste them in the other file; you can clearly imagine how long it used take and how many mistakes had been made.</p>
 <p>For all these reasons, one night I decided to write a function that takes the PCR file and returns an Excel file with one gene table per sheet, all in ~20 seconds (and you will now see why it takes so much time).</p>
 </div>
-<div id="needed-packages-and-function-launch" class="section level3">
-<h3>Needed packages and function launch</h3>
-<p>To launch the function, you just need to type the name of the function, with no input required; however, the following packages must be already installed in the machine:</p>
-<ul>
-<li>readxl</li>
-<li>svGUI</li>
-<li>svDialogs</li>
-<li>dplyr</li>
-<li>xlsx</li>
-</ul>
+<div id="function-command-and-required-packages" class="section level3">
+<h3>Function command and required packages</h3>
+To launch the function, you just need to type the name of the function, with no input required; however, the following packages must be already installed in the machine:
+<li>
+readxl
+</li>
+<li>
+svGUI
+</li>
+<li>
+svDialogs
+</li>
+<li>
+dplyr
+</li>
+<li>
+xlsx
+</li>
 </div>
 <div id="main-steps" class="section level3">
 <h3>Main steps</h3>
@@ -2385,14 +2393,23 @@ The table is then imported into R; as you have noticed before, the table contain
 </div>
 <div id="possible-improvements" class="section level3">
 <h3>Possible improvements</h3>
-<p>Although in the eyes of the less experienced it may seem a well-done function (and I was convinced of it when I created it), now that I look at it with a more “trained” vision, I can guarantee that it can be improved in several points. In particular, there are several limits:</p>
-<ul>
-<li>total absence of automation: the user must select one file at a time and also indicate the reference columns</li>
-<li>length of the process: again, for the reasons above, there is a need for interaction with the user and, therefore, more time requested</li>
-<li>possibility to work only if the analyses are done in duplicates, otherwise some rows of interest are deleted</li>
-<li>output in Excel format only</li>
-<li>one table per sheet in the output, it would be better to have the tables one below the other in one single sheet/file</li>
-</ul>
-<p>This is an example of how working more and more with R, you can notice inaccuracies and rookie “mistakes” - which are normal - and already have an idea of how you can improve your work, but this will be the content for a future post.</p>
+Although in the eyes of the less experienced it may seem a well-done function (and I was convinced of it when I created it), now that I look at it with a more “trained” vision, I can guarantee that it can be improved in several points. In particular, there are several limits:
+<li>
+total absence of automation: the user must select one file at a time and also indicate the reference columns
+</li>
+<li>
+length of the process: again, for the reasons above, there is a need for interaction with the user and, therefore, more time requested
+</li>
+<li>
+possibility to work only if the analyses are done in duplicates, otherwise some rows of interest are deleted
+</li>
+<li>
+output in Excel format only
+</li>
+<li>
+one table per sheet in the output, it would be better to have the tables one below the other in one single sheet/file
+</li>
+<p><br>
+This is an example of how working more and more with R, you can notice inaccuracies and rookie “mistakes” - which are normal - and already have an idea of how you can improve your work, but this will be the content of a future post.</p>
 </div>
 </div>

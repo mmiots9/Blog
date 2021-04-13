@@ -1,0 +1,117 @@
+---
+title: "Desc_table e desc_kable"
+date: 2021-04-13
+modified: 
+description: "Funzioni che permettono di costruire una tabella di statistica descrittiva di due campioni, valutando inoltre le eventuali differenze tra di essi"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Funzioni
+- Statistica descrittiva
+- Tabelle
+- P-value
+series:
+- Le mie funzioni
+categories:
+image: "/images/R/miei_codici/r.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+::: {style="text-align: justify;"}
+<style>
+table { 
+    background-color: white !important;
+    color: black !important;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(mrt.functions)
+library(kableExtra)
+```
+
+Oggi voglio illustrare due funzioni molto simili che ho sviluppato in questi giorni, in seguito ad una richiesta di aiuto da parte di una mia amica: `desc_table` e `desc_kable`.
+
+### Scopo
+
+La mia amica aveva bisogno di un aiuto per fare la statistica descrittiva di un suo dataset, confrontando il gruppo controllo con il gruppo sperimentale. Questo mi ha fatto venire l'idea di una funzione che facesse tutto da sola e ritornasse la classica tabella della funzione descrittiva (spesso la tabella 1 dei paper), in cui sulle righe ci sono le varie variabili prese in esame, e le colonne rappresentano i valori dei gruppi sperimentali e il p-value associato al confronto per quella variabile.\
+Ecco un esempio della struttura della tabella:
+
+```{r tabella1, echo = FALSE}
+variabili <- c("Continua", "Categorica")
+controlli <- casi <- c("media ± SD", "n (%)")
+`p-value` <- c(rep("p-value", 2))
+
+df <- data.frame(variabili, controlli, casi, `p-value`)
+colnames(df)[4] <- "p-value"
+
+kable(df, align = "c", table.attr = "style='width:80%; margin-left:auto;margin-right:auto'") 
+```
+
+<br>
+
+Seppur molto simili, le due funzioni differiscono per lo scopo dell'output. Infatti, `desc_table` fornisce una tabella come quella di sopra con una colonna aggiuntiva relativa al metodo statistico utilizzato per il calcolo del p-value; lo scopo è di avere un output abbastanza grezzo da poter essere manipolato poi manualmente.\
+Diversamente, `desc_kable` ritorna una stringa di caratteri di classe KableExtra che si può lanciare per avere una tabella più carina da usare o da salvare come immagine. La colonna del metodo statistico non c'è e viene sostituita da indici e note a piè di tabella (dopo vediamo gli esempi per evidenziare meglio le differenze).
+
+Essendo le funzioni identiche per quanto riguarda gli input, e molto simili negli step, descriverò il funzionamento di `desc_table`, lasciando alla sezione di [output] la speiegazione delle differenze. 
+
+### Lancio della funzione e input
+
+La funzione viene chiamata col comando `desc_table(data = , group.var = , cont.var = , cat.var = , paired = )`.\
+Velocemente, `data` è il dataset da prendere in considerazione. `group.var`, `cont.var` e `cat.var` richiedono stringhe (o vettori di stringhe) corrispondenti alla variabile che divide in gruppi il dataset, e alle variabili continue e categoriche da prendere in esame, rispettivamente. Possono essere omesse o `= NA`.\
+**NB:** `group.var` DEVE dividere il dataset in <ins>due</ins> soli gruppi.\
+`paired` è un input logico, che verrà utilizzato per determinare se i test per le variabili continue sono quelli *paired* o meno. Di default è `F`.\
+**Data** è l'unico input *necessario* da fornire al momento del comando; le variabili possono essere omesse e paired ha un valore di default.
+
+### Principali step della funzione
+
+Come per [la mia prima funzione](https://miotsdata.netlify.app/it/r/miei_codici/prima_funzione/la_mia_prima_funzione/), lo scopo del post non è entrare nei dettagli della funzione, per questo motivo di seguito farò una panoramica dei principali step della funzione.\
+La prima cosa che la funzione fa è valutare se i tre input sulle variabili sono stati inseriti, in caso contrario aprirà una finestra di dialogo con l'elenco delle variabili e chiederà all'utente di indicare quelle mancanti (in base a quelle che non sono state inserite nell'input). Ci sarà una richiesta per ogni variabile che non è stata inserita in input.\
+Se si decide di **non** volere le variabili continue o quelle categoriche, ci sono due alternative: porle `= NA` in input oppure nella finestra di dialogo corrispondente indicare `0` come scelta.
+
+Una volta definite tutte le variabili da prendere in esame, la funzione dapprima individuerà i test da utilizzare per le continue (paired t-test, 2 sample t-test o Welch's t.test per i parametrici; Wilcoxon o Mann-Whitney per i non parametrici) e poi quelle per le categoriche (chi-squared test, chi-squared test con la correzione di continuità o Fisher exact test).\
+A questo punto tutte le informazioni sono pronte e la tabella viene costruita.
+
+### Output
+
+Vediamo ora come le funzioni forniscano output differenti con gli stessi input.
+
+```{example}
+Suddividere il dataset *mtcars* secondo la variabile dicotomica *am* e analizzare le variabili continue *mpg* e *disp* e quelle categoriche *cyl* e *vs*.
+```
+
+#### desc_table
+
+```{r desctable, comment = ""}
+desc_table(mtcars, group.var = "am", cont.var = c("mpg", "disp"), cat.var = c("cyl", "vs"))
+```
+
+Come si può vedere, viene fornita una tabella con 5 colonne (variabile, valore_1 variabile gruppo, valore_2 variabile gruppo, p-value e method). I nomi delle colonne dei valori della variabile gruppo sono fornite in modo tale da rispecchiare esattamente il loro nome nel dataset iniziale, con l'aggiunta della loro numerosità.\
+La tabella è pronta per essere esportata in un file txt o csv e aperta con altri programmi per essere modificata.
+
+#### desc_kable
+
+
+```{r desckable, comment = ""}
+desc_kable(mtcars, group.var = "am", cont.var = c("mpg", "disp"), cat.var = c("cyl", "vs"))
+```
+
+Si può notare subito la differenza con la tabella di prima. L'otput che vedere è una tabella, ma in realtà l'output è un 'kableExtra' chr vector contenente la stringa di codice che R usa per creare la kable. Questa tabella è migliore esteticamente e più intuitiva: non c'è più la colonna dei metodi, sostiutita con note a piè tabella e apici sui nomi delle variabili; c'è la comparsa di "am", ad indicare quale è la variabile di raggruppamento (cosa che prima non c'era). Inoltre, sempre per una questione estetica, i p-value sono stati approssimati (\<0.01, non in esempio, \<0.001 o alla terza cifra decimale per quelli \>0.01).
+
+**Importante**: La funzione fornisce una tabella con le scritte e le righe nere, per poterlo visualizzare correttamente in un tema scuro (come in questo caso), bisogna indicare lo stile delle tabelle all'inizio del file (in questo caso, sfondo bianco e scritte nere).
+
+### Miglioramenti possibili
+
+Ad oggi non vedo particolari carenze in queste funzioni, ma sicuramente fra qualche mese verranno fuori grazie ad un occhio "più esperto", come nel caso della mia prima funzione.
+
+
+:::

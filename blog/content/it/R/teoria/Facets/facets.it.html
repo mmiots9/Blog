@@ -30,12 +30,14 @@ authorImage: "/images/whoami/me.jpeg"
 
 
 <div style="text-align: justify;">
-<p>In questo post analizziamo più nel dettaglio la componente <em>Facets</em> di ggplot2, la quale ci permette di dividere un grafico in più pannelli, ognuno corrispondente ad una categoria di una (o più) variabile categorica.
-Ci sono due comandi che si possono utilizzare, si sceglie in base al numero di variabili categoriche secondo cui si vogliono suddividere i dati e/o al tipo di grafico che si vuole ottenere:</p>
-<ul>
-<li><code>facet_wrap()</code>: nel caso in cui si voglia usare una sola variabile categorica e decidere il numero di pannelli per ogni riga/colonna</li>
-<li><code>facet_grid()</code>: nel caso in cui le variabili categoriche fossero due o in casi particolari di una sola variabile</li>
-</ul>
+In questo post analizziamo più nel dettaglio la componente <em>Facets</em> di ggplot2, la quale ci permette di dividere un grafico in più pannelli, ognuno corrispondente ad una categoria di una (o più) variabile categorica.
+Ci sono due comandi che si possono utilizzare, si sceglie in base al numero di variabili categoriche secondo cui si vogliono suddividere i dati e/o al tipo di grafico che si vuole ottenere:
+<li>
+<code>facet_wrap()</code>: nel caso in cui si voglia usare una sola variabile categorica e decidere il numero di pannelli per ogni riga/colonna
+</li>
+<li>
+<code>facet_grid()</code>: nel caso in cui le variabili categoriche fossero due o in casi particolari di una sola variabile
+</li>
 <p><strong>NB:</strong> ho parlato di sole variabili categoriche, perchè nel caso di variabili continue si avrebbe un pannello per ogni valore della variabile continua utilizzata; il risultato sarebbe un insieme di grafici veramente poco chiaro.</p>
 <div id="facet_wrap" class="section level2">
 <h2>Facet_wrap</h2>
@@ -51,15 +53,19 @@ Figura 1: Esempio dell’uso di facet_wrap
 </p>
 </div>
 <p>Come si può vedere, la funzione ha suddiviso lo scatter plot in 3 scatter plot, uno per ogni categoria di cyl (4, 6 e 8). In questo modo si evita il fenomeno chiamato ‘overplotting’, che si ha quando ci sono troppi punti plottati e diventa difficile distinguerli.</p>
-<p>Vediamo ora quali altri input si possono dare alla funzione:</p>
-<ul>
-<li><code>nrow</code> o <code>ncol</code>: difiniamo il numero di righe o colonne. Utile quando si hanno tanti pannelli per organizzarli in griglia piuttosto che averli tutti schiacciati o in orizzontale o in verticale<br />
+Vediamo ora quali altri input si possono dare alla funzione:
+<li>
+<code>nrow</code> o <code>ncol</code>: difiniamo il numero di righe o colonne. Utile quando si hanno tanti pannelli per organizzarli in griglia piuttosto che averli tutti schiacciati o in orizzontale o in verticale<br />
 </li>
-<li><code>dir</code>: le opzioni sono ‘h’ o ‘v’, per definire l’orientamento verticale o orizzontale della suddivisione. In pratica, decidiamo se avere i grafici suddivisi per colonna, come nell’esempio, o per riga</li>
-<li><code>drop</code>: opzione importante se si vogliono eliminare i grafici corrispondenti alle categorie senza alcun dato (grafici vuoti). Le opzioni sono T (elimina) o F (mantieni tutti)<br />
+<li>
+<code>dir</code>: le opzioni sono ‘h’ o ‘v’, per definire l’orientamento verticale o orizzontale della suddivisione. In pratica, decidiamo se avere i grafici suddivisi per colonna, come nell’esempio, o per riga
 </li>
-<li><code>strip.position</code>: indichiamo la posizione delle etichette della variabile categorica con le parole <em>top</em>, <em>bottom</em>, <em>left</em> o <em>right</em></li>
-</ul>
+<li>
+<code>drop</code>: opzione importante se si vogliono eliminare i grafici corrispondenti alle categorie senza alcun dato (grafici vuoti). Le opzioni sono T (elimina) o F (mantieni tutti)<br />
+</li>
+<li>
+<code>strip.position</code>: indichiamo la posizione delle etichette della variabile categorica con le parole <em>top</em>, <em>bottom</em>, <em>left</em> o <em>right</em>
+</li>
 <br>
 
 <div class="example">
@@ -125,16 +131,22 @@ Il comando della funzione base è <code>facet_wrap(categorica_righe ~ categorica
 Figura 6: Esempio dell’uso di facet_grid()
 </p>
 </div>
-<p>Ora gli scatter plot sono 6, suddivisi in due righe (corrispondenti ai due valori di am) e tre colonne (relative ai diversi valori di cyl).<br />
+Ora gli scatter plot sono 6, suddivisi in due righe (corrispondenti ai due valori di am) e tre colonne (relative ai diversi valori di cyl).<br />
 Come si può intuire, il numero di righe e di colonne è determinato dal numero di valori di ogni variabile categorica, <strong>non</strong> si può, dunque, indicare il numero di righe e/o colonne che dovrà avere il grafico.<br />
-Quali sono le impostazioni che si possono chiamare?</p>
-<ul>
-<li><code>scales</code>: in modo analogo a quello che fa in <em>facet_wrap</em>, scales ci permette di decidere se avere assi con range comuni per tutti i grafici oppure diversificati in base al range dei dati di ogni grafico</li>
-<li><code>drop</code>: opzione importante se si vogliono eliminare i grafici corrispondenti alle categorie senza alcun dato (grafici vuoti). Le opzioni sono T (elimina) o F (mantieni tutti)<br />
+Quali sono le impostazioni che si possono chiamare?<br />
+
+<li>
+<code>scales</code>: in modo analogo a quello che fa in <em>facet_wrap</em>, scales ci permette di decidere se avere assi con range comuni per tutti i grafici oppure diversificati in base al range dei dati di ogni grafico
 </li>
-<li><code>switch</code>: sostituisce <code>strip.position</code> della funzione facet_wrap. Le opzioni però sono diverse, infatti va indicato l’asse per cui si vuole cambiare la posizione delle etichette rispetto a quella di default (alto per le x, destra per le y); il alternativa si può indicare “both” per avere un cambio su entrambi gli assi</li>
-<li><code>margins</code>: questa funzione non viene quasi mai citata, ma può risultare utile a volte. Infatti, dà la possibilità di aggiungere dei pannelli in cui sono graficati tutti i dati di ogni riga/colonna o di entrambe. Le opzioni sono <em>TRUE</em> per avere tutti i grafici sommatori, oppure la stringa corrispondente alla variabile categorica di cui vogliamo i grafici sommati</li>
-</ul>
+<li>
+<code>drop</code>: opzione importante se si vogliono eliminare i grafici corrispondenti alle categorie senza alcun dato (grafici vuoti). Le opzioni sono T (elimina) o F (mantieni tutti)<br />
+</li>
+<li>
+<code>switch</code>: sostituisce <code>strip.position</code> della funzione facet_wrap. Le opzioni però sono diverse, infatti va indicato l’asse per cui si vuole cambiare la posizione delle etichette rispetto a quella di default (alto per le x, destra per le y); il alternativa si può indicare “both” per avere un cambio su entrambi gli assi
+</li>
+<li>
+<code>margins</code>: questa funzione non viene quasi mai citata, ma può risultare utile a volte. Infatti, dà la possibilità di aggiungere dei pannelli in cui sono graficati tutti i dati di ogni riga/colonna o di entrambe. Le opzioni sono <em>TRUE</em> per avere tutti i grafici sommatori, oppure la stringa corrispondente alla variabile categorica di cui vogliamo i grafici sommati
+</li>
 <br>
 
 <div class="example">
@@ -165,13 +177,17 @@ Vediamo subito come funziona, perchè risulta più facile da visualizzare che sp
 Figura 8: Con <em>scales</em> e <em>space</em> = “free_x”
 </p>
 </div>
-<p>Si può subito vedere come, rispetto al grafico in figura <a href="#fig:facetwrapscalesx2">5</a>, ora ci sia proporzione tra i grafici rappresentanti le varie classi; infatti, ogni casa automobilistica occupa lo stesso spazio sull’asse x e le barre hanno tutte la stessa larghezza.<br />
-Il grafico è molto più chiaro ora, purtroppo le classi con poche occorrenze hanno il nome tagliato; ci sono varie opzioni per sistemare ciò:</p>
-<ul>
-<li>diminuire la dimensione del testo: sconsigliata perchè non si riuscirebbero a leggere</li>
-<li>cambiare tipologia di grafico: una delle opzioni migliori in quanto bisogna capire bene i dati con cui si ha a che fare ed adattare il tipo di grafico ad essi, non cercare di forzare le cose per avere il grafico che si vuole quando i dati non lo permettono</li>
-<li>avere conoscenze avanzate di ggplot2 e creare il grafico seguente:</li>
-</ul>
+Si può subito vedere come, rispetto al grafico in figura <a href="#fig:facetwrapscalesx2">5</a>, ora ci sia proporzione tra i grafici rappresentanti le varie classi; infatti, ogni casa automobilistica occupa lo stesso spazio sull’asse x e le barre hanno tutte la stessa larghezza.<br />
+Il grafico è molto più chiaro ora, purtroppo le classi con poche occorrenze hanno il nome tagliato; ci sono varie opzioni per sistemare ciò:
+<li>
+diminuire la dimensione del testo: sconsigliata perchè non si riuscirebbero a leggere
+</li>
+<li>
+cambiare tipologia di grafico: una delle opzioni migliori in quanto bisogna capire bene i dati con cui si ha a che fare ed adattare il tipo di grafico ad essi, non cercare di forzare le cose per avere il grafico che si vuole quando i dati non lo permettono
+</li>
+<li>
+avere conoscenze avanzate di ggplot2 e creare il grafico seguente:
+</li>
 <br>
 <div class="figure" style="text-align: center"><span id="fig:facetgridscalesspace2"></span>
 <img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetgridscalesspace2-1.png" alt="Grafico avanzato che permette di distinguere bene i nomi delle classi" width="672" />

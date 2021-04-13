@@ -1,0 +1,338 @@
+---
+title: "Desc_table e desc_kable"
+date: 2021-04-13
+modified: 
+description: "Funzioni che permettono di costruire una tabella di statistica descrittiva di due campioni, valutando inoltre le eventuali differenze tra di essi"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Funzioni
+- Statistica descrittiva
+- Tabelle
+- P-value
+series:
+- Le mie funzioni
+categories:
+image: "/images/R/miei_codici/r.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<div style="text-align: justify;">
+<style>
+table { 
+    background-color: white !important;
+    color: black !important;
+}
+</style>
+<p>Oggi voglio illustrare due funzioni molto simili che ho sviluppato in questi giorni, in seguito ad una richiesta di aiuto da parte di una mia amica: <code>desc_table</code> e <code>desc_kable</code>.</p>
+<div id="scopo" class="section level3">
+<h3>Scopo</h3>
+<p>La mia amica aveva bisogno di un aiuto per fare la statistica descrittiva di un suo dataset, confrontando il gruppo controllo con il gruppo sperimentale. Questo mi ha fatto venire l’idea di una funzione che facesse tutto da sola e ritornasse la classica tabella della funzione descrittiva (spesso la tabella 1 dei paper), in cui sulle righe ci sono le varie variabili prese in esame, e le colonne rappresentano i valori dei gruppi sperimentali e il p-value associato al confronto per quella variabile.<br />
+Ecco un esempio della struttura della tabella:</p>
+<table style="width:80%; margin-left:auto;margin-right:auto">
+<thead>
+<tr>
+<th style="text-align:center;">
+variabili
+</th>
+<th style="text-align:center;">
+controlli
+</th>
+<th style="text-align:center;">
+casi
+</th>
+<th style="text-align:center;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Continua
+</td>
+<td style="text-align:center;">
+media ± SD
+</td>
+<td style="text-align:center;">
+media ± SD
+</td>
+<td style="text-align:center;">
+p-value
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Categorica
+</td>
+<td style="text-align:center;">
+n (%)
+</td>
+<td style="text-align:center;">
+n (%)
+</td>
+<td style="text-align:center;">
+p-value
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Seppur molto simili, le due funzioni differiscono per lo scopo dell’output. Infatti, <code>desc_table</code> fornisce una tabella come quella di sopra con una colonna aggiuntiva relativa al metodo statistico utilizzato per il calcolo del p-value; lo scopo è di avere un output abbastanza grezzo da poter essere manipolato poi manualmente.<br />
+Diversamente, <code>desc_kable</code> ritorna una stringa di caratteri di classe KableExtra che si può lanciare per avere una tabella più carina da usare o da salvare come immagine. La colonna del metodo statistico non c’è e viene sostituita da indici e note a piè di tabella (dopo vediamo gli esempi per evidenziare meglio le differenze).</p>
+<p>Essendo le funzioni identiche per quanto riguarda gli input, e molto simili negli step, descriverò il funzionamento di <code>desc_table</code>, lasciando alla sezione di <a href="#output">output</a> la speiegazione delle differenze.</p>
+</div>
+<div id="lancio-della-funzione-e-input" class="section level3">
+<h3>Lancio della funzione e input</h3>
+<p>La funzione viene chiamata col comando <code>desc_table(data = , group.var = , cont.var = , cat.var = , paired = )</code>.<br />
+Velocemente, <code>data</code> è il dataset da prendere in considerazione. <code>group.var</code>, <code>cont.var</code> e <code>cat.var</code> richiedono stringhe (o vettori di stringhe) corrispondenti alla variabile che divide in gruppi il dataset, e alle variabili continue e categoriche da prendere in esame, rispettivamente. Possono essere omesse o <code>= NA</code>.<br />
+<strong>NB:</strong> <code>group.var</code> DEVE dividere il dataset in <ins>due</ins> soli gruppi.<br />
+<code>paired</code> è un input logico, che verrà utilizzato per determinare se i test per le variabili continue sono quelli <em>paired</em> o meno. Di default è <code>F</code>.<br />
+<strong>Data</strong> è l’unico input <em>necessario</em> da fornire al momento del comando; le variabili possono essere omesse e paired ha un valore di default.</p>
+</div>
+<div id="principali-step-della-funzione" class="section level3">
+<h3>Principali step della funzione</h3>
+<p>Come per <a href="https://miotsdata.netlify.app/it/r/miei_codici/prima_funzione/la_mia_prima_funzione/">la mia prima funzione</a>, lo scopo del post non è entrare nei dettagli della funzione, per questo motivo di seguito farò una panoramica dei principali step della funzione.<br />
+La prima cosa che la funzione fa è valutare se i tre input sulle variabili sono stati inseriti, in caso contrario aprirà una finestra di dialogo con l’elenco delle variabili e chiederà all’utente di indicare quelle mancanti (in base a quelle che non sono state inserite nell’input). Ci sarà una richiesta per ogni variabile che non è stata inserita in input.<br />
+Se si decide di <strong>non</strong> volere le variabili continue o quelle categoriche, ci sono due alternative: porle <code>= NA</code> in input oppure nella finestra di dialogo corrispondente indicare <code>0</code> come scelta.</p>
+<p>Una volta definite tutte le variabili da prendere in esame, la funzione dapprima individuerà i test da utilizzare per le continue (paired t-test, 2 sample t-test o Welch’s t.test per i parametrici; Wilcoxon o Mann-Whitney per i non parametrici) e poi quelle per le categoriche (chi-squared test, chi-squared test con la correzione di continuità o Fisher exact test).<br />
+A questo punto tutte le informazioni sono pronte e la tabella viene costruita.</p>
+</div>
+<div id="output" class="section level3">
+<h3>Output</h3>
+<p>Vediamo ora come le funzioni forniscano output differenti con gli stessi input.</p>
+
+<div class="example">
+<span id="exm:unnamed-chunk-1" class="example"><strong>Example 1  </strong></span>Suddividere il dataset <em>mtcars</em> secondo la variabile dicotomica <em>am</em> e analizzare le variabili continue <em>mpg</em> e <em>disp</em> e quelle categoriche <em>cyl</em> e <em>vs</em>.
+</div>
+<div id="desc_table" class="section level4">
+<h4>desc_table</h4>
+<pre class="r"><code>desc_table(mtcars, group.var = &quot;am&quot;, cont.var = c(&quot;mpg&quot;, &quot;disp&quot;), cat.var = c(&quot;cyl&quot;, &quot;vs&quot;))</code></pre>
+<pre><code>  Variabile        0 (n = 19)       1 (n = 13)      p-value
+1       mpg    17.147 ± 3.834   24.392 ± 6.167 0.0002850207
+2      disp 290.379 ± 110.172 143.531 ± 87.204 0.0005493451
+3       cyl                                    0.0126466050
+4         4        3 (15.79%)       8 (61.54%)           NA
+5         6        4 (21.05%)       3 (23.08%)           NA
+6         8       12 (63.16%)       2 (15.38%)           NA
+7        vs                                    0.5555115470
+8         0       12 (63.16%)       6 (46.15%)           NA
+9         1        7 (36.84%)       7 (53.85%)           NA
+                                                        method
+1                                            Two Sample t-test
+2            Wilcoxon rank sum test with continuity correction
+3                                   Pearson&#39;s Chi-squared test
+4                                                             
+5                                                             
+6                                                             
+7 Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+8                                                             
+9                                                             </code></pre>
+<p>Come si può vedere, viene fornita una tabella con 5 colonne (variabile, valore_1 variabile gruppo, valore_2 variabile gruppo, p-value e method). I nomi delle colonne dei valori della variabile gruppo sono fornite in modo tale da rispecchiare esattamente il loro nome nel dataset iniziale, con l’aggiunta della loro numerosità.<br />
+La tabella è pronta per essere esportata in un file txt o csv e aperta con altri programmi per essere modificata.</p>
+</div>
+<div id="desc_kable" class="section level4">
+<h4>desc_kable</h4>
+<pre class="r"><code>desc_kable(mtcars, group.var = &quot;am&quot;, cont.var = c(&quot;mpg&quot;, &quot;disp&quot;), cat.var = c(&quot;cyl&quot;, &quot;vs&quot;))</code></pre>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;" colspan="1">
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+am
+</div>
+</th>
+<th style="empty-cells: hide;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+0 (n = 19)
+</th>
+<th style="text-align:left;">
+1 (n = 13)
+</th>
+<th style="text-align:left;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<b>mpg</b> <sup>a</sup>
+</td>
+<td style="text-align:left;">
+17.147 ± 3.834
+</td>
+<td style="text-align:left;">
+24.392 ± 6.167
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<b>disp</b> <sup>b</sup>
+</td>
+<td style="text-align:left;">
+290.379 ± 110.172
+</td>
+<td style="text-align:left;">
+143.531 ± 87.204
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<b>cyl</b> <sup>c</sup>
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+3 (15.79%)
+</td>
+<td style="text-align:left;">
+8 (61.54%)
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+4 (21.05%)
+</td>
+<td style="text-align:left;">
+3 (23.08%)
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+12 (63.16%)
+</td>
+<td style="text-align:left;">
+2 (15.38%)
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<b>vs</b> <sup>d</sup>
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.556
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+12 (63.16%)
+</td>
+<td style="text-align:left;">
+6 (46.15%)
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+7 (36.84%)
+</td>
+<td style="text-align:left;">
+7 (53.85%)
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Statistical tests
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Two Sample t-test;
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>b</sup> Wilcoxon rank sum test with continuity correction;
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>c</sup> Pearson’s Chi-squared test;
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>d</sup> Pearson’s Chi-squared test with Yates’ continuity correction;
+</td>
+</tr>
+</tfoot>
+</table>
+<p>Si può notare subito la differenza con la tabella di prima. L’otput che vedere è una tabella, ma in realtà l’output è un ‘kableExtra’ chr vector contenente la stringa di codice che R usa per creare la kable. Questa tabella è migliore esteticamente e più intuitiva: non c’è più la colonna dei metodi, sostiutita con note a piè tabella e apici sui nomi delle variabili; c’è la comparsa di “am”, ad indicare quale è la variabile di raggruppamento (cosa che prima non c’era). Inoltre, sempre per una questione estetica, i p-value sono stati approssimati (&lt;0.01, non in esempio, &lt;0.001 o alla terza cifra decimale per quelli &gt;0.01).</p>
+<p><strong>Importante</strong>: La funzione fornisce una tabella con le scritte e le righe nere, per poterlo visualizzare correttamente in un tema scuro (come in questo caso), bisogna indicare lo stile delle tabelle all’inizio del file (in questo caso, sfondo bianco e scritte nere).</p>
+</div>
+</div>
+<div id="miglioramenti-possibili" class="section level3">
+<h3>Miglioramenti possibili</h3>
+<p>Ad oggi non vedo particolari carenze in queste funzioni, ma sicuramente fra qualche mese verranno fuori grazie ad un occhio “più esperto”, come nel caso della mia prima funzione.</p>
+</div>
+</div>

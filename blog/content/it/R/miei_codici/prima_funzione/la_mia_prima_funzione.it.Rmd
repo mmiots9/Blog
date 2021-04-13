@@ -39,7 +39,7 @@ Parafrasando una famosa frase, "la prima funzione non si scorda mai". Ed è prop
 Lo scopo di questo post non è quello di mostrare il codice della funzione ed analizzarlo, quanto più capire il perchè è stata scritta, a cosa serviva, i suoi passaggi principali e come potrebbe essere migliorata.  
 **Disclaimer:** i dati che vedrete pubblicati in questa pagina sono fittizi.
 
-### Perchè?
+### Perchè? 
 
 Come ogni funzione, ho sentito la necessità di crearla per ottimizzare i tempi. In particolare, durante il mio internato di tesi presso il laboratorio di Patogeni Virali e Biosicurezza, usavo spesso la PCR per ricavare dati relativi alla trascrizione di geni in macrofagi infettati dal virus Zika. La macchina della PCR forniva un file Excel come questo:
 ```{r, echo = FALSE}
@@ -62,12 +62,15 @@ Per tutti questi motivi, una sera mi misi a scrivere una funzione che prendesse 
 ### Prerequisiti e lancio della funzione
 
 Per lanciare la funzione basta digitare il nome della funzione, senza alcun input; tuttavia, i seguenti pacchetti saranno caricati dalla funzione, ma devono essere già installati sulla macchina: 
+<li>readxl</li>
 
-* readxl
-* svGUI
-* svDialogs
-* dplyr
-* xlsx
+<li>svGUI</li>
+
+<li>svDialogs</li>
+
+<li>dplyr</li>
+
+<li>xlsx</li>
 
 ### Principali step della funzione
 
@@ -83,12 +86,15 @@ A questo punto è tutto pronto, grazie ad un `for loop` nel quale viene preso in
 ### Miglioramenti possibili
 
 Nonostante agli occhi dei meno esperti possa sembrare una funzione ben fatta (e ne ero convinto anche io all'inizio), ora che la riguardo con occhi più "allenati", posso garantirvi che ci sono un sacco di punti in cui è migliorabile. In particolare, ci sono alcuni limiti:
+<li>totale assenza di automazione: l'utente deve selezionare un file per volta e indicare anche le colonne di riferimento</li>
 
-* totale assenza di automazione: l'utente deve selezionare un file per volta e indicare anche le colonne di riferimento
-* lunghezza del processo: sempre per i motivi di sopra, c'è isogno di interazione con l'utente e quindi tempo in più
-* possibilità di lavorare solo se le analisi vengono fatte in duplicato, altrimenti vengono eliminae righe di interesse
-* output solo in formato Excel
-* una tabella per foglio nell'output: sarebbe meglio avere le tabelle una sotto l'altra in un unico file
+<li>lunghezza del processo: sempre per i motivi di sopra, c'è isogno di interazione con l'utente e quindi tempo in più</li>
+
+<li>possibilità di lavorare solo se le analisi vengono fatte in duplicato, altrimenti vengono eliminae righe di interesse</li>
+
+<li>output solo in formato Excel</li>
+
+<li>una tabella per foglio nell'output: sarebbe meglio avere le tabelle una sotto l'altra in un unico file</li>
 
 Questo è un esempio di come lavorando sempre più su R si possano notare imprecisioni ed "errori" da principiante - che sono più che normali - e di come si abbia già un'idea su come si possa migliorare il tutto, ma questo sarà oggetto di un futuro post.
 

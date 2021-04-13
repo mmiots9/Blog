@@ -30,12 +30,14 @@ authorImage: "/images/whoami/me.jpeg"
 
 
 <div style="text-align: justify;">
-<p>In this post, we will analyze <em>Facets</em> function of Ggplot2: it allows us to split the data into multiple panels, based on one (or more) categorical variable(s).<br />
-There are two functions that can be used; we choose one or another according to the number of categorical variables and/or the type of graph we want:</p>
-<ul>
-<li><code>facet_wrap()</code>: when we have one categorical variable and we want to decide the number of rows/columns</li>
-<li><code>facet_grid()</code>: when we have two categorical variables or in particular cases with only one categorical variable</li>
-</ul>
+In this post, we will analyze <em>Facets</em> function of Ggplot2: it allows us to split the data into multiple panels, based on one (or more) categorical variable(s).<br />
+There are two functions that can be used; we choose one or another according to the number of categorical variables and/or the type of graph we want:
+<li>
+<code>facet_wrap()</code>: when we have one categorical variable and we want to decide the number of rows/columns
+</li>
+<li>
+<code>facet_grid()</code>: when we have two categorical variables or in particular cases with only one categorical variable
+</li>
 <p><strong>Important:</strong> I have only spoken about categorical variables; that’s because if we had continue variables, we would have one plot for each value of the continue variables, resulting in a very unclear bunch of small panels.</p>
 <div id="facet_wrap" class="section level2">
 <h2>Facet_wrap</h2>
@@ -51,13 +53,19 @@ Figure 1: Facet_wrap use example
 </p>
 </div>
 <p>As you can see, the function has split the scatter plot into 3 minor plots, one for each value of cyl (4, 6 and 8). This allows to avoid the so-called ‘overplotting’ phenomenon, that we have when too many data are plotted and, so, are different to distinghuish.</p>
-<p>After having seen the basic function call, let’s analyze the other inputs:</p>
-<ul>
-<li><code>nrow</code> o <code>ncol</code>: set the number of rows/columns into which divides the panels. It is useful with a consistent number of panels, because organizing them in a grid is better than to have them all shrink in horizontal or vertical</li>
-<li><code>dir</code>: used to define the horizonal ‘h’ or vertical ‘v’ of the panels; this means that we can decide in the panels should be divided by columns (as the figure above), or by rows</li>
-<li><code>drop</code>: logical value to set if empty panels (with no data) should be printed or not</li>
-<li><code>strip.position</code>: choose where to put the labels of the categorical variable, options are <em>top</em>, <em>bottom</em>, <em>left</em> or <em>right</em></li>
-</ul>
+After having seen the basic function call, let’s analyze the other inputs:
+<li>
+<code>nrow</code> o <code>ncol</code>: set the number of rows/columns into which divides the panels. It is useful with a consistent number of panels, because organizing them in a grid is better than to have them all shrink in horizontal or vertical
+</li>
+<li>
+<code>dir</code>: used to define the horizonal ‘h’ or vertical ‘v’ of the panels; this means that we can decide in the panels should be divided by columns (as the figure above), or by rows
+</li>
+<li>
+<code>drop</code>: logical value to set if empty panels (with no data) should be printed or not
+</li>
+<li>
+<code>strip.position</code>: choose where to put the labels of the categorical variable, options are <em>top</em>, <em>bottom</em>, <em>left</em> or <em>right</em>
+</li>
 <br>
 
 <div class="example">
@@ -122,15 +130,21 @@ The basic command is <code>facet_wrap(categoric_rows ~ categoric_columns)</code>
 Figure 6: Example of facet_grid use
 </p>
 </div>
-<p>The scatter plots are 6, divided into 2 rows (based on am values) and 3 columns (based on cyl values).<br />
+The scatter plots are 6, divided into 2 rows (based on am values) and 3 columns (based on cyl values).<br />
 As we can guess, row and column numbers are determined by the number of categries in the categorical varibles, so we <strong>can’t</strong> set them.<br />
-But, which are the inputs of facet_grid function?</p>
-<ul>
-<li><code>scales</code>: as in <em>facet_wrap</em>, scales allows us to decide if the axes should have the same limits or not</li>
-<li><code>drop</code>: logical value to set if empty panels (with no data) should be printed or not</li>
-<li><code>switch</code>: it replaces <code>strip.position</code> of facet_wrap. The options are different, because here we have to specify the axis whose labels we want to change. The dafault values put the labels on the top (for x-axis) and on the right (for y-axis); by giving the name of the axis we want to change, the function sets the opposite with respect to the default values. We can also set ‘both’ to change both labels position</li>
-<li><code>margins</code>: this input is barely seen in other guides, but it can be useful. In fact, it gives the possibility to add summary panels in which all of the data of a row/column are plotted. The options are <em>TRUE</em> (to have both row and column summary), or the string of the name of the categorical variable we want (<strong>important:</strong> the string of the variable name, not just variable name as for aestethic. see the example below)</li>
-</ul>
+But, which are the inputs of facet_grid function?
+<li>
+<code>scales</code>: as in <em>facet_wrap</em>, scales allows us to decide if the axes should have the same limits or not
+</li>
+<li>
+<code>drop</code>: logical value to set if empty panels (with no data) should be printed or not
+</li>
+<li>
+<code>switch</code>: it replaces <code>strip.position</code> of facet_wrap. The options are different, because here we have to specify the axis whose labels we want to change. The dafault values put the labels on the top (for x-axis) and on the right (for y-axis); by giving the name of the axis we want to change, the function sets the opposite with respect to the default values. We can also set ‘both’ to change both labels position
+</li>
+<li>
+<code>margins</code>: this input is barely seen in other guides, but it can be useful. In fact, it gives the possibility to add summary panels in which all of the data of a row/column are plotted. The options are <em>TRUE</em> (to have both row and column summary), or the string of the name of the categorical variable we want (<strong>important:</strong> the string of the variable name, not just variable name as for aestethic. see the example below)
+</li>
 
 <div class="example">
 <span id="exm:facetrgridmarginsex" class="example"><strong>Example 3  </strong></span>Add to the panels in figure <a href="#fig:facetgrid">6</a> the summary panels for the variable “am”, also changing the position of the cyl labels.
@@ -160,13 +174,17 @@ Let’s see how it works, since it is easier to visualize than explain.</p>
 Figure 8: With both <em>scales</em> and <em>space</em> = “free_x”
 </p>
 </div>
-<p>You can immediately see how, compared to the graph in figure <a href="#fig:facetwrapscalesx2">5</a>, there is a proportion between the graphs representing the various classes; in fact, each car manufacturer occupies the same space on the x axis and all the bars have the same width.
-The graph is much clearer now, unfortunately the classes with few data have the name cut off; there are various options to fix this:</p>
-<ul>
-<li>decrease text size: not reccomended because they wold be too small to be read</li>
-<li>change graph type: one of the best options, since we should clearly understand our data and adapt the graph based on them, and NOT try to force the data to fit in a specific graph, even when they don’t allow us</li>
-<li>having such advanced ggplot2 graphic skills to create this graph:</li>
-</ul>
+You can immediately see how, compared to the graph in figure <a href="#fig:facetwrapscalesx2">5</a>, there is a proportion between the graphs representing the various classes; in fact, each car manufacturer occupies the same space on the x axis and all the bars have the same width.
+The graph is much clearer now, unfortunately the classes with few data have the name cut off; there are various options to fix this:
+<li>
+decrease text size: not reccomended because they wold be too small to be read
+</li>
+<li>
+change graph type: one of the best options, since we should clearly understand our data and adapt the graph based on them, and NOT try to force the data to fit in a specific graph, even when they don’t allow us
+</li>
+<li>
+having such advanced ggplot2 graphic skills to create this graph:
+</li>
 <br>
 <div class="figure" style="text-align: center"><span id="fig:facetgridscalesspace2"></span>
 <img src="/en/R/teoria/Facets/facets.en_files/figure-html/facetgridscalesspace2-1.png" alt="Adavanced graph that allow us to read all class names" width="672" />

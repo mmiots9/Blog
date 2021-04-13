@@ -30,18 +30,32 @@ authorImage: "/images/whoami/me.jpeg"
 <div style="text-align: justify;">
 <p>Ggplot2 è un utilissimo pacchetto grafico che ci permette di ricreare praticamente qualunque tipologia di grafico, esattamente nel modo in cui l’abbiamo pensato, grazie ad una vasta gamma di funzioni di personalizzazione e di pacchetti aggiuntivi compatibili.
 In questo post partiamo vedendo le basi di questo pacchetto, ovvero come creare grafici basilari analizzando le 3 componenti necessarie per la creazione di un grafico con Ggplot2.</p>
-<p>Quando parlo di “componenti”, mi riferisco a tipologie di comandi che bisogna inserire per la costruzione di un grafico con questo pacchetto.
-Queste componenti sono in tutto 8:</p>
-<ul>
-<li><p>Data</p></li>
-<li><p>Mapping</p></li>
-<li><p>Geometries</p></li>
-<li><p>Statistics</p></li>
-<li><p>Scales</p></li>
-<li><p>Facets</p></li>
-<li><p>Coordinates</p></li>
-<li><p>Theme</p></li>
-</ul>
+Quando parlo di “componenti”, mi riferisco a tipologie di comandi che bisogna inserire per la costruzione di un grafico con questo pacchetto.
+Queste componenti sono in tutto 8:
+<li>
+Data
+</li>
+<li>
+Mapping
+</li>
+<li>
+Geometries
+</li>
+<li>
+Statistics
+</li>
+<li>
+Scales
+</li>
+<li>
+Facets
+</li>
+<li>
+Coordinates
+</li>
+<li>
+Theme
+</li>
 <p>Oggi ci focalizzeremo sulle prime 3, in quanto sono le uniche 3 di cui ggplot2 ha bisogno di informazioni; le altre infatti possono essere omesse in quanto hanno già dei valori di default.
 Di seguito una versione minimal del comando da utilizzare per creare un grafico base con ggplot2:</p>
 <pre class="r"><code>ggplot(data = &lt;data&gt;) +
