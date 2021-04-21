@@ -1,0 +1,967 @@
+---
+title: "GGPLOT2 statistics"
+date: 2021-04-21
+modified:
+description: "Analizziamo la componente stat di ggplot 2: trasformazioni statistiche dei dati"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Graphs
+- Ggplot2
+- Stat
+- Statistical transformations
+- Summary
+series:
+- Graphic with ggplot2
+categories:
+- Graphs
+image: "/images/R/Teoria/stat.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<div class="expand">
+<button type="button" class="expand__button" aria-label="Expand Button">
+<span class="expand-icon expand-icon__right"></span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="expand-icon__down"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></path></svg> What’s on this page
+</button>
+<div class="expand__content expand__content--toc" style="max-height: 381px;">
+<ul>
+<li>
+<a href="#default-statistics">Default statistics</a>
+</li>
+<li>
+<a href="#use-a-different-statistic">Use a different statistic</a>
+</li>
+<li>
+<a href="#stat_-function">stat_ function</a>
+</li>
+<li>
+<a href="#tables">Tables</a>
+</li>
+</ul>
+</div>
+</div>
+<div style="text-align: justify;">
+<p>Today we will tackle a very important concept related to GGPLOT2’s geometries (geom_): the <code>stat =</code> input of <em>geom_</em> and the <code>stat_</code> function.
+But, what are we referring to with stat? Stat stands for <em>statistics</em>, and it concerns the statistical transformations behind every <em>geom_</em> command. In fact, each <em>geom_</em> command is associated with a basic statistic that associates an y value to each x value.</p>
+
+<div class="example">
+<span id="exm:barplotex1" class="example"><strong>Example 1  </strong></span>Geom_bar is associated with a very specific statistic: count (). Let’s see in practice what happens with <code>geom_bar (aes (x = class))</code> in the <em>mpg</em> dataset.
+</div>
+<div class="figure" style="text-align: center"><span id="fig:barplotex1plot"></span>
+<img src="/en/R/teoria/Statistics ggplot2/statistics.en_files/figure-html/barplotex1plot-1.png" alt="geom_bar example" width="672" />
+<p class="caption">
+Figure 1: geom_bar example
+</p>
+</div>
+<p>The function produced a barplot of the frequencies of the various classes, with the y-axis representing the counts (number of occurrences) of each class.<br />
+Let’s now analyze the characteristics of stat.</p>
+<div id="default-statistics" class="section level2">
+<h2>Default statistics</h2>
+<p>First, let’s analyze the <code>stat =</code> input of the <em>geom_</em> function.
+As mentioned previously, a statistic is associated with each geom_. We are not going to analyze them all, the complete list can be found in the default statistics <a href="#tables">table</a> at the bottom of the page.
+Let’s start from the example <a href="#exm:barplotex1">1</a>: the statistic associated with geom_bar is stat_count, i.e. the occurrences of each class in the dataset are plotted on the y axis.
+In the table, you can see how many geom_ are associated with stat_identity, what does this mean? It means that in these cases it is necessary to supply both x and y in <em>aes()</em> and that the function will plot each y value over the corresponding x value.</p>
+</div>
+<div id="use-a-different-statistic" class="section level2">
+<h2>Use a different statistic</h2>
+Obviously, the default statistics can be replaced if necessary.
+<br>
+
+<div class="example">
+<span id="exm:geombaridex" class="example"><strong>Example 2  </strong></span>If I wanted to use geom_bar with two known vectors (x and y), associating each x with a y, I would have to use the “identity” statistic.
+The function would become <code>geom_bar(aes(x, y), stat = "identity")</code>. The result would be:
+</div>
+<div class="figure" style="text-align: center"><span id="fig:geombaridplot"></span>
+<img src="/en/R/teoria/Statistics ggplot2/statistics.en_files/figure-html/geombaridplot-1.png" alt="Changing stat allowes two vectors to be the inputs of *geom_bar*" width="672" />
+<p class="caption">
+Figure 2: Changing stat allowes two vectors to be the inputs of <em>geom_bar</em>
+</p>
+</div>
+<p>If you were to omit <code>stat =" identity "</code>, you would get an error.
+<strong>NB</strong>: the <code>geom_col</code> function does the same job, without the need of the stat specification, as its default is <em>identity</em>.</p>
+Another way to modify the values on the y axis (I always say y axis by convention, but you could map it to y and have the statistic done on x) is to set <code>y = after_stat ()</code> and make it do any operation inside, with no need to add <code>stat =</code> after.
+
+<div class="example">
+<span id="exm:geombarafterex" class="example"><strong>Example 3  </strong></span>If I wanted to plot on the y-axis of a barplot the proportion (in %) of each class of the dataset <em>mpg</em>, I would use <code>geom_bar(aes(x = class, y = after_stat(100 * count / sum (count))))</code>:
+</div>
+<div class="figure" style="text-align: center"><span id="fig:geombarafterplot"></span>
+<img src="/en/R/teoria/Statistics ggplot2/statistics.en_files/figure-html/geombarafterplot-1.png" alt="Using *after_stat* allow to do mathematical operations" width="672" />
+<p class="caption">
+Figure 3: Using <em>after_stat</em> allow to do mathematical operations
+</p>
+</div>
+</div>
+<div id="stat_-function" class="section level2">
+<h2>stat_ function</h2>
+<p>Stat is also a function of ggplot2, with the <code>&lt;stat_function&gt;</code> structure, which can either replace <em>geom_</em> or add something to the graph.
+In fact, as you can see in the complementary <a href="#tables">table</a>, many <em>geom_</em> can be replaced by a corresponding <code>stat_</code> function.
+For example, the graph in figure <a href="#fig:barplotex1plot">1</a> can be obtained also using the command <code>ggplot (mpg) + stat_count (aes (x = class))</code>. However, by convention, we always use <em>geom_</em> when possible and use the <code>stat_</code> function <u>only</u> when there are no possible geom_.</p>
+<p>In the default geometry <a href="#tables">table</a> there is the list of possible <code>stat_</code> functions, with the associated default geometry.
+Let’s immediately see an example.</p>
+
+<div class="example">
+<span id="exm:statsummaryex" class="example"><strong>Example 4  </strong></span>In this example we will see the use of one of the most important stat functions, namely <code>stat_summary</code>. In this case we plot the points corresponding to the minimum and maximum horsepower (hp) values for the three subgroups of cars (mtcars dataset), grouped on the basis of the number of cylinders (cyl).
+</div>
+<pre class="r"><code>ggplot(mtcars) +
+  stat_summary(aes(x = factor(cyl), y = mpg), fun = min, color = &quot;blue&quot;) +
+  stat_summary(aes(x = factor(cyl), y = mpg), fun = max, color = &quot;red&quot;) </code></pre>
+<div class="figure" style="text-align: center"><span id="fig:statsummaryplot"></span>
+<img src="/en/R/teoria/Statistics ggplot2/statistics.en_files/figure-html/statsummaryplot-1.png" alt="*stat_summary* example" width="672" />
+<p class="caption">
+Figure 4: <em>stat_summary</em> example
+</p>
+</div>
+<p>There are countless uses for the various stat functions, for this I refer to the corresponding documentation. This post was mainly used to illustrate, with some examples, how to exploit the <em>stat</em> component of ggplot2.</p>
+</div>
+<div id="tables" class="section level2">
+<h2>Tables</h2>
+<div id="0fa06ef53ae6dc58" class="tab">
+<div class="tab__links">
+<button class="tab__link active" aria-label="Tab link" id="681fec6f465f1c34">Default statistics</button>
+<button class="tab__link" aria-label="Tab link" id="856df9eb3ec9f916">Complementary</button>
+<button class="tab__link" aria-label="Tab link" id="723d4595fc2e2181">Default geometries</button>
+</div>
+<div id="681fec6f465f1c34" class="tab__content" style="display: block;">
+<h3 id="def_stat">
+Default statistics<span class="anchor hide" style="position: relative;"><span style="position: absolute; top: 50%; left: 0.75rem; transform: translateY(-50%); right: -2rem;">
+</path></svg></span></span>
+</h3>
+<table style="width:100%;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Geom
+</th>
+<th style="text-align:center;">
+Default statistics
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+geom_abline()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_area()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_bar()
+</td>
+<td style="text-align:center;">
+stat_count()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_bin2d()
+</td>
+<td style="text-align:center;">
+stat_bin_2d()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_blank()
+</td>
+<td style="text-align:center;">
+None
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_boxplot()
+</td>
+<td style="text-align:center;">
+stat_boxplot()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_col()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_count()
+</td>
+<td style="text-align:center;">
+stat_sum()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_countour_filled()
+</td>
+<td style="text-align:center;">
+stat_countour_filled()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_countour()
+</td>
+<td style="text-align:center;">
+stat_countour()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_crossbar()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_curve()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_density_2d_filled()
+</td>
+<td style="text-align:center;">
+stat_density_2d_filled()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_density_2d()
+</td>
+<td style="text-align:center;">
+stat_density_2d()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_density()
+</td>
+<td style="text-align:center;">
+stat_density()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_dotplot()
+</td>
+<td style="text-align:center;">
+stat_bindot()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_errorbar()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_errorbarh()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_freqpoly()
+</td>
+<td style="text-align:center;">
+stat_bin()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_function()
+</td>
+<td style="text-align:center;">
+stat_function()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_hex()
+</td>
+<td style="text-align:center;">
+stat_bin_hex()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_histogram()
+</td>
+<td style="text-align:center;">
+stat_bin()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_hline()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_jitter()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_label()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_line()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_linerange()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_map()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_path()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_point()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_pointrange()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_polygon()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_qq_line()
+</td>
+<td style="text-align:center;">
+stat_qq_line()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_qq()
+</td>
+<td style="text-align:center;">
+stat_qq()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_quantile()
+</td>
+<td style="text-align:center;">
+stat_quantile()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_raster()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_rect()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_ribbon()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_rug()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_segment()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_sf_label()
+</td>
+<td style="text-align:center;">
+stat_sf_coordinates()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_sf_text()
+</td>
+<td style="text-align:center;">
+stat_sf_coordinates()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_sf()
+</td>
+<td style="text-align:center;">
+stat_sf()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_smooth()
+</td>
+<td style="text-align:center;">
+stat_smooth()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_spoke()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_step()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_text()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_tile()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_violin()
+</td>
+<td style="text-align:center;">
+stat_ydensity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_vline()
+</td>
+<td style="text-align:center;">
+stat_identity()
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="856df9eb3ec9f916" class="tab__content active" style="display: none;">
+<h3 id="complementari">
+Complementary<span class="anchor hide" style="position: relative;"><span style="position: absolute; top: 50%; left: 0.75rem; transform: translateY(-50%); right: -2rem;">
+</span></span>
+</h3>
+<table style="width:100%;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Geom
+</th>
+<th style="text-align:center;">
+Stat
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+geom_bar()
+</td>
+<td style="text-align:center;">
+stat_count()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_bin2d()
+</td>
+<td style="text-align:center;">
+stat_bin_2d()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_boxplot()
+</td>
+<td style="text-align:center;">
+stat_boxplot()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_contour_filled()
+</td>
+<td style="text-align:center;">
+stat_contour_filled()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_contour()
+</td>
+<td style="text-align:center;">
+stat_contour()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_count()
+</td>
+<td style="text-align:center;">
+stat_sum()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_density_2d()
+</td>
+<td style="text-align:center;">
+stat_density_2d()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_density()
+</td>
+<td style="text-align:center;">
+stat_density()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_dotplot()
+</td>
+<td style="text-align:center;">
+stat_bindot()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_function()
+</td>
+<td style="text-align:center;">
+stat_function()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_sf()
+</td>
+<td style="text-align:center;">
+stat_sf()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_sf()
+</td>
+<td style="text-align:center;">
+stat_sf()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_smooth()
+</td>
+<td style="text-align:center;">
+stat_smooth()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_violin()
+</td>
+<td style="text-align:center;">
+stat_ydensity()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_hex()
+</td>
+<td style="text-align:center;">
+stat_bin_hex()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_qq_line()
+</td>
+<td style="text-align:center;">
+stat_qq_line()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_qq()
+</td>
+<td style="text-align:center;">
+stat_qq()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+geom_quantile()
+</td>
+<td style="text-align:center;">
+stat_quantile()
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="723d4595fc2e2181" class="tab__content" style="display: none;">
+<h3 id="def_geom">
+Default geometries<span class="anchor hide" style="position: relative;"><span style="position: absolute; top: 50%; left: 0.75rem; transform: translateY(-50%); right: -2rem;">
+</path></svg></span></span>
+</h3>
+<table style="width:100%;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Stat
+</th>
+<th style="text-align:center;">
+Default geometries
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+stat_bin_2d()
+</td>
+<td style="text-align:center;">
+geom_tile()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_bin_hex()
+</td>
+<td style="text-align:center;">
+geom_hex()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_bin()
+</td>
+<td style="text-align:center;">
+geom_bar()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_boxplot()
+</td>
+<td style="text-align:center;">
+geom_boxplot()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_count()
+</td>
+<td style="text-align:center;">
+geom_bar()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_countour_filled()
+</td>
+<td style="text-align:center;">
+geom_contour_filled()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_countour()
+</td>
+<td style="text-align:center;">
+geom_contour()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_density_2d_filled()
+</td>
+<td style="text-align:center;">
+geom_density_2d()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_density_2d()
+</td>
+<td style="text-align:center;">
+geom_density_2d()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_density()
+</td>
+<td style="text-align:center;">
+geom_area()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_ecdf()
+</td>
+<td style="text-align:center;">
+geom_step()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_ellipse()
+</td>
+<td style="text-align:center;">
+geom_path()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_function()
+</td>
+<td style="text-align:center;">
+geom_function()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_function()
+</td>
+<td style="text-align:center;">
+geom_path()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_identity()
+</td>
+<td style="text-align:center;">
+geom_point()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_qq_line()
+</td>
+<td style="text-align:center;">
+geom_path()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_qq()
+</td>
+<td style="text-align:center;">
+geom_point()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_quantile()
+</td>
+<td style="text-align:center;">
+geom_quantile()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_sf_coordinates()
+</td>
+<td style="text-align:center;">
+geom_point()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_sf()
+</td>
+<td style="text-align:center;">
+geom_rect()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_smooth()
+</td>
+<td style="text-align:center;">
+geom_smooth()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_sum()
+</td>
+<td style="text-align:center;">
+geom_point()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_summary_2d()
+</td>
+<td style="text-align:center;">
+geom_tile()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_summary_bin()
+</td>
+<td style="text-align:center;">
+geom_pointrange()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_summary_hex()
+</td>
+<td style="text-align:center;">
+geom_hex()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_summary()
+</td>
+<td style="text-align:center;">
+geom_pointrange()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_unique()
+</td>
+<td style="text-align:center;">
+geom_point()
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+stat_ydensity()
+</td>
+<td style="text-align:center;">
+geom_violin()
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>

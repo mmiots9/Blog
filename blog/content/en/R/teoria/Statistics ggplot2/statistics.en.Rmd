@@ -1,0 +1,171 @@
+---
+title: "GGPLOT2 statistics"
+date: 2021-04-21
+modified:
+description: "Analizziamo la componente stat di ggplot 2: trasformazioni statistiche dei dati"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Graphs
+- Ggplot2
+- Stat
+- Statistical transformations
+- Summary
+series:
+- Graphic with ggplot2
+categories:
+- Graphs
+image: "/images/R/Teoria/stat.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggpubr)
+library(readxl)
+library(kableExtra)
+```
+
+<div class="expand">
+<button type="button" class="expand__button" aria-label="Expand Button"> [ ]{.expand-icon .expand-icon__right}<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="expand-icon__down"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></path></svg> What's on this page </button>
+<div class="expand__content expand__content--toc" style="max-height: 381px;">
+<ul>
+<li>
+<a href="#default-statistics">Default statistics</a>
+</li>
+<li>
+<a href="#use-a-different-statistic">Use a different statistic</a>
+</li>
+<li>
+<a href="#stat_-function">stat_ function</a>
+</li>
+<li>
+<a href="#tables">Tables</a>
+</li>
+</ul>
+</div>
+</div>
+::: {style="text-align: justify;"}
+
+Today we will tackle a very important concept related to GGPLOT2's geometries (geom_): the `stat =` input of *geom_* and the `stat_` function.
+But, what are we referring to with stat? Stat stands for *statistics*, and it concerns the statistical transformations behind every *geom_* command. In fact, each *geom_* command is associated with a basic statistic that associates an y value to each x value.
+
+```{example, barplotex1}
+Geom_bar is associated with a very specific statistic: count (). Let's see in practice what happens with `geom_bar (aes (x = class))` in the *mpg* dataset.
+```
+```{r barplotex1plot, echo=FALSE, fig.cap= "geom_bar example", fig.align='center'}
+ggplot(mpg) +
+  geom_bar(aes(x = class))
+```
+The function produced a barplot of the frequencies of the various classes, with the y-axis representing the counts (number of occurrences) of each class.  
+Let's now analyze the characteristics of stat.
+
+## Default statistics
+
+First, let's analyze the `stat =` input of the *geom_* function.
+As mentioned previously, a statistic is associated with each geom_. We are not going to analyze them all, the complete list can be found in the default statistics [table](#tables) at the bottom of the page.
+Let's start from the example \@ref(exm:barplotex1): the statistic associated with geom_bar is stat_count, i.e. the occurrences of each class in the dataset are plotted on the y axis.
+In the table, you can see how many geom_ are associated with stat_identity, what does this mean? It means that in these cases it is necessary to supply both x and y in *aes()* and that the function will plot each y value over the corresponding x value.
+
+## Use a different statistic
+
+Obviously, the default statistics can be replaced if necessary.
+<br>
+```{example, geombaridex}
+If I wanted to use geom_bar with two known vectors (x and y), associating each x with a y, I would have to use the "identity" statistic.
+The function would become `geom_bar(aes(x, y), stat = "identity")`. The result would be:
+```
+```{r geombaridplot, echo=FALSE, fig.cap= "Changing stat allowes two vectors to be the inputs of *geom_bar*", fig.align='center'}
+city <- c("Monza", "Milano", "Roma", "Torino")
+population <- c(300000, 1500000, 2200000, 700000)
+ggplot() +
+  geom_bar(aes(x = city, y = population), stat = "identity")
+```
+If you were to omit `stat =" identity "`, you would get an error.
+**NB**: the `geom_col` function does the same job, without the need of the stat specification, as its default is *identity*.
+
+Another way to modify the values on the y axis (I always say y axis by convention, but you could map it to y and have the statistic done on x) is to set `y = after_stat ()` and make it do any operation inside, with no need to add `stat =` after.
+```{example, geombarafterex}
+If I wanted to plot on the y-axis of a barplot the proportion (in %) of each class of the dataset *mpg*, I would use `geom_bar(aes(x = class, y = after_stat(100 * count / sum (count))))`:
+```
+```{r geombarafterplot, echo=FALSE, fig.cap= "Using *after_stat* allow to do mathematical operations", fig.align='center'}
+ggplot(mpg) +
+  geom_bar(aes(x = class, y = after_stat(100*count / sum(count)))) +
+  ylab("%") +
+  theme(axis.title.y = element_text(angle = 0, vjust = 0.5))
+```
+
+## stat_ function
+
+Stat is also a function of ggplot2, with the `<stat_function>` structure, which can either replace *geom_* or add something to the graph.
+In fact, as you can see in the complementary [table](#tables), many *geom_* can be replaced by a corresponding `stat_` function.
+For example, the graph in figure \@ref(fig:barplotex1plot) can be obtained also using the command `ggplot (mpg) + stat_count (aes (x = class))`. However, by convention, we always use *geom_* when possible and use the `stat_` function <u>only</u> when there are no possible geom_.
+
+In the default geometry [table](#tables) there is the list of possible `stat_` functions, with the associated default geometry.
+Let's immediately see an example.
+
+```{example, statsummaryex}
+In this example we will see the use of one of the most important stat functions, namely `stat_summary`. In this case we plot the points corresponding to the minimum and maximum horsepower (hp) values for the three subgroups of cars (mtcars dataset), grouped on the basis of the number of cylinders (cyl).
+```
+```{r statsummaryplot, fig.cap= "*stat_summary* example", fig.align='center', warning=FALSE}
+ggplot(mtcars) +
+  stat_summary(aes(x = factor(cyl), y = mpg), fun = min, color = "blue") +
+  stat_summary(aes(x = factor(cyl), y = mpg), fun = max, color = "red") 
+```
+
+There are countless uses for the various stat functions, for this I refer to the corresponding documentation. This post was mainly used to illustrate, with some examples, how to exploit the *stat* component of ggplot2.
+
+## Tables
+
+<div id="0fa06ef53ae6dc58" class="tab">
+  <div class="tab__links">
+  <button class="tab__link active" aria-label="Tab link" id="681fec6f465f1c34">Default statistics</button>
+  <button class="tab__link" aria-label="Tab link" id="856df9eb3ec9f916">Complementary</button>
+  <button class="tab__link" aria-label="Tab link" id="723d4595fc2e2181">Default geometries</button>
+  </div>
+
+<div id="681fec6f465f1c34" class="tab__content" style="display: block;">
+  <h3 id="def_stat">Default statistics<span class="anchor hide" style="position: relative;"><span style="position: absolute; top: 50%; left: 0.75rem; transform: translateY(-50%); right: -2rem;">
+</path></svg></span></span></h3>
+```{r, echo=FALSE}
+dati <- read_excel("statistics.xlsx", sheet = "Sheet2")
+colnames(dati) <- c("Geom", "Default statistics")
+kbl(dati, align = "c", table.attr = "style='width:100%;'")
+```
+</div>
+  
+<div id="856df9eb3ec9f916" class="tab__content active" style="display: none;">
+  <h3 id="complementari">Complementary<span class="anchor hide" style="position: relative;"><span style="position: absolute; top: 50%; left: 0.75rem; transform: translateY(-50%); right: -2rem;">
+</span></span></h3>
+
+```{r, echo=FALSE}
+dati <- read_excel("statistics.xlsx", sheet = "Sheet1")
+colnames(dati) <- c("Geom", "Stat")
+kbl(dati, align = "c", table.attr = "style='width:100%;'")
+```
+</div>
+  
+<div id="723d4595fc2e2181" class="tab__content" style="display: none;">
+  <h3 id="def_geom">Default geometries<span class="anchor hide" style="position: relative;"><span style="position: absolute; top: 50%; left: 0.75rem; transform: translateY(-50%); right: -2rem;">
+</path></svg></span></span></h3>
+```{r, echo=FALSE}
+dati <- read_excel("statistics.xlsx", sheet = "Sheet3")
+colnames(dati) <- c("Stat", "Default geometries")
+kbl(dati, align = "c", table.attr = "style='width:100%;'")
+```
+</div>
+
+</div>
+
+
+
+:::

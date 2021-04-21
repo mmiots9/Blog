@@ -112,6 +112,14 @@ To load the history from a saved file:
 ``` R
 loadhistory("filename.Rhistory")
 ```
+
+{{< expand "Expand me" >}}
+
+### Title
+
+contents
+
+{{< /expand >}}
 </div>
 
 
