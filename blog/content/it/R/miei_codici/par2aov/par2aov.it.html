@@ -1,0 +1,154 @@
+---
+title: "Funzione par.2aov"
+date: 2021-05-04
+modified: 
+description: "Funzione per la valutazione delle condizioni per l'applicazione di test parametrici o non parametrici con 2 variabili categoriche"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Funzioni
+- Controllo dati
+series:
+- Le mie funzioni
+categories:
+image: "/images/R/miei_codici/r.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div class="expand">
+<button type="button" class="expand__button" aria-label="Expand Button">
+<span class="expand-icon expand-icon__right">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="expand-icon__down"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></path></svg>
+</span>
+Contenuto
+</button>
+<div class="expand__content expand__content--toc" style="max-height: 170px;">
+<nav id="TableOfContents">
+<ul>
+<li>
+<a href="#scopo">Scopo</a>
+</li>
+<li>
+<a href="#lancio-della-funzione-e-input">Lancio della funzione e input</a>
+</li>
+<li>
+<a href="#principali-step-della-funzione">Principali step della funzione</a>
+</li>
+<li>
+<a href="#output">Output</a>
+</li>
+<li>
+<a href="#miglioramenti-possibili">Miglioramenti possibili</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div style="text-align: justify;">
+
+
+
+
+<p>Oggi guarderemo assieme una delle prime funzioni che ho sviluppato, antecedente a <em>desc_table/kable</em> di cui ho parlato <a href="https://miotsdata.netlify.app/it/r/miei_codici/desc_table_kable/desc_table_kable/">qui</a>. La funzione si chiama <code>par.2aov</code>.</p>
+<div id="scopo" class="section level3">
+<h3>Scopo</h3>
+Per prima cosa vediamo a cosa serve la funzione: quando in una analisi dati bisogna confrontare vari gruppi suddivisi per 2 variabili categoriche, bisogna scegliere se usare il test parametrico (2-way ANOVA) o il non parametrico (Kruskal-Wallis).<br />
+Per fare ciò, bisogna analizzare due caratteristiche del campione:<br />
+
+<li>
+Tutti i gruppi in cui il campione viene diviso dalle variabili categoriche devono avere una distribuzione normale
+</li>
+<li>
+Le varianze tra i diversi gruppi devono essere omogenee
+</li>
+<p><br>
+Per testare la prima condizione, bisogna applicare un test sulla normalità (es. Shapiro), mentre la seconda viene verificata con un test di omoschedasticità (es. Bartlett). Entrambe le funzioni sono implementate in r, quindi perchè ho dovuto scriverci una funzione?<br />
+Ci sono due motivazioni: la prima è l’avere una miglior visualizzazione dei risultati e il poter avere i risultati dei test in un’unica lista (si vedrà bene poi nella sezione <a href="#output">output</a>); la seconda, la più importante, è che questa funzione permette di valutare allo stesso tempo anche l’eventuale effetto dell’interazione tra le due variabili categoriche, suddividendo il campione in n*m sottogruppi e valutando distribuzione e omoschedasticità.</p>
+</div>
+<div id="lancio-della-funzione-e-input" class="section level3">
+<h3>Lancio della funzione e input</h3>
+<p>La funzione viene lanciata col comando <code>mrt.par.2aov(x, y, z, type.of.int = "+/*")</code>.<br />
+Come si vede ci sono 3 input: <em>x</em> è il vettore numerico dei valori osservati, <em>y</em> e <em>z</em> sono i vettori dei fattori delle variabili categoriche che distinguono i vari gruppi. <em>Type.of.int</em> è l’input che determina se valutare anche l’interazione tra le due variabili categoriche: <code>+</code> (default) valuta <u>solo</u> le due variabili categoriche distinte, mentre <code>*</code> ne valuta anche l’interazione.</p>
+</div>
+<div id="principali-step-della-funzione" class="section level3">
+<h3>Principali step della funzione</h3>
+<p>Non c’è molto da dire sugli step della funzione, in quanto sono pochi e elementari. Vengono applicati i test per normalità (Shapiro) e omoschedasticità (Bartlett) e con i risultati vengono creati due dataframe distinti.<br />
+Nel caso in cui <em>type.of.int</em> fosse <code>*</code>, viene creato anche un dataframe con i risultati dello Shapiro test applicato ai vari gruppi, in quanto di base lo Shapiro test applicato con <em>tapply</em> ad un dataframe, prende come input una sola variabile categorica.</p>
+</div>
+<div id="output" class="section level3">
+<h3>Output</h3>
+<p>Questa è la sezione più “interessante”, ovvero quella per cui è stata creata la funzione. Vediamone subito un esempio per capirne l’utilità:</p>
+
+<div class="example">
+<span id="exm:outex" class="example"><strong>Esempio 1  </strong></span>Verificare quale test si deve utilizzare per valutare se c’è differenza tra i valori di hwy nelle macchine del dataset <em>mpg</em> in base all’anno, al tipo di drive train (drv) e alla loro interazione.
+</div>
+<div class="highlight">
+<div class="chroma">
+<table class="lntable">
+<tbody>
+<tr>
+<td class="lntd">
+<div class="language-code" data-lang="Code">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre>
+<span class="copy-to-clipboard" title="Copy to clipboard"></span>
+</div>
+</td>
+<td class="lntd">
+<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">par.2aov</span><span class="p">(</span><span class="n">mpg</span><span class="o">$</span><span class="n">hwy</span><span class="p">,</span> <span class="n">mpg</span><span class="o">$</span><span class="n">drv</span><span class="p">,</span> <span class="n">mpg</span><span class="o">$</span><span class="n">year</span><span class="p">,</span> <span class="n">type.of.int</span> <span class="o">=</span> <span class="s">"*"</span><span class="p">)</span>
+</code></pre>
+<span class="copy-to-clipboard" title="Copy to clipboard"></span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="highlight">
+<div class="chroma">
+<pre class="chroma"><code class="language-R" data-lang="Risultato">
+$`Shapiro categorie`
+  categoric fattore         W         pval
+1   mpg$drv       4 0.9140492 5.192071e-06
+2   mpg$drv       f 0.9062250 1.555910e-06
+3   mpg$drv       r 0.9116438 3.317112e-02
+4  mpg$year    1999 0.9095696 8.223978e-07
+5  mpg$year    2008 0.9704048 1.090310e-02
+
+$`Shapiro interazione`
+  mpg$drv mpg$year         W         pval
+1       4        1 0.8027046 1.230175e-06
+2       f        1 0.8036883 2.868337e-07
+3       r        1 0.8487732 4.113255e-02
+4       4        2 0.9308291 3.937911e-03
+5       f        2 0.9593676 8.922286e-02
+6       r        2 0.9447511 4.825434e-01
+
+$Bartlett
+    categoric k-squared df      pval
+1     mpg$drv 0.7067503  2 0.7023137
+2    mpg$year 0.1818015  1 0.6698296
+3 interaction 3.7215846  5 0.5901552
+
+</code></pre>
+</tbody>
+</table>
+</div>
+<p>Come risultato viene fornita una lista con tre dataset: il primo riporta i valori dello Shapiro test eseguito per ogni categoria delle variabili categoriche, il secondo (opzionale in base al tipo di interazione) fornisce il risultato dello Shapiro test per ogni combinazione delle due variabili categoriche, il terzo fornisce i risultati del Bartlett test sia per le categoriche sia per la loro interazione. In questo caso, visti i p-value dello Shapiro test, opterò per eseguire un test di Kruskal-Wallis.</p>
+<div id="miglioramenti-possibili" class="section level3">
+<h3>Miglioramenti possibili</h3>
+<p>Nonostante sia una funzione scritta un po’ di tempo fa, al momento non noto parti in cui possa essere migliorata (ammetto di averla dovuta modificare perchè era presente un errore ora che scrivevo questo post).</p>
+</div>
+</div>
+</div>
