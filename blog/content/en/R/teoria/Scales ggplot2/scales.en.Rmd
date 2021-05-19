@@ -1,0 +1,136 @@
+---
+title: "GGPLOT2 scales"
+date: 2021-05-19
+modified:
+description: "Scales function in ggplot2: setting aesthetics mapping"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Graphs
+- Ggplot2
+- Scales
+- Mapping
+series:
+- Graphic con ggplot2
+categories:
+- Graphs
+image: "/images/R/Teoria/scales.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.align = "center")
+library(tidyverse)
+library(ggpubr)
+```
+
+<div class="expand">
+<button type="button" class="expand__button" aria-label="Expand Button"> [ ]{.expand-icon .expand-icon__right}<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="expand-icon__down"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></path></svg> What's on this page </button>
+<div class="expand__content expand__content--toc" style="max-height: 381px;">
+<ul>
+<li>
+<a href="#command">Command</a>
+</li>
+<li>
+<a href="#modify-the-aesthetic-of-the-axes">Modify the aesthetic of the axes</a>
+</li>
+<li>
+<a href="#change-the-scale-of-the-point-size-in-a-scatter-plot">Change the scale of the point size in a scatter plot</a>
+</li>
+<li>
+<a href="#changes-graph-colors">Changes graph colors</a>
+</li>
+</ul>
+</div>
+</div>
+::: {style="text-align: justify;"}
+
+Today, we'll face the `scales` component of ggplot2, looking at some of its (infinite) features with quick examples.
+The first question that may come to mind is "what does scales do?", followed by "when should I use it?". We reply to the first question, leaving this entire post as an answer to the second one: scales defines how the mapping in `aes ()` should take place. It follows that each mapping has its associated scales by default, and that we can modify it by adding the component to the ggplot function.
+
+## Command
+
+The *scales* command is `scale_<aesthetic>_<type>()`.
+There are two parts that can change every time: *aesthetic* refers to the component to be modified (color, x-axis, y-axis, ...), while *type* can be either generic (continuous, discrete, binned) or specific (area, identity, ...).
+
+## Modify the aesthetic of the axes
+
+The first application that comes to mind when thinking about *scales* is the modification of the aesthetics of the axes; in fact, the axes can be modified in many ways.
+Let's immediately see an example of how some parameters can be changed.
+
+``` {example modificaassiex, name = "Modify the aesthetic of the axes"}
+Create a displ*hwy scatter plot (mpg dataset), where the y-axis is expressed in the logarithmic scale, the x-axis is called "engine displacement (l)" and has the numbers 2.5, 4 and 5.5 as breaks.
+```
+
+```{r modificaassigr, fig.cap= "Graph in which the aesthetics of the axes have been modified"}
+ggplot(mpg) +
+  geom_point(aes(x = displ, y = hwy)) +
+  scale_y_continuous(trans = "log10") +
+  scale_x_continuous(name = "engine displacement (l)", breaks = c(2.5, 4, 5.5))
+```
+
+As you can see, I added two commands, one for each axis, giving the inputs of interest in a very intuitive way. There would be many other options for each axis, I invite you to look at them for yourself and try some.
+
+## Change the scale of the point size in a scatter plot
+
+I bring this example to you as it is very self-explanatory and useful.
+Normally, if you want to use a discrete numeric variable to set the size of the points, the resulting graph is the following:
+```{r size1, echo=FALSE, fig.cap= "Basic scatter plot with point sizes based on a discrete numeric variable"}
+ggplot(mpg) + 
+  geom_point(aes(x = cty, y = displ, size = cyl), alpha = 0.5)
+```
+
+The problem is that there is no direct correspondence in the size of the points, much more in the size of the rays of the points, which produces a distorted perception in our mind, since we are not able to perceive a linear correspondence between the rays as much as more for areas. In this case, since the area increases exponentially as the radius increases, there is the risk of overestimating the difference.
+For this reason, you can modify the code by adding `scale_size_binned(breaks = c (4, 5, 6, 8))`: *size* refers to the aesthetics to be modified and *breaks* indicates which values to mark on the legend. This is the result:
+
+```{r size2, echo=FALSE, fig.cap= "Scatter plot where the dot size has been changed with *scale*"}
+ggplot(mpg) + 
+  geom_point(aes(x = cty, y = displ, size = cyl), alpha = 0.5) +
+  scale_size_binned(breaks = c(4, 5, 6, 8))
+```
+
+The points have a more consistent difference with the perception we have.
+
+## Changes graph colors
+
+Let's go to another macro-area for editing the mapping, that is the color component.
+
+```{example cambiopalette, name = "Change color palette"}
+Modify the graphic in the image \@ref(fig:size2) in such a way as to have different colors according to the car classes, change the color palette to one of your choice and set the name of the relative legend equal to CLASS.
+```
+<br>
+First, you need to decide which palette to use. There are many online, but for an immediate feedback you can use the `RColorBrewer::display.brewer.all ()` command, thanks to which we can see them in the *Viewer* section.
+I have chosen to use *Pastel1*.
+At this point, after having entered the command to set the color according to the class in the correct place (refer to the post [Introduction to GGPLOT2](https://miotsdata.netlify.app/en/r/teoria/intro-ggplot2/ indroduzone-a-ggplot2 /)), I add the one to change the `scale_colour_brewer(palette ="Pastel1", name ="CLASS")` palette.
+
+```{r cambiopalettegr, echo=FALSE, fig.cap= "Palette *Pastel1*"}
+ggplot(mpg) + 
+  geom_point(aes(x = cty, y = displ, size = cyl, color = class)) +
+  scale_size_binned(breaks = c(4, 5, 6, 8)) +
+  scale_colour_brewer(palette = "Pastel1", name = "CLASS")
+```
+
+```{example continuacolori, name = "Combine size and color with the same variable"}
+Modify the graph in the image \@ref(fig:size2) in such a way as to have different colors and shapes based on city consumption (cty) and to have one single legend.
+```
+
+To do this, use the `guides(color =" legend ")` command, and you get:
+
+```{r sizecol, echo=FALSE, fig.cap= "Unified legend"}
+ggplot(mpg) + 
+  geom_point(aes(x = cty, y = displ, size = cty, color = cty), alpha = 0.5) +
+  guides(color = "legend")
+```
+By default, the color palette is a continuous type palette, in which only one color gradient is used. This aspect can be modified in the same way as seen previously.  
+**N.B.:** the legends are unified in a single <u> only </u> if they match perfectly in terms of names and number.
+
+:::

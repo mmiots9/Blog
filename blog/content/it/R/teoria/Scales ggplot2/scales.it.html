@@ -1,0 +1,132 @@
+---
+title: "Scales su GGPLOT2"
+date: 2021-05-19
+modified:
+description: "Analizziamo la componente scales di ggplot 2: come definire il mapping delle variabili di aes"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Grafici
+- Ggplot2
+- Scales
+- Mapping
+series:
+- Grafica con ggplot2
+categories:
+- Grafici
+image: "/images/R/Teoria/scales.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div class="expand">
+<button type="button" class="expand__button" aria-label="Expand Button">
+<span class="expand-icon expand-icon__right"></span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="expand-icon__down"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></path></svg> Contenuto
+</button>
+<div class="expand__content expand__content--toc" style="max-height: 381px;">
+<ul>
+<li>
+<a href="#comando">Comando</a>
+</li>
+<li>
+<a href="#modificare-estetica-assi">Modificare estetica assi</a>
+</li>
+<li>
+<a href="#modificare-la-scala-delle-dimensioni-dei-punti-in-uno-scatter-plot">Modificare la scala delle dimensioni dei punti in uno scatter plot</a>
+</li>
+<li>
+<a href="#modificare-i-colori-di-un-grafico">Modificare i colori di un grafico</a>
+</li>
+</ul>
+</div>
+</div>
+<div style="text-align: justify;">
+<p>Oggi affrontiamo assieme la componente <code>scales</code> di ggplot2, vedendo parte delle sue (infinite) funzionalità con alcuni esempi veloci.<br />
+La prima domanda è “ma cosa fa scales?”, seguita da “quando dovrei usarlo?”. Replichiamo subito alla prima domanda, lasciando alla seconda questo post intero come risposta: scales definisce come deve avvenire il mapping dentro <code>aes()</code>. Ne consegue che ogni mapping ha la sua scales associata di default, e che noi possiamo andarla a modificare aggiungendo la componente alla funzione di ggplot.</p>
+<div id="comando" class="section level2">
+<h2>Comando</h2>
+<p>Il comando di <em>scales</em> è <code>scale_&lt;aesthetic&gt;_&lt;type&gt;()</code>.<br />
+Ci sono due parti che possono cambiare ogni volta: <em>aesthetic</em> si riferisce alla componente da modificare (colore, asse x, asse y, …), <em>type</em> può essere sia generico (continuous, discrete, binned) oppure specifico (area, …).</p>
+</div>
+<div id="modificare-estetica-assi" class="section level2">
+<h2>Modificare estetica assi</h2>
+<p>La prima applicazione che mi viene in mente pensando a <em>scales</em> è quella relativa alla modifica dell’estetica degli assi; infatti, si possono modificare gli assi in moltissimi modi.<br />
+Vediamo subito un esempio di come si possono modificare alcuni parametri.</p>
+
+<div class="example">
+<span id="exm:modificaassiex" class="example"><strong>Esempio 1  (Modificare estetica assi)  </strong></span>Creare uno scatter plot displ*hwy (dataset mpg), in cui l’asse y è espresso in scala logaritmica, l’asse x è chiamato “engine displacement (l)” e ha come tacche i numeri 2.5, 4 e 5.5.
+</div>
+<pre class="r"><code>ggplot(mpg) +
+  geom_point(aes(x = displ, y = hwy)) +
+  scale_y_continuous(trans = &quot;log10&quot;) +
+  scale_x_continuous(name = &quot;engine displacement (l)&quot;, breaks = c(2.5, 4, 5.5))</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:modificaassigr"></span>
+<img src="/it/R/teoria/Scales ggplot2/scales.it_files/figure-html/modificaassigr-1.png" alt="Grafico in cui sono state modificate le estetiche degli assi" width="672" />
+<p class="caption">
+Figura 1: Grafico in cui sono state modificate le estetiche degli assi
+</p>
+</div>
+<p>Come si può vedere, ho aggiunto due comandi, uno per ogni asse, inserendo gli input di interesse in maniera molto intuitiva. Ci sarebbero molte altre opzioni per ogni asse, vi invito a guardarle da voi e sbizzarrirvi.</p>
+</div>
+<div id="modificare-la-scala-delle-dimensioni-dei-punti-in-uno-scatter-plot" class="section level2">
+<h2>Modificare la scala delle dimensioni dei punti in uno scatter plot</h2>
+Vi porto questo esempio in quanto molto autoesplicativo e utile.<br />
+Normalmente, volendo usare una variabile numerica discreta per settare le dimensioni dei punti, il grafico che si ottiene è il segente:
+<div class="figure" style="text-align: center"><span id="fig:size1"></span>
+<img src="/it/R/teoria/Scales ggplot2/scales.it_files/figure-html/size1-1.png" alt="Scatter plot base con le dimensioni dei punti basate da una variabile numerica discreta" width="672" />
+<p class="caption">
+Figura 2: Scatter plot base con le dimensioni dei punti basate da una variabile numerica discreta
+</p>
+</div>
+<p>Il problema è che non c’è corrispondenza diretta nelle dimensioni dei punti, quanto più delle dimensioni dei raggi dei punti, il che produce una percezione distorta nella nostra mente, dal momento che non siamo in grado di percepire una correspindenza lineare tra i raggi quanto più per le aree. In questo caso, dal momento che all’aumentare del raggio l’area aumenta in maniera esponenziale, si rischia di overstimare la differenza.<br />
+Per questo motivo, si può modificare il codice aggiungendo <code>scale_size_binned(breaks = c(4, 5, 6, 8))</code>: <em>size</em> si riferisce all’estetica da modificare e <em>breaks</em> indica quali sono i valori da segnare sulla legenda. Questo è il risultato:</p>
+<div class="figure" style="text-align: center"><span id="fig:size2"></span>
+<img src="/it/R/teoria/Scales ggplot2/scales.it_files/figure-html/size2-1.png" alt="Scatter plot in cui le dimensioni dei punti sono state modificate con *scale*" width="672" />
+<p class="caption">
+Figura 3: Scatter plot in cui le dimensioni dei punti sono state modificate con <em>scale</em>
+</p>
+</div>
+<p>Ora i punti hanno una differenza più coerente con la percezione che abbiamo noi.</p>
+</div>
+<div id="modificare-i-colori-di-un-grafico" class="section level2">
+<h2>Modificare i colori di un grafico</h2>
+<p>Veniamo ora ad un’altra macro-area di modifica del mapping, ovvero la componente colore, vedendo qualche esempio di applicazione.</p>
+
+<div class="example">
+<span id="exm:cambiopalette" class="example"><strong>Esempio 2  (Cambiare palette colori)  </strong></span>Modificare il grafico nell’immagine <a href="#fig:size2">3</a> in modo tale da avere colori diversi in base alla classe di auto, cambiare la palette dei colori con una a piacere e settare il nome della legenda relativa uguale a CLASS.
+</div>
+<p><br>
+Come prima cosa, bisogna decidere la palette da usare. Online se ne trovano molte, ma per avere un riscontro immediato si può usare il comando <code>RColorBrewer::display.brewer.all()</code>, grazie al quale possiamo vederle nella sezione <em>Viewer</em>.<br />
+Io ho scelto di usare <em>Pastel1</em>.<br />
+A questo punto, dopo aver inserito nel posto corretto il comando per settare il colore in base alla classe (rimando al post <a href="https://miotsdata.netlify.app/it/r/teoria/intro-ggplot2/indroduzone-a-ggplot2/">Introduzione a GGPLOT2</a>), aggiungo quello per cambiare la palette <code>scale_colour_brewer(palette = "Pastel1", name = "CLASS")</code>.</p>
+<div class="figure" style="text-align: center"><span id="fig:cambiopalettegr"></span>
+<img src="/it/R/teoria/Scales ggplot2/scales.it_files/figure-html/cambiopalettegr-1.png" alt="Palette *Pastel1*" width="672" />
+<p class="caption">
+Figura 4: Palette <em>Pastel1</em>
+</p>
+</div>
+
+<div class="example">
+<span id="exm:continuacolori" class="example"><strong>Esempio 3  (Combinare dimensione e colore con la stessa variabile)  </strong></span>Modificare il grafico nell’immagine <a href="#fig:size2">3</a> in modo tale da avere colori e forme diversi in base ai consumi cittadini (cty) e avere una sola legenda.
+</div>
+<p>Per fare ciò, basta usare il comando <code>guides(color = "legend")</code>, e si ottiene:</p>
+<div class="figure" style="text-align: center"><span id="fig:sizecol"></span>
+<img src="/it/R/teoria/Scales ggplot2/scales.it_files/figure-html/sizecol-1.png" alt="Legenda unificata" width="672" />
+<p class="caption">
+Figura 5: Legenda unificata
+</p>
+</div>
+<p>Di default, la palette dei colori è una palette di tipo continuo, in cui si usa il gradiente di un solo colore. Questo aspetto è modificabile allo stesso modo visto precedentemente.<br />
+<strong>N.B.:</strong> le legende vengono unificate in una sola <u>solo</u> se combaciano perfettamente in termini di nomi e numerosità.</p>
+</div>
+</div>
