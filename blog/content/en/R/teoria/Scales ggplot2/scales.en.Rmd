@@ -17,7 +17,7 @@ tags:
 - Scales
 - Mapping
 series:
-- Graphic con ggplot2
+- Graphic with ggplot2
 categories:
 - Graphs
 image: "/images/R/Teoria/scales.png"
