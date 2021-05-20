@@ -2,7 +2,7 @@ baseURL = "https://miotsdata.netlify.app"
 title = "Miots data"
 theme = "hugo-theme-zzo"
 
-defaultContentLanguage = "en"
+defaultContentLanguage = "it"
 defaultContentLanguageInSubdir = true
 hasCJKLanguage = true
 
