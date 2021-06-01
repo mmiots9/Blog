@@ -2,7 +2,7 @@
 title: "Quella metropoli che è la cellula: introduzione"
 date: 2021-06-01
 modified: 
-description: "Presentazione della nuova serie sulla scienza e inizio di un viaggio che ci porterà all'interno di quella metropoli chiamata *cellula*"
+description: "Presentazione della nuova serie sulla scienza e inizio di un viaggio che ci porterà all'interno di quella metropoli chiamata cellula"
 draft: false
 hideToc: true
 enableToc: false

@@ -2,7 +2,7 @@
 title: "Welcome to celltropoly: introduction"
 date: 2021-06-01
 modified: 
-description: "Introduction to the new science-pills series: a journey through that metropoly that is called *cell*"
+description: "Introduction to the new science-pills series: a journey through that metropoly that is called cell"
 draft: false
 hideToc: true
 enableToc: false
