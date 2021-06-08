@@ -1,0 +1,276 @@
+---
+title: "Measures of central tendency: what they are and how they can be misleading"
+date: 2021-06-08
+modified: 
+description: "The measures of central tendency are the basis of descriptive statistics. Let's see what they are and which are their limitations of use"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h2", "h3", "h4"]
+tags:
+- Plls
+- Data analysis
+- Descriptive statistics
+- Mean
+- Median
+series:
+- Descriptive statistics
+categories:
+- Data analysis pills
+image: "/images/Pillole/Analisi_dati/Indici_centralitaen.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggpubr)
+```
+
+
+<article class="single__contents" data-dir="ltr" data-ani="true">
+<div class="expand">
+<button type="button" class="expand__button" aria-label="Expand Button">
+<span class="expand-icon expand-icon__right">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="expand-icon__right"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></path></svg>
+</span>
+    What's on this page
+</button>
+<div class="expand__content expand__content--toc" style="">
+<nav id="TableOfContents">
+<ul>
+<li><a href="#mean">Mean</a>
+<ul>
+<li><a href="#arihtmetic-mean">Arithmetic mean</a></li>
+<li><a href="#weighted-arithmetic-mean">Weighted arithmetic mean</a></li>
+</ul>
+</li>
+<li><a href="#median">Median</a></li>
+<li><a href="#mode">Mode</a></li>
+<li><a href="#graphic-recap">Graphic recap</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</article>
+
+
+<div style="text-align: justify;">
+In your life you will surely have heard the expression "... they have on average tot more/less than ...", arousing anger or happiness in you (based on what was compared).
+The mean is one of the <b>measures of central tendency</b>, together with the median and the mode; today, I will talk about these measures, what they are, their usefulness and, in particular, their limits.
+
+The measures of central tendency are values that allow us to describe the “centrality” of the data of a sample, and which are often used to highlight its characteristics.
+Let's see them in more detail (if you are already aware of them and you just want to see their limits, jump directly to the dedicated section [here](#limits)).
+
+## Mean
+The mean is the most famous and the most used one, and the one that many of you will surely know how to calculate; it is the average value (pardon the pun) of our sample. There are several types of mean, we will only talk about arithmetic and weighted arithmetic mean
+
+### Arithmetic mean
+The arithmetic mean is calculated as the ratio between the sum of the values of our sample and the number of them, in symbols: <span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mover><mi>x</mi><mo stretchy=&quot;false&quot;>&amp;#x00AF;</mo></mover></mrow><mo>=</mo><munderover><mo>&amp;#x2211;</mo><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mfrac><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><mo>&amp;#x2026;</mo><mo>+</mo><msub><mi>x</mi><mi>i</mi></msub></mrow><mi>n</mi></mfrac></mrow></math>" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 9.787em; display: inline-block;"><span style="display: inline-block; position: relative; width: 8.226em; height: 0px; font-size: 119%;"><span style="position: absolute; clip: rect(1.444em, 1008.226em, 3.064em, -999.997em); top: -2.518em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="texatom" id="MathJax-Span-3"><span class="mrow" id="MathJax-Span-4"><span class="munderover" id="MathJax-Span-5"><span style="display: inline-block; position: relative; width: 0.423em; height: 0px;"><span style="position: absolute; clip: rect(3.424em, 1000.423em, 4.205em, -999.997em); top: -4.019em; left: 0em;"><span class="mi" id="MathJax-Span-6" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.244em, 1000.303em, 3.664em, -999.997em); top: -4.079em; left: 0.063em;"><span class="mo" id="MathJax-Span-7" style="font-family: STIXGeneral-Regular;">¯</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span></span></span></span></span><span class="mo" id="MathJax-Span-8" style="font-family: STIXGeneral-Regular; padding-left: 0.303em;">=</span><span class="munderover" id="MathJax-Span-9" style="padding-left: 0.303em;"><span style="display: inline-block; position: relative; width: 2.044em; height: 0px;"><span style="position: absolute; clip: rect(3.064em, 1000.843em, 4.445em, -999.997em); top: -4.019em; left: 0em;"><span class="mo" id="MathJax-Span-10" style="font-family: STIXGeneral-Regular; vertical-align: 0.003em;">∑</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.544em, 1000.423em, 4.205em, -999.997em); top: -4.499em; left: 0.903em;"><span class="mi" id="MathJax-Span-11" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">n</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.364em, 1001.083em, 4.205em, -999.997em); top: -3.718em; left: 0.903em;"><span class="texatom" id="MathJax-Span-12"><span class="mrow" id="MathJax-Span-13"><span class="mi" id="MathJax-Span-14" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span class="mo" id="MathJax-Span-15" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">=</span><span class="mn" id="MathJax-Span-16" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">1</span></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span></span></span><span class="texatom" id="MathJax-Span-17" style="padding-left: 0.183em;"><span class="mrow" id="MathJax-Span-18"><span class="mfrac" id="MathJax-Span-19"><span style="display: inline-block; position: relative; width: 4.025em; height: 0px; margin-right: 0.123em; margin-left: 0.123em;"><span style="position: absolute; clip: rect(3.484em, 1003.905em, 4.325em, -999.997em); top: -4.559em; left: 50%; margin-left: -1.918em;"><span class="mrow" id="MathJax-Span-20"><span class="msubsup" id="MathJax-Span-21"><span style="display: inline-block; position: relative; width: 0.603em; height: 0px;"><span style="position: absolute; clip: rect(3.544em, 1000.303em, 4.205em, -999.997em); top: -4.019em; left: 0em;"><span class="mi" id="MathJax-Span-22" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; top: -3.899em; left: 0.303em;"><span class="mn" id="MathJax-Span-23" style="font-size: 50%; font-family: STIXGeneral-Regular;">1</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span></span></span><span class="mo" id="MathJax-Span-24" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="msubsup" id="MathJax-Span-25"><span style="display: inline-block; position: relative; width: 0.603em; height: 0px;"><span style="position: absolute; clip: rect(3.544em, 1000.303em, 4.205em, -999.997em); top: -4.019em; left: 0em;"><span class="mi" id="MathJax-Span-26" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; top: -3.899em; left: 0.303em;"><span class="mn" id="MathJax-Span-27" style="font-size: 50%; font-family: STIXGeneral-Regular;">2</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span></span></span><span class="mo" id="MathJax-Span-28" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mo" id="MathJax-Span-29" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">…</span><span class="mo" id="MathJax-Span-30" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="msubsup" id="MathJax-Span-31"><span style="display: inline-block; position: relative; width: 0.483em; height: 0px;"><span style="position: absolute; clip: rect(3.544em, 1000.303em, 4.205em, -999.997em); top: -4.019em; left: 0em;"><span class="mi" id="MathJax-Span-32" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; top: -3.899em; left: 0.303em;"><span class="mi" id="MathJax-Span-33" style="font-size: 50%; font-family: STIXGeneral-Italic;">i</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.544em, 1000.363em, 4.205em, -999.997em); top: -3.658em; left: 50%; margin-left: -0.177em;"><span class="mi" id="MathJax-Span-34" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">n</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(0.843em, 1004.025em, 1.264em, -999.997em); top: -1.318em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top-width: 1.3px; border-top-style: solid; width: 4.025em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.083em;"></span></span></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.524em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.496em; border-left-width: 0px; border-left-style: solid; width: 0px; height: 1.646em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"></math></span></span>
+
+```{example, name = "Arithmetic mean", label="mar"}
+For each hospital, calculate the arithmetic mean of the patients' blood glucose values (mg/dL).  
+Hospital 1: 93, 97, 94, 102, 105, 99, 94, 100, 102, 91  
+Hospital 2: 89, 88, 109, 102, 91, 120, 103, 99, 105, 111, 100, 101, 97, 110, 107
+```
+<br>
+```{solution}
+<br>
+To calculate the arithmetic means of each hospital, I add up the glucose values of the patients in that hospital and divide the obtained value by the number of subjects.
+So, for the first hospital: <span class="MathJax" id="MathJax-Element-2-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mfrac><mrow><mn>93</mn><mo>+</mo><mn>97</mn><mo>+</mo><mn>94</mn><mo>+</mo><mn>102</mn><mo>+</mo><mn>105</mn><mo>+</mo><mn>99</mn><mo>+</mo><mn>94</mn><mo>+</mo><mn>100</mn><mo>+</mo><mn>102</mn><mo>+</mo><mn>91</mn></mrow><mn>10</mn></mfrac><mo>=</mo><mfrac><mn>977</mn><mn>10</mn></mfrac><mo>=</mo><mn>97.7</mn></math>" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-35" style="width: 22.692em; display: inline-block;"><span style="display: inline-block; position: relative; width: 19.031em; height: 0px; font-size: 119%;"><span style="position: absolute; clip: rect(1.384em, 1018.971em, 3.124em, -999.997em); top: -2.518em; left: 0em;"><span class="mrow" id="MathJax-Span-36"><span class="mfrac" id="MathJax-Span-37"><span style="display: inline-block; position: relative; width: 12.968em; height: 0px; margin-right: 0.123em; margin-left: 0.123em;"><span style="position: absolute; clip: rect(3.364em, 1012.788em, 4.205em, -999.997em); top: -4.499em; left: 50%; margin-left: -6.42em;"><span class="mrow" id="MathJax-Span-38"><span class="mn" id="MathJax-Span-39" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">93</span><span class="mo" id="MathJax-Span-40" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-41" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">97</span><span class="mo" id="MathJax-Span-42" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-43" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">94</span><span class="mo" id="MathJax-Span-44" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-45" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">102</span><span class="mo" id="MathJax-Span-46" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-47" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">105</span><span class="mo" id="MathJax-Span-48" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-49" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">99</span><span class="mo" id="MathJax-Span-50" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-51" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">94</span><span class="mo" id="MathJax-Span-52" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-53" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">100</span><span class="mo" id="MathJax-Span-54" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-55" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">102</span><span class="mo" id="MathJax-Span-56" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-57" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">91</span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.364em, 1000.663em, 4.205em, -999.997em); top: -3.598em; left: 50%; margin-left: -0.357em;"><span class="mn" id="MathJax-Span-58" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">10</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(0.843em, 1012.968em, 1.264em, -999.997em); top: -1.318em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top-width: 1.3px; border-top-style: solid; width: 12.968em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.083em;"></span></span></span></span><span class="mo" id="MathJax-Span-59" style="font-family: STIXGeneral-Regular; padding-left: 0.303em;">=</span><span class="mfrac" id="MathJax-Span-60" style="padding-left: 0.303em;"><span style="display: inline-block; position: relative; width: 1.203em; height: 0px; margin-right: 0.123em; margin-left: 0.123em;"><span style="position: absolute; clip: rect(3.364em, 1001.023em, 4.205em, -999.997em); top: -4.439em; left: 50%; margin-left: -0.537em;"><span class="mn" id="MathJax-Span-61" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">977</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.364em, 1000.663em, 4.205em, -999.997em); top: -3.598em; left: 50%; margin-left: -0.357em;"><span class="mn" id="MathJax-Span-62" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">10</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(0.843em, 1001.203em, 1.264em, -999.997em); top: -1.318em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top-width: 1.3px; border-top-style: solid; width: 1.203em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.083em;"></span></span></span></span><span class="mo" id="MathJax-Span-63" style="font-family: STIXGeneral-Regular; padding-left: 0.303em;">=</span><span class="mn" id="MathJax-Span-64" style="font-family: STIXGeneral-Regular; padding-left: 0.303em;">97.7</span></span><span style="display: inline-block; width: 0px; height: 2.524em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.568em; border-left-width: 0px; border-left-style: solid; width: 0px; height: 1.718em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"></math></span></span>
+<br>
+I leave the calculation for the second hospital up to you as an exercise, telling you that it is almost 102.13. <br>
+As can be seen, the two values obtained are <b>not</b> part of the sample values.
+```
+
+### Weighted arithmetic mean
+The weighted arithmetic mean is used in various contexts: when you have a list of values organized as “w1 patients have 101, w2 patients have 103, etc.”, or when you have to calculate the average between the means.
+It is calculated by multiplying each value by the corresponding number index (or weight), and dividing this value by the total number (or rather, by the total "weight", given by the sum of w). In symbols: <span class="MathJax" id="MathJax-Element-3-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mover><mi>x</mi><mo stretchy=&quot;false&quot;>&amp;#x00AF;</mo></mover></mrow><mo>=</mo><mfrac><mrow><munderover><mo>&amp;#x2211;</mo><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mi>x</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow class=&quot;MJX-TeXAtom-ORD&quot;><msub><mi>x</mi><mi>i</mi></msub></mrow></mrow><mrow><munderover><mo>&amp;#x2211;</mo><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mi>w</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow class=&quot;MJX-TeXAtom-ORD&quot;><msub><mi>w</mi><mi>i</mi></msub></mrow></mrow></mfrac></math>" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-65" style="width: 5.465em; display: inline-block;"><span style="display: inline-block; position: relative; width: 4.565em; height: 0px; font-size: 119%;"><span style="position: absolute; clip: rect(1.143em, 1004.565em, 3.424em, -999.997em); top: -2.518em; left: 0em;"><span class="mrow" id="MathJax-Span-66"><span class="texatom" id="MathJax-Span-67"><span class="mrow" id="MathJax-Span-68"><span class="munderover" id="MathJax-Span-69"><span style="display: inline-block; position: relative; width: 0.423em; height: 0px;"><span style="position: absolute; clip: rect(3.424em, 1000.423em, 4.205em, -999.997em); top: -4.019em; left: 0em;"><span class="mi" id="MathJax-Span-70" style="font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.244em, 1000.303em, 3.664em, -999.997em); top: -4.079em; left: 0.063em;"><span class="mo" id="MathJax-Span-71" style="font-family: STIXGeneral-Regular;">¯</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span></span></span></span></span><span class="mo" id="MathJax-Span-72" style="font-family: STIXGeneral-Regular; padding-left: 0.303em;">=</span><span class="mfrac" id="MathJax-Span-73" style="padding-left: 0.303em;"><span style="display: inline-block; position: relative; width: 2.584em; height: 0px; margin-right: 0.123em; margin-left: 0.123em;"><span style="position: absolute; clip: rect(3.304em, 1002.224em, 4.445em, -999.997em); top: -4.679em; left: 50%; margin-left: -1.077em;"><span class="mrow" id="MathJax-Span-74"><span class="munderover" id="MathJax-Span-75"><span style="display: inline-block; position: relative; width: 1.504em; height: 0px;"><span style="position: absolute; clip: rect(3.304em, 1000.603em, 4.385em, -999.997em); top: -4.019em; left: 0em;"><span class="mo" id="MathJax-Span-76" style="font-size: 70.7%; font-family: STIXGeneral-Regular; vertical-align: 0.003em;">∑</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.604em, 1000.303em, 4.205em, -999.997em); top: -4.379em; left: 0.663em;"><span class="mi" id="MathJax-Span-77" style="font-size: 50%; font-family: STIXGeneral-Italic;">n</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.484em, 1000.843em, 4.205em, -999.997em); top: -3.839em; left: 0.663em;"><span class="texatom" id="MathJax-Span-78"><span class="mrow" id="MathJax-Span-79"><span class="mi" id="MathJax-Span-80" style="font-size: 50%; font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-81" style="font-size: 50%; font-family: STIXGeneral-Regular;">=</span><span class="mn" id="MathJax-Span-82" style="font-size: 50%; font-family: STIXGeneral-Regular;">1</span></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span></span></span><span class="texatom" id="MathJax-Span-83" style="padding-left: 0.183em;"><span class="mrow" id="MathJax-Span-84"><span class="msubsup" id="MathJax-Span-85"><span style="display: inline-block; position: relative; width: 0.483em; height: 0px;"><span style="position: absolute; clip: rect(3.544em, 1000.303em, 4.205em, -999.997em); top: -4.019em; left: 0em;"><span class="mi" id="MathJax-Span-86" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">x<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; top: -3.899em; left: 0.303em;"><span class="mi" id="MathJax-Span-87" style="font-size: 50%; font-family: STIXGeneral-Italic;">i</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.304em, 1002.464em, 4.445em, -999.997em); top: -3.538em; left: 50%; margin-left: -1.258em;"><span class="mrow" id="MathJax-Span-88"><span class="munderover" id="MathJax-Span-89"><span style="display: inline-block; position: relative; width: 1.624em; height: 0px;"><span style="position: absolute; clip: rect(3.304em, 1000.603em, 4.385em, -999.997em); top: -4.019em; left: 0em;"><span class="mo" id="MathJax-Span-90" style="font-size: 70.7%; font-family: STIXGeneral-Regular; vertical-align: 0.003em;">∑</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.604em, 1000.303em, 4.205em, -999.997em); top: -4.379em; left: 0.663em;"><span class="mi" id="MathJax-Span-91" style="font-size: 50%; font-family: STIXGeneral-Italic;">n</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.484em, 1000.963em, 4.205em, -999.997em); top: -3.839em; left: 0.663em;"><span class="texatom" id="MathJax-Span-92"><span class="mrow" id="MathJax-Span-93"><span class="mi" id="MathJax-Span-94" style="font-size: 50%; font-family: STIXGeneral-Italic;">w</span><span class="mo" id="MathJax-Span-95" style="font-size: 50%; font-family: STIXGeneral-Regular;">=</span><span class="mn" id="MathJax-Span-96" style="font-size: 50%; font-family: STIXGeneral-Regular;">1</span></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span></span></span><span class="texatom" id="MathJax-Span-97" style="padding-left: 0.183em;"><span class="mrow" id="MathJax-Span-98"><span class="msubsup" id="MathJax-Span-99"><span style="display: inline-block; position: relative; width: 0.663em; height: 0px;"><span style="position: absolute; clip: rect(3.544em, 1000.483em, 4.205em, -999.997em); top: -4.019em; left: 0em;"><span class="mi" id="MathJax-Span-100" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">w</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; top: -3.899em; left: 0.483em;"><span class="mi" id="MathJax-Span-101" style="font-size: 50%; font-family: STIXGeneral-Italic;">i</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(0.843em, 1002.584em, 1.264em, -999.997em); top: -1.318em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top-width: 1.3px; border-top-style: solid; width: 2.584em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.083em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.524em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.925em; border-left-width: 0px; border-left-style: solid; width: 0px; height: 2.432em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"></mfrac></math></span></span>
+
+```{example, name="Weighted arithmetic mean", label="mpo"}
+Taking the data from the \@refexample(exm:mar), calculate the average of the glucose values of all the patients taken into consideration.
+```
+<br>
+```{solution}
+<br>
+Some of you may think "well, having the two averages, I should calculate the arithmetic mean and I'll get the general one", thus calculating <span class="MathJax" id="MathJax-Element-4-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mfrac><mrow><mn>97.7</mn><mo>+</mo><mn>102.13</mn></mrow><mn>2</mn></mfrac><mo>=</mo><mn>99.92</mn></math>" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-102" style="width: 9.007em; display: inline-block;"><span style="display: inline-block; position: relative; width: 7.566em; height: 0px; font-size: 119%;"><span style="position: absolute; clip: rect(1.444em, 1007.566em, 3.124em, -999.997em); top: -2.518em; left: 0em;"><span class="mrow" id="MathJax-Span-103"><span class="mfrac" id="MathJax-Span-104"><span style="display: inline-block; position: relative; width: 3.785em; height: 0px; margin-right: 0.123em; margin-left: 0.123em;"><span style="position: absolute; clip: rect(3.364em, 1003.604em, 4.205em, -999.997em); top: -4.499em; left: 50%; margin-left: -1.858em;"><span class="mrow" id="MathJax-Span-105"><span class="mn" id="MathJax-Span-106" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">97.7</span><span class="mo" id="MathJax-Span-107" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-108" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">102.13</span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.364em, 1000.363em, 4.205em, -999.997em); top: -3.598em; left: 50%; margin-left: -0.177em;"><span class="mn" id="MathJax-Span-109" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">2</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(0.843em, 1003.785em, 1.264em, -999.997em); top: -1.318em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top-width: 1.3px; border-top-style: solid; width: 3.785em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.083em;"></span></span></span></span><span class="mo" id="MathJax-Span-110" style="font-family: STIXGeneral-Regular; padding-left: 0.303em;">=</span><span class="mn" id="MathJax-Span-111" style="font-family: STIXGeneral-Regular; padding-left: 0.303em;">99.92</span></span><span style="display: inline-block; width: 0px; height: 2.524em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.568em; border-left-width: 0px; border-left-style: solid; width: 0px; height: 1.718em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"></math></span></span>. <br>
+This is a <b>huge</b> mistake, since the two samples have different sizes, and therefore the averages have different “weights”.
+Using the formula seen above, the correct calculation is: <span class="MathJax" id="MathJax-Element-5-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mfrac><mrow><mn>97.7</mn><mo>&amp;#x2217;</mo><mn>10</mn><mo>+</mo><mn>102.13</mn><mo>&amp;#x2217;</mo><mn>15</mn></mrow><mrow><mn>10</mn><mo>+</mo><mn>15</mn></mrow></mfrac><mo>=</mo><mn>100.36</mn></math>" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-112" style="width: 12.188em; display: inline-block;"><span style="display: inline-block; position: relative; width: 10.207em; height: 0px; font-size: 119%;"><span style="position: absolute; clip: rect(1.384em, 1010.147em, 3.124em, -999.997em); top: -2.518em; left: 0em;"><span class="mrow" id="MathJax-Span-113"><span class="mfrac" id="MathJax-Span-114"><span style="display: inline-block; position: relative; width: 5.945em; height: 0px; margin-right: 0.123em; margin-left: 0.123em;"><span style="position: absolute; clip: rect(3.364em, 1005.765em, 4.205em, -999.997em); top: -4.499em; left: 50%; margin-left: -2.878em;"><span class="mrow" id="MathJax-Span-115"><span class="mn" id="MathJax-Span-116" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">97.7</span><span class="mo" id="MathJax-Span-117" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">∗</span><span class="mn" id="MathJax-Span-118" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">10</span><span class="mo" id="MathJax-Span-119" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-120" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">102.13</span><span class="mo" id="MathJax-Span-121" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">∗</span><span class="mn" id="MathJax-Span-122" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">15</span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.364em, 1001.864em, 4.205em, -999.997em); top: -3.598em; left: 50%; margin-left: -0.957em;"><span class="mrow" id="MathJax-Span-123"><span class="mn" id="MathJax-Span-124" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">10</span><span class="mo" id="MathJax-Span-125" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-126" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">15</span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(0.843em, 1005.945em, 1.264em, -999.997em); top: -1.318em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top-width: 1.3px; border-top-style: solid; width: 5.945em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.083em;"></span></span></span></span><span class="mo" id="MathJax-Span-127" style="font-family: STIXGeneral-Regular; padding-left: 0.303em;">=</span><span class="mn" id="MathJax-Span-128" style="font-family: STIXGeneral-Regular; padding-left: 0.303em;">100.36</span></span><span style="display: inline-block; width: 0px; height: 2.524em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.568em; border-left-width: 0px; border-left-style: solid; width: 0px; height: 1.789em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"></math></span></span>
+```
+
+
+In this case the difference is not so much, but I assure you that with other data the difference would be high (try inventing some data yourself).
+
+## Median
+After having seen the mean, let's move on to another very important measure of central tendency in statistics: the median.
+The median is the value that divides the sample in half, i.e. the value that, once the sample data is sorted in ascending order, has half that are lower and half that are higher.
+The calculation of the median depends on the sample size: if it is odd, then the median is given by the value that occupies the position <span class="MathJax" id="MathJax-Element-6-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mfrac><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></mfrac></math>" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-129" style="width: 1.924em; display: inline-block;"><span style="display: inline-block; position: relative; width: 1.624em; height: 0px; font-size: 119%;"><span style="position: absolute; clip: rect(1.143em, 1001.624em, 2.824em, -999.997em); top: -2.218em; left: 0em;"><span class="mrow" id="MathJax-Span-130"><span class="mfrac" id="MathJax-Span-131"><span style="display: inline-block; position: relative; width: 1.324em; height: 0px; margin-right: 0.123em; margin-left: 0.123em;"><span style="position: absolute; clip: rect(3.364em, 1001.143em, 4.205em, -999.997em); top: -4.499em; left: 50%; margin-left: -0.597em;"><span class="mrow" id="MathJax-Span-132"><span class="mi" id="MathJax-Span-133" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">n</span><span class="mo" id="MathJax-Span-134" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">+</span><span class="mn" id="MathJax-Span-135" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">1</span></span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.364em, 1000.363em, 4.205em, -999.997em); top: -3.598em; left: 50%; margin-left: -0.177em;"><span class="mn" id="MathJax-Span-136" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">2</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(0.843em, 1001.324em, 1.264em, -999.997em); top: -1.318em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top-width: 1.3px; border-top-style: solid; width: 1.324em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.083em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.224em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.568em; border-left-width: 0px; border-left-style: solid; width: 0px; height: 1.718em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"></math></span></span> in the sorted data; if, on the other hand, the sample has an even number, the median will be given by the arithmetic average of the values that occupy the positions <span class="MathJax" id="MathJax-Element-7-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mfrac><mi>n</mi><mn>2</mn></mfrac></math>" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-137" style="width: 0.903em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.723em; height: 0px; font-size: 119%;"><span style="position: absolute; clip: rect(1.324em, 1000.723em, 2.824em, -999.997em); top: -2.218em; left: 0em;"><span class="mrow" id="MathJax-Span-138"><span class="mfrac" id="MathJax-Span-139"><span style="display: inline-block; position: relative; width: 0.483em; height: 0px; margin-right: 0.123em; margin-left: 0.123em;"><span style="position: absolute; clip: rect(3.544em, 1000.363em, 4.205em, -999.997em); top: -4.439em; left: 50%; margin-left: -0.177em;"><span class="mi" id="MathJax-Span-140" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">n</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.364em, 1000.363em, 4.205em, -999.997em); top: -3.598em; left: 50%; margin-left: -0.177em;"><span class="mn" id="MathJax-Span-141" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">2</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(0.843em, 1000.483em, 1.264em, -999.997em); top: -1.318em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top-width: 1.3px; border-top-style: solid; width: 0.483em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.083em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.224em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.568em; border-left-width: 0px; border-left-style: solid; width: 0px; height: 1.504em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"></math></span></span> and <span class="MathJax" id="MathJax-Element-8-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mfrac><mi>n</mi><mn>2</mn></mfrac><mo>+</mo><mn>1</mn></math>" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-142" style="width: 2.884em; display: inline-block;"><span style="display: inline-block; position: relative; width: 2.404em; height: 0px; font-size: 119%;"><span style="position: absolute; clip: rect(1.624em, 1002.284em, 3.124em, -999.997em); top: -2.518em; left: 0em;"><span class="mrow" id="MathJax-Span-143"><span class="mfrac" id="MathJax-Span-144"><span style="display: inline-block; position: relative; width: 0.483em; height: 0px; margin-right: 0.123em; margin-left: 0.123em;"><span style="position: absolute; clip: rect(3.544em, 1000.363em, 4.205em, -999.997em); top: -4.439em; left: 50%; margin-left: -0.177em;"><span class="mi" id="MathJax-Span-145" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">n</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(3.364em, 1000.363em, 4.205em, -999.997em); top: -3.598em; left: 50%; margin-left: -0.177em;"><span class="mn" id="MathJax-Span-146" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">2</span><span style="display: inline-block; width: 0px; height: 4.025em;"></span></span><span style="position: absolute; clip: rect(0.843em, 1000.483em, 1.264em, -999.997em); top: -1.318em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top-width: 1.3px; border-top-style: solid; width: 0.483em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.083em;"></span></span></span></span><span class="mo" id="MathJax-Span-147" style="font-family: STIXGeneral-Regular; padding-left: 0.243em;">+</span><span class="mn" id="MathJax-Span-148" style="font-family: STIXGeneral-Regular; padding-left: 0.243em;">1</span></span><span style="display: inline-block; width: 0px; height: 2.524em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.568em; border-left-width: 0px; border-left-style: solid; width: 0px; height: 1.504em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"></math></span></span>.
+It follows that for odd samples the median will <u>always</u> be a sample value, while for even samples it can be either a sample value (if the values to be averaged are equal), or a value not included in the sample.
+To better understand these concepts, let's look at an example accompanied by graphs.
+
+```{example, name="Median", label="mdn"}
+Calculate the median of the samples from the two hospitals in the example \@ref(exm:mar).
+```
+<br>
+```{solution}
+<br>
+As before, I carry out the calculation for one hospital, while I leave the calculation of the second to you.
+We sort the first hospital data 1: 91, 93, 94, 94, 97, 99, 100, 102, 102, 105.
+Since the numerosity is 10 (even), the median will be given by the average between the value in the V and that in the VI position. The two values are 97 and 99, the average of which is 98. <br>
+As for hospital 2, the calculation is simpler, since I have 15 pieces of data. The median is 102.
+```
+<br>
+Now let's see graphically how these values divide the sample in half.
+
+
+```{r median, echo=FALSE, fig.align='center', fig.cap="Graphical representation of the split in half of the sample that the median value produces", fig.width=10}
+
+osp1 <- c(93, 97, 94, 102, 105, 99, 94, 100, 102, 91)
+osp2 <- c(89, 88, 109, 102, 91, 120, 103, 99, 105, 111, 100, 101, 97, 110, 107)
+
+m1 <- ggplot() +
+  geom_point(aes(x = sort(osp1), y = c(1,1,0.9,1.1,1,1,1,0.9,1.1,1)), color = "blue") +
+  geom_vline(xintercept = median(osp1), color = "red", size = 0.8) +
+  theme_minimal(base_line_size = 0) +
+  scale_x_continuous(breaks = c(osp1, median(osp1))) +
+  scale_y_continuous(limits = c(0,2), breaks = NULL) +
+  xlab("Glucose (mg/dl)") +
+  ylab(NULL) +
+  geom_vline(xintercept = osp1, color = "gray", alpha = 0.5) +
+  labs(title = "Hospital 1")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+m2 <- ggplot() +
+  geom_point(aes(x = sort(osp2), y = rep(1, 15)), color = "blue") +
+  geom_vline(xintercept = median(osp2), color = "red", size = 0.8) +
+  theme_minimal(base_line_size = 0) +
+  scale_x_continuous(breaks = c(osp2, median(osp2))) +
+  scale_y_continuous(limits = c(0,2), breaks = NULL) +
+  xlab("Glucose (mg/dl)") +
+  ylab(NULL) +
+  geom_vline(xintercept = osp2, color = "gray", alpha = 0.5) +
+  labs(title = "Hospital 2")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggarrange(m1, m2, nrow = 2, labels = "AUTO")
+
+```
+
+
+In panel A, you can see how the red line, corresponding to the median, has 5 points on both its left and right, corresponding to the glucose values found in hospital patients 1.
+In panel B, on the other hand, the red line corresponds to a sample value (as it should be seen that the sample has an odd number). Both to the left and to the right of the median there are 7 points. <br>
+This visually demonstrates the actual division in half that the median implements on the sample.
+
+## Mode
+Lastly, I will briefly talk to you about the measure of central tendency called "mode". I said briefly, because there is not much to say about this measure, as it is very rarely used.
+The mode of a sample is that value that has more occurrences, that is, that “appears” the most. It follows that it is an <i>internal</i> value to the sample, always.
+```{example, name="Mode", label="md"}
+Always taking a cue from the hospital data in the example \@ref(exm:mar), calculate the mode.
+```
+<br>
+```{solution}
+<br>
+In the first hospital, there are two patients with a value of 94 and two patients with a value of 102, all the others have different values. It follows that the mode is actually given by two values, and that the distribution is defined as <i>bimodal</i>. <br>
+In the second hospital, however, all patients have different values. In this case, you could use the frequency distribution and evaluate which is the most represented interval (but this topic will not be covered in this post).
+```
+## Graphic recap
+Below, there is a graphic recap of the measures of central tendency of the samples taken as an example:
+```{r all, echo=FALSE, fig.align='center', fig.cap="Graphic representation of the samples and their measures of central tendency", fig.width=10}
+valori1 <- data.frame(
+    "val" = c(mean(osp1), median(osp1), 94),
+    "cosa" = c("mean", "median", "mode")
+  )
+
+all1 <- ggplot() +
+  geom_point(aes(x = sort(osp1), y = c(1,1,0.9,1.1,1,1,1,0.9,1.1,1)), color = "blue", size = 3) +
+  geom_line(aes(x = c(valori1$val, valori1$val), y = c(rep(0, 3), rep(2, 3)), color = c(valori1$cosa, valori1$cosa)), size = 1.5, 
+            alpha = c(1, 1, 1, 1, 0.5, 0.5))+
+  theme_minimal(base_line_size = 0) +
+  scale_x_continuous(breaks = c(osp1, mean(osp1), median(osp1))) +
+  scale_y_continuous(limits = c(0, 2), breaks = NULL) +
+  xlab("Glucose (mg/dl)") +
+  ylab(NULL) +
+  geom_vline(xintercept = osp1, color = "gray", alpha = 0.5) +
+  labs(title = "Hospital 1") +
+  theme(legend.title = element_blank()) +
+  scale_color_manual(values = c("red", "orange", "green")) +
+  geom_vline(xintercept = median(osp1), color = "red", size = 2) +
+  geom_vline(xintercept = mean(osp1), color = "orange", size = 1.5) +
+  geom_vline(xintercept = c(94, 102), color="green", alpha = .7, size = 1.5) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+valori2 <- data.frame(
+  "val" = c(mean(osp2), median(osp2)),
+  "cosa" = c("mean", "median")
+)
+
+all2 <- ggplot() +
+  geom_point(aes(x = sort(osp2), y = rep(1, 15)), color = "blue", size = 3) +
+  geom_line(aes(x = c(valori2$val, valori2$val), y = c(rep(0, 2), rep(2, 2)), color = c(valori2$cosa, valori2$cosa)), size = 1.5)+
+  theme_minimal(base_line_size = 0) +
+  scale_x_continuous(breaks = c(osp2, median(osp2))) +
+  scale_y_continuous(limits = c(0, 2), breaks = NULL) +
+  xlab("Glucose (mg/dl)") +
+  ylab(NULL) +
+  geom_vline(xintercept = osp2, color = "gray", alpha = 0.5) +
+  labs(title = "Hospital 2") +
+  theme(legend.title = element_blank()) +
+  scale_color_manual(values = c("red", "orange")) +
+  geom_vline(xintercept = median(osp2), color = "red", size = 2) +
+  geom_vline(xintercept = mean(osp2), color = "orange", size = 1.5) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+ggarrange(all1, all2, nrow = 2, labels = "AUTO", common.legend = T)
+
+```
+
+
+In panel A. we see the measures relating to hospital 1, in which we have the following values:
+<li>Average: 97.7</li>
+<li>Median: 98</li>
+<li>Mode: 94 and 102</li>
+As you can see, mean and median do not have very different values, while mode not only has 2 values, but these values are also distant from mean and median.
+
+In panel B, on the other hand, the values relating to hospital 2:
+<li>Average: 102.13</li>
+<li>Median: 102</li>
+<li>Fashion: NA</li>
+Again, mean and median have similar values.
+
+## Limitations
+Here we are at the most important part of this post, which will try to make you understand the weakness of these measures when used <b>alone</b> to describe a sample.
+
+Let's start with the data we saw in the recap. It immediately catches the eye how mode itself can only say whether a sample is unimodal or multimodal, but for the comparison between different samples there is a need to have more indicative and precise values.
+
+Let's now turn to the mean: the biggest problem lies in its susceptibility to extremely large or extremely small values.
+
+```{example, name="susceptibility of the mean", label = "extreme"}
+Let's say that in the first hospital, instead of having a patient with 105 we had a diabetic one with 150; the average at that point would go from 97.7 to 102.2! This would lead the average value of hospital 1 to be higher than that of hospital 2, and it is only due to the fact that a patient is diabetic.
+```
+
+The extreme values have a great influence on the mean, but <u>not</u> on the median: in fact, even using the data of the example \@ref(exm:extreme), the median of hospital 1 would remain 98, since only the two central values are important, which in this case have not changed. <br>
+This, however, leads to another consideration on the limits of these indices: 98 and 102.2 are very different values. This means that there are cases in which mean and median have very different values, and the use of one rather than the other could have different effects on the perception of the reader.
+
+For example, using the modified data one could say: "Comparing the averages of the glucose values in the two hospitals, there seems to be no difference between the patients" or "Comparing the medians of the glucose values of the patients of the two hospitals, it would appear that the patients in hospital 1 have 4 mg/dl less glucose than those of hospital 2". Same data, different conclusions.
+Some might argue that the difference is small and that these data do not indicate anything particular. This is true, but what if instead of being data from two hospitals, it were data from two different treatment regimens? Here it all changes. Let's see how:
+
+Returning to the data of the example \@ref(exm:mar). Let's now transform "Hospital 1" with "drug X" and "Hospital 2" with "placebo" and let's say we are in a scientific study aimed at evaluating the effectiveness of drug X in reducing blood glucose values (obviously the studies are done with much larger samples, this is just an example). <br>
+We would therefore have: placebo mean equal to 102.13 and drug X mean 98. <br>
+At this point, someone could bring out a news with the title: drug X reduces blood glucose values by about 4 mg/dl. Wow, this can help in the fight against hyperglycemia! <br>
+But no! This news would never come out, since whoever conducts the study (rightly) cannot stop to the comparison of the averages and he is "forced" to make a hypothesis test comparing the two samples, which would provide the following conclusions: there is no statistical strength to reject the fact that the two samples are actually equal (p-value 0.1142). Therefore, the drug does not have an effect in reducing blood glucose values.
+
+Do not worry if this part is difficult to understand, I will address the topic of hypothesis tests for the comparison of two samples in another post, when I will have also introduced other useful concepts. Concepts that are the basis of statistics, that is the dispersion measurments, which explain to us <i>how</i> our data are scattered around the mean/median.
+
+## Conclusions
+The measures of central tendency are the basis of the descriptive statistics of a sample, they allow us to highlight which are the important values of the sample, around which all the others are distributed. <b>BUT</b>, these values alone <u>are not</u> enough, and should not be used in a misleading way.
+
+
+</div>
