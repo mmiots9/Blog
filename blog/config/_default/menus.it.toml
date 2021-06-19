@@ -23,8 +23,8 @@
   
 [[main]]
   parent = "R"
-  name = "Miei codici"
-  url = "R/miei_codici"
+  name = "I miei pacchetti"
+  url = "R/miei_pacchetti"
 
 [[main]]
   identifier = "pillole"
