@@ -1,5 +1,5 @@
 ---
-title: "Welcome to celltropoly: introduction"
+title: "Welcome to celltropolis: introduction"
 date: 2021-06-01
 modified: 
 description: "Introduction to the new science-pills series: a journey through that metropoly that is called cell"
@@ -15,7 +15,7 @@ tags:
 - Science
 - Cell
 series:
-- Welcome to celltropoly
+- Welcome to celltropolis
 categories:
 - Science pills
 image: "/images/Pillole/scienza/cell.jpg"
@@ -28,7 +28,7 @@ authorImage: "/images/whoami/me.jpeg"
 >" Just one living cell in the human body is more complex than New York City."
 
 This is what L.C. Pauling, the father of the chemical bond and Nobel Prize in Chemistry in 1954, said about the human cell.  
-Starting from this parallelism, I decided to start a new series of scientific pills entitled "Welcome to celltropoly", with the aim of making it easier for non-experts to understand what happens inside our cells.  
+Starting from this parallelism, I decided to start a new series of scientific pills entitled "Welcome to celltropolis", with the aim of making it easier for non-experts to understand what happens inside our cells.  
 An ambitious and complex project, born from the need to counteract all those fake news that come up every day, providing the main and necessary notions to discern what is true from what is pure propaganda and falsehood.
 
 To do this, I will use the parallelism with the metropolis proposed by the famous Nobel Prize almost 70 years ago. Obviously, it will be an exemplification of everything, because the structure known at that time was more complex than the city of New York, the one known now is much more so.
