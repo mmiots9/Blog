@@ -1,0 +1,179 @@
+---
+title: "GGPLOT2 coordinates"
+date: 2021-07-06
+modified:
+description: "Coordinate function in ggplot2: change axes aspect and create a pieplot"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Graphs
+- Ggplot2
+- Coord
+- Pieplot
+series:
+- Graphic with ggplot2
+categories:
+- Graphs
+image: "/images/R/Teoria/coord.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div class="expand">
+<button type="button" class="expand__button" aria-label="Expand Button">
+<span class="expand-icon expand-icon__right"></span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="expand-icon__down"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></path></svg> What’s on this page
+</button>
+<div class="expand__content expand__content--toc" style="max-height: 381px;">
+<ul>
+<li>
+<a href="#ratio-and-axes-flip">Ratio and axes flip</a>
+</li>
+<li>
+<a href="#zoom-and-transformations ">Zoom and transformations</a>
+</li>
+<li>
+<a href="#polar-coordinates">Polar coordinates</a>
+</li>
+<li>
+<a href="#pieplot">Pieplot</a>
+</li>
+</ul>
+</div>
+</div>
+<div style="text-align: justify;">
+<p>Let’s continue the series on GGPLOT2 analyzing the penultimate component, the <strong>coordinates</strong>.
+The functions of this component will allow us to modify some characteristics of the axes, fundamental to finally create a <em>pieplot</em> with GGPLOT2.</p>
+<div id="ratio-and-axes-flip" class="section level1">
+<h1>Ratio and axes flip</h1>
+<p>Let’s start by looking at a function that allows us to decide in what ratio the axes must be; in other words, how many units on the y axis does one unit of the x axis correspond to?
+Let’s see an example right away.</p>
+<div class="figure" style="text-align: center"><span id="fig:fixed1"></span>
+<img src="/en/R/teoria/Coordinates ggplot2/coordinates.en_files/figure-html/fixed1-1.png" alt="Default graph" width="672" />
+<p class="caption">
+Figure 1: Default graph
+</p>
+</div>
+<p>By default, ggplot2 tries to make the graph as “beautiful” as possible in terms of axis dimensions, even using different scales for the two axes (as in the figure <a href="#fig:fixed1">1</a>).</p>
+<p>Instead, if we want to have the two axes having the same scale, we have to add the command <code>coord_fixed()</code>. The result would be this:</p>
+<div class="figure" style="text-align: center"><span id="fig:fixed2"></span>
+<img src="/en/R/teoria/Coordinates ggplot2/coordinates.en_files/figure-html/fixed2-1.png" alt="coord_fixed command added to the previous graph" width="672" />
+<p class="caption">
+Figure 2: coord_fixed command added to the previous graph
+</p>
+</div>
+<p>Now the two axes have the same scale, and in fact the y axis is very flattened with respect to the x axis. To change the ratio between the y axis and the x axis, and thus fix the graph, you need to set the <code>ratio</code> input.
+Testing with <code>ratio = 10</code>, we get this graph:</p>
+<div class="figure" style="text-align: center"><span id="fig:fixed3"></span>
+<img src="/en/R/teoria/Coordinates ggplot2/coordinates.en_files/figure-html/fixed3-1.png" alt="Graph with ratio setted" width="672" />
+<p class="caption">
+Figure 3: Graph with ratio setted
+</p>
+</div>
+<p>The graph is clear again.
+This function may not seem very useful now, but it may turn out as we need to create a graph that is a bit squashed towards the x-axis or the y-axis.</p>
+<p>To conclude this mini chapter, I’m going to talk briefly about the <code>coord_flip</code> function which, as you can guess from the name, inverts x-axis and y-axis. This can be useful when you are forced to use geometry or statistics on the x (or y) axis but you would like to have a graph in which the modified values are on the y axis (or viceversa). Just add this little function at the end of the graph command and that’s it.</p>
+</div>
+<div id="zoom-and-transformations" class="section level1">
+<h1>Zoom and transformations</h1>
+<p>One thing that the <em>coord_</em> component allows us to do is to zoom the chart without losing any data (which would happen if we set the axis limits using scales_ in order to zoom in on the chart).
+The way to zoom is given by the <code>xlim</code> and<code>ylim</code> inputs of each <code>coord_</code> command; if in the graph you have not chosen to use any <em>coord</em> modifications, remember that the default value is <code>coord_cartesian</code> and that you just need to add that command with the right inputs.</p>
+<p>In our case, if we want to zoom the graph in figure <a href="#fig:fixed1">1</a> to highlight the low values, we should add <code>coord_cartesian(xlim = c(10, 17), ylim = c(2.5, 4))</code>. Here is the result:</p>
+<div class="figure" style="text-align: center"><span id="fig:zoom"></span>
+<img src="/en/R/teoria/Coordinates ggplot2/coordinates.en_files/figure-html/zoom-1.png" alt="Zoom on the lower part of the graph in figure \@ref(fig:fixed1)" width="672" />
+<p class="caption">
+Figure 4: Zoom on the lower part of the graph in figure <a href="#fig:fixed1">1</a>
+</p>
+</div>
+<p>A very similar argument applies to transformations related to axes, such as the application of a logarithmic scale on them.
+The command is <code>coord_trans</code>, and the input in this case is <code>y (or x) = "log"</code>.</p>
+<p>But <em>why</em> these differences?
+Scale applies the changes at the beginning, while coord does it later, once the data are already plotted. In fact, by setting restrictive limits with scales, R will say that it has <u>eliminated</u> some data, because that data do not fall within the imposed limits; on the other hand, with coord the data are first plotted, then a zoom is made in the section delimited by the limits set.
+A similar thing happens for transformations: using coord for it, breaks will have clearer values than those created by scale.</p>
+</div>
+<div id="polar-coordinates" class="section level1">
+<h1>Polar coordinates</h1>
+Here we are at a very important command for the construction of a pieplot (but not only!): <code>coord_polar</code>.
+This command allows us to transform the axes from cartesian to polar. There are various inputs:
+<li>
+theta: the variable mapped as an angle (“x” or “y”)
+</li>
+<li>
+start: the offset in radiant from which to start the graph with respect to 12:00
+</li>
+<li>
+direction: clockwise (1, default), counterclockwise (-1)
+</li>
+<p>Let’s immediately see an example in which the data in y are used as angle values:</p>
+<pre class="r"><code>ggplot(mtcars) +
+  geom_bar(aes(x = factor(cyl)), fill = c(&quot;red3&quot;, &quot;blue3&quot;, &quot;green4&quot;)) +
+  coord_polar(theta = &quot;y&quot;, start = - 1.57) +
+  expand_limits(y = 15) +
+  xlab(&quot;Cyl&quot;) +
+  scale_y_continuous(breaks = seq(0, 15, 3))</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:polary"></span>
+<img src="/en/R/teoria/Coordinates ggplot2/coordinates.en_files/figure-html/polary-1.png" alt="Polar coordinates on a barplot" width="672" />
+<p class="caption">
+Figure 5: Polar coordinates on a barplot
+</p>
+</div>
+<p>I added <code>expand_limit</code> because, by default, the limit of the theta angle is equal to the maximum value of the corresponding y axis of the cartesian coordinates, making the one relative to the 8 cylinders become a single circle.</p>
+</div>
+<div id="pieplot" class="section level1">
+<h1>Pieplot</h1>
+<p>Let’s see now how to create a pieplot on ggplot2.
+Let’s start from the example in figure <a href="#fig:polary">5</a>, this time putting the x axis as the theta angle variable:</p>
+<div class="figure" style="text-align: center"><span id="fig:polarx"></span>
+<img src="/en/R/teoria/Coordinates ggplot2/coordinates.en_files/figure-html/polarx-1.png" alt="Coord_polar with theta = x-axis" width="672" />
+<p class="caption">
+Figure 6: Coord_polar with theta = x-axis
+</p>
+</div>
+<p>It looks like we’re almost there, which is the right direction for a pieplot. Unfortunately, we’re wrong.
+To create a pieplot on ggplot2 it is necessary to create a single-column barplot whose values on the y axis represent the various reference values.</p>
+<pre class="r"><code># create a df in which are stored the number of cylinder and the corresponding counts
+
+df &lt;- mtcars %&gt;%
+  group_by(cyl = factor(cyl)) %&gt;%
+  summarise(n = n())
+
+
+ggplot(df) +
+  geom_col(aes(x = 0, y = n, fill = cyl))</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:pie1"></span>
+<img src="/en/R/teoria/Coordinates ggplot2/coordinates.en_files/figure-html/pie1-1.png" alt="Piplot: first step" width="672" />
+<p class="caption">
+Figure 7: Piplot: first step
+</p>
+</div>
+<p>Once you get to this point, it might be intuitive to use values in y as values for the theta angle.</p>
+<pre class="r"><code>ggplot(df) +
+  geom_col(aes(x = 0, y = n, fill = cyl)) +
+  coord_polar(theta = &quot;y&quot;) +
+  theme_void()</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:pie2"></span>
+<img src="/en/R/teoria/Coordinates ggplot2/coordinates.en_files/figure-html/pie2-1.png" alt="Complete pieplot" width="672" />
+<p class="caption">
+Figure 8: Complete pieplot
+</p>
+</div>
+<p>Here is our pieplot.</p>
+<p>Through <code>geom_text</code> we could add the percentages and have a graph like this:</p>
+<div class="figure" style="text-align: center"><span id="fig:piecom"></span>
+<img src="/en/R/teoria/Coordinates ggplot2/coordinates.en_files/figure-html/piecom-1.png" alt="Pieplot with percentages" width="672" />
+<p class="caption">
+Figure 9: Pieplot with percentages
+</p>
+</div>
+<p>But, we will see later how to use <code>geom_text</code> well to jot down important information on our charts.</p>
+</div>
+</div>

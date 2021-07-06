@@ -1,0 +1,189 @@
+---
+title: "Coordinate su GGPLOT2"
+date: 2021-07-06
+modified:
+description: "Analizziamo la componente coord di ggplot 2: cambiamo l'aspetto degli assi fino a creare un pieplot"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Grafici
+- Ggplot2
+- Coord
+- Pieplot
+series:
+- Grafica con ggplot2
+categories:
+- Grafici
+image: "/images/R/Teoria/coord.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(tidyverse)
+suppressWarnings(library(ggmap))
+```
+
+<div class="expand">
+<button type="button" class="expand__button" aria-label="Expand Button"> [ ]{.expand-icon .expand-icon__right}<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="expand-icon__down"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></path></svg> Contenuto </button>
+<div class="expand__content expand__content--toc" style="max-height: 381px;">
+<ul>
+<li>
+<a href="#ratio-e-flip-degli-assi">Ratio e flip degli assi</a>
+</li>
+<li>
+<a href="#zoom-e-trasformazioni ">Zoom e trasformazioni </a>
+</li>
+<li>
+<a href="#coordinate-polari">Coordinate polari</a>
+</li>
+<li>
+<a href="#pieplot">Pieplot</a>
+</li>
+</ul>
+</div>
+</div>
+::: {style="text-align: justify;"}
+
+Continuiamo la serie su GGPLOT2 analizzando la penultima componente, le **coordinate**.  
+Le funzioni di questa componente ci permetteranno di modificare alcune caratteristiche degli assi, alcune delle quali sono fondamentali per creare finalmente un *pieplot* con GGPLOT2.
+
+# Ratio e flip degli assi
+Partiamo vedendo una funzione che ci permette di decidere in che rapporto (ratio) devono essere gli assi; in altre parole, a quante unità sull'asse y corrisponde una unità dell'asse x? 
+Vediamone subito un esempio.
+
+```{r fixed1, fig.cap = "Grafico di default", echo=FALSE}
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = drat, color = factor(carb))) +
+  scale_color_discrete(name = "Carb")
+```
+Di default, ggplot2 cerca di rendere il grafico più "bello" possibile in quanto a dimensioni degli assi; spesso questo si traduce nell'utilizzo di una scala diversa per i due assi (come in figura \@ref(fig:fixed1)).  
+
+Se invece noi volessimo avere i due assi aventi la stessa scala, dovremmo aggiungere il comando `coord_fixed`. Il risultato sarebbe questo:
+
+```{r fixed2, fig.cap = "Grafico con coord_fixed", echo=FALSE}
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = drat, color = factor(carb))) +
+  scale_color_discrete(name = "Carb") +
+  coord_fixed()
+```
+Ora i due assi hanno la stessa scala, e infatti l'asse y è molto schiacciato rispetto all'asse x. Per modificare il rapporto tra l'asse y e l'asse x, e dunque sistemare il grafico, c'è da impostare l'input `ratio`. 
+Facendo una prova con `ratio = 10`, otteniamo questo grafico:
+
+```{r fixed3, fig.cap = "Grafico con ratio settata", echo=FALSE}
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = drat, color = factor(carb))) +
+  scale_color_discrete(name = "Carb") +
+  coord_fixed(ratio = 10)
+```
+Ora il grafico è tornato ad essre chiaro.  
+Questa funzione può non sembrare molto utile ora, ma potrebbe riverlarlasi nel momento in cui abbiamo bisogno di creare un grafico che sia un po' schiacciato verso l'asse x o verso l'asse y.
+
+Per concludere questo mini capitolo, vi parlo velocemente della funzione `coord_flip` che, come potrete intuire dal nome, inverte asse x e asse y. Questo può tornare utile nel momento in cui per necessità siete costretti ad utilizzare geometrie o statistiche sull'asse x (o y) ma vorreste avere un grafico in cui in realtà i valori modificati siano sull'asse y (o viceversa). Vi basterà aggiungere questa piccola funzione alla fine del comando del grafico ed il gioco sarà fatto.
+
+# Zoom e trasformazioni 
+Una cosa che ci permette di fare la componente *coord_* è quella di zoomare il grafico senza perdere dei dati (cosa che accadrebbe se settassimo i limiti degli assi usando scales_ in modo tale da fare uno zoom sul grafico).  
+Il modo per zoomare è dato dagli input `xlim` e `ylim` di ogni comando `coord_`; se nel grafico si è scelto di non usare alcuna modifica *coord*, bisogna ricordarsi che il valore di default è `coord_cartesian` e che basterà aggiungere quel comando con gli input giusti.
+
+Nel nostro caso, volendo zoomare il grafico in figura \@ref(fig:fixed1) per evidenziare i valori bassi, dovremmo aggiungere `coord_cartesian(xlim = c(10, 17), ylim = c(2.5, 4))`. Ecco il risultato:
+
+```{r zoom, fig.cap = "Zoom sulla porzione inferiore del grafico in figura \\@ref(fig:fixed1)", echo=FALSE}
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = drat, color = factor(carb))) +
+  scale_color_discrete(name = "Carb") +
+  coord_cartesian(xlim = c(10, 17), ylim = c(2.5, 4))
+```
+
+Un discorso molto simile vale per le trasformazioni legate agli assi, come per esempio l'applicazione di una scala logaritmica su un asse.
+Il comando è `coord_trans`, e l'input in questo caso è `y (o x) = "log"`.
+
+Ma *perchè* queste differenze?  
+Scale applica i cambiamenti all'inizio, mentre coord lo fa dopo, una volta che i dati sono già plottati. Infatti, settando dei limiti restrittivi con scale, R dirà che ha <u>eliminato</u> dei dati, perchè quei dati non rientrano nei limiti imposti; con coord invece i dati vengono prima plottati tutti, poi viene fatto uno zoom nella sezione delimitata dai limitti settati.  
+Una cosa simile avviane per le trasformazioni: usando coord per le trasformazioni, i breaks avranno valori più chiari rispetto a quelli creati da scale.
+
+# Coordinate polari
+Eccoci arrivati ad un comando molto importante per la costruzione di un pieplot (ma non solo!): `coord_polar`.  
+Questo comando ci permette di trasformare gli assi da cartesiani a polari. Ci sono vari input: 
+<li>theta: la variabile mappata come angolo ("x" o "y")</li>
+<li>start: l'offset in radianti da cui far partire il grafico rispetto alle 12:00</li>
+<li>direction: orario (1, default), antiorario (-1)</li>
+
+Vediamo subito un esempio in cui sono i dati in y ad essere usati come valori degli angoli:
+
+```{r polary, fig.cap = "Coordinate polari su un barplot"}
+ggplot(mtcars) +
+  geom_bar(aes(x = factor(cyl)), fill = c("red3", "blue3", "green4")) +
+  coord_polar(theta = "y", start = - 1.57) +
+  expand_limits(y = 15) +
+  xlab("Cyl") +
+  scale_y_continuous(breaks = seq(0, 15, 3))
+```
+Ho aggiunto `expand_limit` perchè di default il limite dell'angolo theta è uguale al valore massimo del corrispettivo asse y delle coordinate cartesiane, facendo diventare un cerchio unico quello relativo agli 8 cilindri.
+
+# Pieplot
+Vediamo ora come creare un pieplot su ggplot2.  
+Partiamo dall'esempio in figura \@ref(fig:polary), stavolta mettendo l'asse x come variabile di angolo teta:
+
+```{r polarx, fig.cap = "Coord_polar con theta = asse x", echo=FALSE}
+ggplot(mtcars) +
+  geom_bar(aes(x = factor(cyl)), fill = c("red3", "blue3", "green4")) +
+  coord_polar(theta = "x", start = - 1.57) +
+  xlab("Cyl")
+```
+
+Sembra che ci siamo quasi, che sia la direzione giusta per un pieplot. Purtroppo non è così.  
+Per creare un pieplot su ggplot2 bisogna creare un barplot da un'unica colonna i cui valori sull'asse y rappresentanto i vari valori di riferimento.
+
+```{r pie1, fig.cap = "Primo step per pieplot"}
+
+# creo un df che racchiuda i valory di cyl e il corrispettivo conteggio
+
+df <- mtcars %>%
+  group_by(cyl = factor(cyl)) %>%
+  summarise(n = n())
+
+
+ggplot(df) +
+  geom_col(aes(x = 0, y = n, fill = cyl))
+```
+
+Una volta arrivati a questo punto, potrebbe venire intuitivo usare i valori in y come valori per l'angolo theta.
+
+```{r pie2, fig.cap = "Pieplot completo"}
+ggplot(df) +
+  geom_col(aes(x = 0, y = n, fill = cyl)) +
+  coord_polar(theta = "y") +
+  theme_void()
+```
+
+Ecco il nostro pieplot. 
+
+Tramite `geom_text` potremmo aggiungere le percentuali e avere un grafico come questo:
+
+```{r piecom, fig.cap= "Pieplot con percentuali", echo = FALSE}
+
+df <- df %>%
+  mutate(cyl = factor(cyl, levels = c(8, 6, 4)),
+         cumulative = cumsum(n),
+         midpoint = cumulative - n / 2,
+         my_label = paste0(cyl, " cylinders - ", round(n / sum(n) * 100, 2), "%"))
+
+ggplot(df) +
+  geom_col(aes(x = 0, y = n, fill = cyl)) +
+  geom_text(aes(x = c(0, 0.15, 0), y = midpoint, label = my_label)) +
+  coord_polar(theta = "y") +
+  theme_nothing()
+
+```
+
+Ma vedremo più avanti come utilizzare bene `geom_text` per annotare informazioni importanti sui nostri grafici.
+
+:::

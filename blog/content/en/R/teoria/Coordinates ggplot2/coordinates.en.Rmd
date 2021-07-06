@@ -1,0 +1,189 @@
+---
+title: "GGPLOT2 coordinates"
+date: 2021-07-06
+modified:
+description: "Coordinate function in ggplot2: change axes aspect and create a pieplot"
+draft: false
+hideToc: true
+enableToc: false
+enableTocContent: false
+tocFolding: false
+tocPosition: inner
+tocLevels: ["h1", "h2", "h3", "h4"]
+tags:
+- R
+- Graphs
+- Ggplot2
+- Coord
+- Pieplot
+series:
+- Graphic with ggplot2
+categories:
+- Graphs
+image: "/images/R/Teoria/coord.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(tidyverse)
+suppressWarnings(library(ggmap))
+```
+
+<div class="expand">
+<button type="button" class="expand__button" aria-label="Expand Button"> [ ]{.expand-icon .expand-icon__right}<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="expand-icon__down"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></path></svg> What's on this page </button>
+<div class="expand__content expand__content--toc" style="max-height: 381px;">
+<ul>
+<li>
+<a href="#ratio-and-axes-flip">Ratio and axes flip</a>
+</li>
+<li>
+<a href="#zoom-and-transformations ">Zoom and transformations</a>
+</li>
+<li>
+<a href="#polar-coordinates">Polar coordinates</a>
+</li>
+<li>
+<a href="#pieplot">Pieplot</a>
+</li>
+</ul>
+</div>
+</div>
+::: {style="text-align: justify;"}
+
+Let's continue the series on GGPLOT2 analyzing the penultimate component, the **coordinates**.
+The functions of this component will allow us to modify some characteristics of the axes, fundamental to finally create a *pieplot* with GGPLOT2.
+
+# Ratio and axes flip
+Let's start by looking at a function that allows us to decide in what ratio the axes must be; in other words, how many units on the y axis does one unit of the x axis correspond to?
+Let's see an example right away.
+
+```{r fixed1, fig.cap = "Default graph", echo=FALSE}
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = drat, color = factor(carb))) +
+  scale_color_discrete(name = "Carb")
+```
+By default, ggplot2 tries to make the graph as "beautiful" as possible in terms of axis dimensions, even using different scales for the two axes (as in the figure \@ref(fig:fixed1)).  
+
+Instead, if we want to have the two axes having the same scale, we have to add the command `coord_fixed()`. The result would be this:
+
+```{r fixed2, fig.cap = "coord_fixed command added to the previous graph", echo=FALSE}
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = drat, color = factor(carb))) +
+  scale_color_discrete(name = "Carb") +
+  coord_fixed()
+```
+Now the two axes have the same scale, and in fact the y axis is very flattened with respect to the x axis. To change the ratio between the y axis and the x axis, and thus fix the graph, you need to set the `ratio` input.
+Testing with `ratio = 10`, we get this graph:
+
+```{r fixed3, fig.cap = "Graph with ratio setted", echo=FALSE}
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = drat, color = factor(carb))) +
+  scale_color_discrete(name = "Carb") +
+  coord_fixed(ratio = 10)
+```
+The graph is clear again.
+This function may not seem very useful now, but it may turn out as we need to create a graph that is a bit squashed towards the x-axis or the y-axis.
+
+To conclude this mini chapter, I'm going to talk briefly about the `coord_flip` function which, as you can guess from the name, inverts x-axis and y-axis. This can be useful when you are forced to use geometry or statistics on the x (or y) axis but you would like to have a graph in which the modified values are on the y axis (or viceversa). Just add this little function at the end of the graph command and that's it.
+
+# Zoom and transformations 
+One thing that the *coord_* component allows us to do is to zoom the chart without losing any data (which would happen if we set the axis limits using scales_ in order to zoom in on the chart).
+The way to zoom is given by the `xlim` and` ylim` inputs of each `coord_` command; if in the graph you have not chosen to use any *coord* modifications, remember that the default value is `coord_cartesian` and that you just need to add that command with the right inputs.
+
+In our case, if we want to zoom the graph in figure \@ref(fig:fixed1) to highlight the low values, we should add `coord_cartesian(xlim = c(10, 17), ylim = c(2.5, 4))`. Here is the result:
+
+```{r zoom, fig.cap = "Zoom on the lower part of the graph in figure \\@ref(fig:fixed1)", echo=FALSE}
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = drat, color = factor(carb))) +
+  scale_color_discrete(name = "Carb") +
+  coord_cartesian(xlim = c(10, 17), ylim = c(2.5, 4))
+```
+
+A very similar argument applies to transformations related to axes, such as the application of a logarithmic scale on them.
+The command is `coord_trans`, and the input in this case is `y (or x) = "log"`.
+
+But *why* these differences?
+Scale applies the changes at the beginning, while coord does it later, once the data are already plotted. In fact, by setting restrictive limits with scales, R will say that it has <u>eliminated</u> some data, because that data do not fall within the imposed limits; on the other hand, with coord the data are first plotted, then a zoom is made in the section delimited by the limits set.
+A similar thing happens for transformations: using coord for it, breaks will have clearer values than those created by scale.
+
+# Polar coordinates
+Here we are at a very important command for the construction of a pieplot (but not only!): `coord_polar`.
+This command allows us to transform the axes from cartesian to polar. There are various inputs:
+<li>theta: the variable mapped as an angle ("x" or "y") </li>
+<li>start: the offset in radiant from which to start the graph with respect to 12:00 </li>
+<li>direction: clockwise (1, default), counterclockwise (-1) </li>
+
+Let's immediately see an example in which the data in y are used as angle values:
+
+```{r polary, fig.cap = "Polar coordinates on a barplot"}
+ggplot(mtcars) +
+  geom_bar(aes(x = factor(cyl)), fill = c("red3", "blue3", "green4")) +
+  coord_polar(theta = "y", start = - 1.57) +
+  expand_limits(y = 15) +
+  xlab("Cyl") +
+  scale_y_continuous(breaks = seq(0, 15, 3))
+```
+I added `expand_limit` because, by default, the limit of the theta angle is equal to the maximum value of the corresponding y axis of the cartesian coordinates, making the one relative to the 8 cylinders become a single circle.
+
+# Pieplot
+Let's see now how to create a pieplot on ggplot2.
+Let's start from the example in figure \@ref(fig:polary), this time putting the x axis as the theta angle variable:
+
+```{r polarx, fig.cap = "Coord_polar with theta = x-axis", echo=FALSE}
+ggplot(mtcars) +
+  geom_bar(aes(x = factor(cyl)), fill = c("red3", "blue3", "green4")) +
+  coord_polar(theta = "x", start = - 1.57) +
+  xlab("Cyl")
+```
+
+It looks like we're almost there, which is the right direction for a pieplot. Unfortunately, we're wrong.
+To create a pieplot on ggplot2 it is necessary to create a single-column barplot whose values on the y axis represent the various reference values.
+
+```{r pie1, fig.cap = "Piplot: first step"}
+
+# create a df in which are stored the number of cylinder and the corresponding counts
+
+df <- mtcars %>%
+  group_by(cyl = factor(cyl)) %>%
+  summarise(n = n())
+
+
+ggplot(df) +
+  geom_col(aes(x = 0, y = n, fill = cyl))
+```
+
+Once you get to this point, it might be intuitive to use values in y as values for the theta angle.
+
+```{r pie2, fig.cap = "Complete pieplot"}
+ggplot(df) +
+  geom_col(aes(x = 0, y = n, fill = cyl)) +
+  coord_polar(theta = "y") +
+  theme_void()
+```
+
+Here is our pieplot.
+
+Through `geom_text` we could add the percentages and have a graph like this:
+
+```{r piecom, fig.cap= "Pieplot with percentages", echo = FALSE}
+
+df <- df %>%
+  mutate(cyl = factor(cyl, levels = c(8, 6, 4)),
+         cumulative = cumsum(n),
+         midpoint = cumulative - n / 2,
+         my_label = paste0(cyl, " cylinders - ", round(n / sum(n) * 100, 2), "%"))
+
+ggplot(df) +
+  geom_col(aes(x = 0, y = n, fill = cyl)) +
+  geom_text(aes(x = c(0, 0.15, 0), y = midpoint, label = my_label)) +
+  coord_polar(theta = "y") +
+  theme_nothing()
+
+```
+
+But, we will see later how to use `geom_text` well to jot down important information on our charts.
+
+:::
