@@ -4,7 +4,7 @@
     <div class="list__main {{ if $.Param "enableSidebar" }}{{ if eq ($.Param "sidebarPosition") "left" }}mr{{ else }}lm{{ end }}{{ else }}lmr{{ end }}">
         {{ partial "body/breadcrumb" . }}
         <header class="list__header">
-            <h5 class="list__header--title capitalize h5">{{.Title}}</h5>
+            <h1 class="list__header--title capitalize h1">{{.Title}}</h5>
         </header>
 
         <div class="list__header--desc single__contents p2">
