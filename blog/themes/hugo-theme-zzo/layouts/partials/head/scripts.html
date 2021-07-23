@@ -692,17 +692,18 @@
         xhr.onload = function () {
           if (xhr.status === 200) {
             fuse = new Fuse(JSON.parse(xhr.response.toString('utf-8')), {
-              keys: sectionType.includes('publication') ? ['title', 'abstract'] : 
-                 searchContent ? ['title', 'description', 'content'] : ['title', 'description'],
+              keys: sectionType.includes('publication') ? ['content', 'title', 'abstract'] : 
+                 searchContent ? ['title', 'description', 'content'] : ['title', 'description', 'content'],
               includeMatches: enableSearchHighlight,
               shouldSort: true, // default: true
               threshold: searchThreshold ? searchThreshold : 0.4, // default: 0.6 (0.0 requires a perfect match)
               location: 0, // default: 0
-              distance: searchDistance ? searchDistance : 100, // default: 100
-              maxPatternLength: 32,
+              distance: searchDistance ? searchDistance : 100000, // default: 100
+              ignoreLocation: true,
+              maxPatternLength: 40,
               minMatchCharLength: 1,
               isCaseSensitive: false, // defualt: false
-              findAllMatches: false, // default: false
+              findAllMatches: true, // default: false
               useExtendedSearch: false, // default: false
             });
             window.fuse = fuse;
