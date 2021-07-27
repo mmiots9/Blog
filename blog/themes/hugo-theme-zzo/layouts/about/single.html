@@ -1,8 +1,8 @@
 {{ define "main" }}
 <header class="header basicflex-column">
-  <h3 class="h3 terms__title">
+  <h1 class="h1 terms__title">
     {{ .Title }}
-  </h3>
+  </h1>
 </header>
 <main class="main about">
   <article class="single__contents single__contents--about" data-dir="{{ if ne ($.Param "languagedir") "rtl" }}ltr{{ else }}rtl{{ end }}" data-ani="{{ $.Site.Params.enableUiAnimation | default "true" }}">
