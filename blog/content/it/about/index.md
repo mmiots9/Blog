@@ -1,10 +1,24 @@
 ---
 date: "2021-03-12"
-description: Descrizione
+description: Pagina di presentazione mia e del progetto miotsdata
 title: Chi sono
 type: about
+modified: "2021-07-27"
 ---
+
+<style>
+        img {
+            float: right;
+            margin: 5px;
+            padding: 10px;
+        }
+</style>
+    
+    
 <div style="text-align: justify;">
+
+<img src='/images/whoami/me.jpeg' alt='Picture of me' style='width:250px;'>
+
 Ciao a tutti, 
 sfrutto questa pagina per presentarmi e illustrare velocemente il progetto dal titolo "Miots data".
 
