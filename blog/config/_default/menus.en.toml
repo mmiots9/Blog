@@ -25,12 +25,23 @@
   parent = "R"
   name = "My packages"
   url = "R/miei_pacchetti"
+  
+[[main]]
+  identifier = "bash"
+  name = "Bash"
+  url = "bash"
+  weight = 4
+  
+[[main]]
+  parent = "bash"
+  name = "My functions"
+  url = "bash/mie_funzioni"
 
 [[main]]
   identifier = "pillole"
   name = "Pills"
   url = "pillole"
-  weight = 4
+  weight = 5
     
 [[main]]
   parent = "pillole"
@@ -46,4 +57,4 @@
   identifier = "publications"
   name = "Publications"
   url = "publications"
-  weight = 5
+  weight = 6
