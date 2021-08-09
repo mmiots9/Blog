@@ -6,10 +6,10 @@ date: 2021-08-20
 modified: 
 description: "Scrivere e cercare shourtcut grazie a file .txt"
 draft: false
-hideToc: true
-enableToc: false
-enableTocContent: false
-tocFolding: false
+hideToc: false
+enableToc: true
+enableTocContent: true
+tocFolding: true
 tocPosition: outer
 tocLevels: ["h2", "h3", "h4"]
 tags:
@@ -42,7 +42,11 @@ Se si utilizzano più file, questi dovranno avere la stessa estensione ed essere
 ### Settaggi
 Finite le premesse, vediamo cosa bisogna fare una volta scaricato il file della funzione.
 La prima cosa da fare è aprire il file con un editor di testo per impostare alcuni parametri fondamentali:
-<img src="/images/Bash/addshort_searchshort/addsh2set.png" alt="Prime cose da settare addshort" width=80%>
+<figure id="settaggi_iniziali">
+  <img src="/images/Bash/addshort_searchshort/addsh2set.png" alt="Prime cose da settare addshort" width=80%>
+  <figcaption style="text-align:center;">Figura 1: settaggi iniziali per le funzioni addshort e searchshort</figcaption>
+</figure>
+
 ***arr***: array dei nomi dei file, <u>senza</u> estensione e path  
 ***ext***: estensione dei file  
 ***filepath***: il path della cartella dove sono i file, consiglio vivamente di mettere il path completo dalla home directory.
@@ -56,7 +60,7 @@ Ora, dopo aver aggiunto il file della funzione nel path del terminale, siamo pro
 
 <div style="text-align:center">
 <video height=300px width=auto controls>
-  <source src="/images/Bash/addshort_searchshort/prova.mov">
+  <source src="/images/Bash/addshort_searchshort/addshort.mov">
 </video>
 </div>
 
@@ -72,8 +76,31 @@ Ora, dopo aver aggiunto il file della funzione nel path del terminale, siamo pro
 A questo punto, la funzione aggiunge queste informazioni al file selezionato.
 
 ## Searchshort
+Questa funzione permette di cercare una shortcut che non ci si ricorda inserendo parole chiave. La funzione, di per sè, è molto semplice: è come se fosse un grep alla fin fine, solo che qui la si può lanciare da qualunque directory si sia dentro.
 
+### Settaggi
+Anche in questo caso, ci sono dei settaggi da implementare: gli stessi della funzione precedente (vedi figura <a href="#settaggi_iniziali">1</a>).
 
+Anche in questo caso, c'è da commentare o uncommentare un paio di comandi, in base alla presenza o meno della seconda lingua.
+<img src="/images/Bash/addshort_searchshort/comment-uncommentsearch.png" alt="Settaggi per seconda lingua" width=80%>
+
+### Lancio della funzione
+Come prima, avendo aggiunto il file della funzione nel path, si lancia col comando *searchshort*.
+
+<div style="text-align:center">
+<video height=300px width=auto controls>
+  <source src="/images/Bash/addshort_searchshort/searchshort.mov">
+</video>
+</div>
+
+Come si può vedere dal video, la procedura è molto immediata: si sceglie in quale file cercare la shortcut e si inseriscono le parole chiave.  
+**N.B.:** Non è necessario che le parole siano in ordine corretto!
+
+Se non ci sono risultati con quella combinazione di parole, verrò proiettato un messaggio. Si deve dunque o riprovare con un'altra combinazione, oppure inserire quella shortcut prima di cercarla.
+
+## Conclusioni
+Spero che questa breve guida sull'utilizzo di queste due semplici funzioni sia chiara e utile.  
+Come vedrete dal codice, non c'è sempre bisogno di creare funzioni super complicate e macchinose, a volte la semplicità paga.
 
 
 
