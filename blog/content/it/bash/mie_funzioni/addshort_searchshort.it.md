@@ -19,7 +19,7 @@ series:
 - Le mie funzioni bash
 categories:
 - Bash
-image: ""
+image: "/images/Bash/addshort_searchshort/shortcut.jpg"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
@@ -49,7 +49,7 @@ La prima cosa da fare è aprire il file con un editor di testo per impostare alc
 
 ***arr***: array dei nomi dei file, <u>senza</u> estensione e path  
 ***ext***: estensione dei file  
-***filepath***: il path della cartella dove sono i file, consiglio vivamente di mettere il path completo dalla home directory.
+***filepath***: il path della cartella dove sono i file, consiglio vivamente di mettere il path completo dalla home directory
 ***whatdoes***: se volete avere la colonna della vostra lingua, questa sarà la stringa corrispondente alla domanda "What it does?" (cosa fa la shortcut) che verrà posta nel terminale.
 
 L'altra modifica da fare è di commentare e di uncommentare le linee relative alla possibilità della doppia lingua, in base alle proprie esigenze (vedi figura sottostante).
@@ -81,7 +81,7 @@ Questa funzione permette di cercare una shortcut che non ci si ricorda inserendo
 ### Settaggi
 Anche in questo caso, ci sono dei settaggi da implementare: gli stessi della funzione precedente (vedi figura <a href="#settaggi_iniziali">1</a>).
 
-Anche in questo caso, c'è da commentare o uncommentare un paio di comandi, in base alla presenza o meno della seconda lingua.
+Inoltre, c'è da commentare o uncommentare un paio di comandi, in base alla presenza o meno della seconda lingua.
 <img src="/images/Bash/addshort_searchshort/comment-uncommentsearch.png" alt="Settaggi per seconda lingua" width=80%>
 
 ### Lancio della funzione
