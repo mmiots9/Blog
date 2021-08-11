@@ -1,15 +1,15 @@
 ---
 date: "2021-08-12"
-description: "Chi sono e cosa significa questo blog"
-title: Info
+description: "Who I am and what is this blog"
+title: About
 type: about
 modified: ""
 ---
     
 <div style="text-align: justify;">
 
-Ciao a tutti,
-In queste due pagine parlo un po' di me e di come è nato questo blog, il suo scopo e la sua struttura.
+Hello everybody,
+In these two pages I talk a little about myself and how this blog was born, its purpose and its structure.
 
 </div>
 
