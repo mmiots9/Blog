@@ -56,12 +56,14 @@ Vorrei imparare a cucinare meglio, imparando nuove ricette e facendole assaggiar
   * [Master MATLAB through Guided Problem Solving](https://www.udemy.com/course/master-matlab-through-guided-problem-solving/)
 * Bash
   * [The Unix Workbench](https://www.coursera.org/learn/unix/home/welcome)
-* Genomic data science
+* Data Science
   * [Genomic Data Science Specialization](https://www.coursera.org/specializations/genomic-data-science):
     * [Introduction to Genomic Technologies](https://www.coursera.org/learn/introduction-genomics?specialization=genomic-data-science)
     * [Python for Genomic Data Science](https://www.coursera.org/learn/python-genomics?specialization=genomic-data-science#syllabus)
     * [Bioconductor for Genomic Data Science](https://www.coursera.org/learn/bioconductor?specialization=genomic-data-science)
     * [Statistics for Genomic Data Science](https://www.coursera.org/learn/statistical-genomics/home/welcome)
+  * [Data Science Specialization](https://www.coursera.org/specializations/jhu-data-science) (in corso):
+    * [Regression models](https://www.coursera.org/learn/regression-models/home/welcome)
 * HTML/CSS:
   * [HTML, CSS, and Javascript for Web Developers](https://www.coursera.org/learn/html-css-javascript-for-web-developers/home/welcome) (solo parti di interesse)
 

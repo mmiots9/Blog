@@ -2,7 +2,7 @@
 title: "Come ricordarsi tutte le shortcut"
 h1title: "Addshort e searchshort: funzioni per le shortcut"
 subtitle: "Come aggiungere e cercare le shortcut in un file"
-date: 2021-08-20
+date: 2021-08-10
 modified: 
 description: "Scrivere e cercare shourtcut grazie a file .txt"
 draft: false

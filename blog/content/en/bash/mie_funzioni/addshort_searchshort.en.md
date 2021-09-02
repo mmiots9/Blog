@@ -2,7 +2,7 @@
 title: "How to remember all keyboard shortcuts"
 h1title: "Addshort e searchshort: shortcuts remember functions"
 subtitle: "How to store shortcuts in a file and retrieve them"
-date: 2021-08-20
+date: 2021-08-10
 modified: 
 description: "Write and retrieve shortcut from a file"
 draft: false
