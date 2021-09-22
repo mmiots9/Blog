@@ -1,0 +1,197 @@
+---
+title: "Manipolazione di un nuovo dataset"
+h1title: "Manipolazione di un nuovo dataset"
+subtitle: "Quali operazioni effettuare la prima volta che si incontra un dataset"
+date: 2021-04-21
+modified:
+description: "Vediamo quali operazioni effettuare quando ci si trova davanti ad un nuovo dataset"
+draft: false
+hideToc: false
+enableToc: true
+enableTocContent: true
+tocFolding: true
+tocPosition: outer
+tocLevels: ["h2", "h3", "h4"]
+tags:
+- R
+series:
+- Grafica con ggplot2
+categories:
+- Grafici
+image: "/images/R/Teoria/stat.png"
+author: Matteo Miotto
+authorEmoji: 🤖
+authorImage: "/images/whoami/me.jpeg"
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+library(tidyverse)
+people <- read.table(file = "people.txt", header = T, sep = "")
+
+set.seed(1)
+for (i in 1:15) {
+  people[sample(1:dim(people)[1], size = 1), sample(1:dim(people)[2], size = 1, replace = T)] <- NA
+}
+
+```
+<div {style="text-align: justify;"}>
+
+Capita spesso di trovarsi davanti a dataset mai visti prima e di doverli analizzare. Ci sono dei passaggi fondamentali da fare inizialmente; oggi ne vedremo alcuni, insieme a qualche piccolo tip su come maneggiare un dataset.  
+Molte di queste operazioni possono essere effettuate coi pacchetti base, ma per comodità vi farò vedere alcune funzioni di un pacchetto molto importante: il mondo **tidyverse**.
+
+Di seguito è mostrato un pezzo del dataset che useremo oggi:
+<figure id='dataxls'>
+<img src='/images/R/Teoria/datasedman.png' align='center' width=75%>
+<figcaption align='center'>Figura 1: Visualizzazione del dataset</figcaption>
+</figure>
+Questa sarà la prima e ultima volta che vedremo un dataset da Excel, ora vediamo come fare tutte le operazioni su R.
+
+## Import
+Il primo passo è, ovviamente, quello di importare il dataset. La funzione base è `read.table` (ma ci sono anche le funzioni `read.csv` e `read.delim` che fanno la stessa cosa). 
+Questa funzione ha vari input, vediamo i principali:
+<li>file: il path del file da importare</li>
+<li>header: TRUE o FALSE in base a se la prima riga contiene i nomi delle colonne</li>
+<li>sep: il tipo di separatore usato. Normalmente, per i txt è " " e per i csv ",".</li>
+<li>row.names: vettore che contiene i nomi delle righe</li>
+<li>dec: spesso in Italia usiamo la virgola come separatore dei decimali (grosso errore!). Questo input ci permette di indicare ad R come leggere il separatore dei decimali</li>
+<li>na.string: se ci sono valori mancanti, come leggerli. Questa è una cosa che o si sa a priori, o si fanno delle prove</li>
+
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tbody><tr><td class="lntd">
+<div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
+</span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-R" data-lang="R"><span class="n">people</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="n">file</span> <span class="o">=</span> <span class="s">"people.txt"</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="bp">T</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s">""</span><span class="p">)</span>
+</code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
+</div>
+</div>
+
+## Struttura del dataset
+Successivamente, bisogna guardare la struttura del dataset. Ci sono varie funzioni da utilizzare, analizziamole.
+
+### Dimensioni
+La prima cosa da ricavare sono le dimensioni del dataset. Per fare questo c'è la funzione `dim`:
+
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tbody><tr><td class="lntd">
+<div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
+</span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">dim</span><span class="p">(</span><span class="p">people</span><span class="p">)</span>
+</code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
+</div>
+</div>
+
+<div class="highlight"><div class="chroma">
+
+<pre class="chroma"><code class="language-R" data-lang="Risultato">[1] 250   9</code></pre></tbody></table>
+</div>
+
+Il risultato è un vettore di due valori, il primo relativo al numero di righe, il secondo a quello delle colonne.
+
+### Head
+Per vedere il dataset come fosse nella figura <a href='#dataxls'>1</a> su R si usa la funzione `head`. Questa funzione prende come input il nome del dataset e il numero di righe da printare. Questa funzione è molto utile quando si ha a che fare con dataset di grandi dimensioni, per vedere a grandi linee la sua struttura.
+
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tbody><tr><td class="lntd">
+<div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
+</span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">head</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="m">10</span><span class="p">)</span>
+</code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
+</div>
+</div>
+<div class="highlight"><div class="chroma">
+<pre class="chroma"><code class="language-R" data-lang="Risultato">          name age sex income height glasses brothers  residence      sport
+1    Kassandra  26   F  56000    171       N        0      Paris   Football
+2       Amanda  24   F  86000    195       N        1 Manchester       None
+3      Kristen  41   F  62000    158       N        4      Basel     Tennis
+4       Morgan  26   F  82500    177       Y        4     Madrid   Football
+5        Bryce  36   M  29000    179       N        4  Liverpool       None
+6  Christopher  19   M  72000    167       Y        4 Manchester   Football
+7       Alexis  30   F  70000    182       Y        2     London     Tennis
+8        Sarah  34   F  90000    167       N        0      Milan   Football
+9     Ayreanna  34   F  87500    163       N        0  Liverpool        Gym
+10        Luke  41   M  70000    184       N        2  Liverpool Basketball</code></pre></tbody></table>
+</div></div>
+
+In questo caso ho deciso di printare le prime 10 righe. 
+
+### Structure
+La funzione `str` ci permette di analizzare la struttura del dataset. 
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tbody><tr><td class="lntd">
+<div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
+</span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">str</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
+</code></pre></td></tr></tbody></table>
+</div>
+</div>
+<div class="highlight"><div class="chroma">
+<pre class="chroma"><code class="language-R" data-lang="Risultato">          'data.frame':   250 obs. of  9 variables:
+ $ name     : chr  "Kassandra" "Amanda" "Kristen" "Morgan" ...
+ $ age      : int  26 24 41 26 36 19 30 34 34 41 ...
+ $ sex      : chr  "F" "F" "F" "F" ...
+ $ income   : num  56000 86000 62000 82500 29000 72000 70000 90000 87500 70000 ...
+ $ height   : int  171 195 158 177 179 167 182 167 163 184 ...
+ $ glasses  : chr  "N" "N" "N" "Y" ...
+ $ brothers : int  0 1 4 4 4 4 2 0 0 2 ...
+ $ residence: chr  "Paris" "Manchester" "Basel" "Madrid" ...
+ $ sport    : chr  "Football" "None" "Tennis" "Football" ...</code></pre></tbody></table>
+</div></div>
+
+Come possiamo vedere, questa funzione ci fornisce subito le dimensioni del dataset (andando quindi ad inglobare la funzione *dim*). Successivamente, fornisce un elenco delle variabili (le colonne) in questa forma:  
+nome della colonna: tipo di dato&nbsp;&nbsp;&nbsp;primi valori
+
+### Summary
+Il passo successivo è ricavare delle statistiche di base sulle variabili. 
+La funzione `summary` fa il caso nostro: ci fornisce informazioni su quartili, media e range per le variabili numeriche e i count per le variabili categoriche.
+
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tbody><tr><td class="lntd">
+<div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
+</span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">summary</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
+</code></pre></td></tr></tbody></table>
+</div>
+</div>
+<div class="highlight"><div class="chroma">
+<pre class="chroma"><code class="language-R" data-lang="Risultato">               name                age            sex                income      
+ Length:250         Min.   :18.00   Length:250         Min.   : 10000  
+ Class :character   1st Qu.:23.00   Class :character   1st Qu.: 31125  
+ Mode  :character   Median :30.00   Mode  :character   Median : 54500  
+                    Mean   :30.58                      Mean   : 54702  
+                    3rd Qu.:38.00                      3rd Qu.: 76875  
+                    Max.   :45.00                      Max.   :100000  
+                    NA's   :3                                          
+     height        glasses             brothers     residence        
+ Min.   :151.0   Length:250         Min.   :0.00   Length:250        
+ 1st Qu.:168.0   Class :character   1st Qu.:0.00   Class :character  
+ Median :176.0   Mode  :character   Median :2.00   Mode  :character  
+ Mean   :175.4                      Mean   :2.19                     
+ 3rd Qu.:182.0                      3rd Qu.:4.00                     
+ Max.   :213.0                      Max.   :5.00                     
+ NA's   :3                          NA's   :2                        
+    sport          
+ Length:250        
+ Class :character  
+ Mode  :character </code></pre></tbody></table>
+</div></div>
+
+Come si vede, la funzione fornisce le statistiche per le varie variabili; inoltre, fornisce il numero di NA per ogni variabile.
+
+Ciò che notiamo però è che le variabili sex, residence, sport e glasses sono codificate come characters e non ci viene fornito il numero di counts. Una cosa simile avviene per il numero di fratelli, che R interpreta come variabile numerica continua e ci fornisce le statistiche, quando a noi sarebbe più utile avere i counts.
+
+## Cambiare type
+
+
+## Relevel
+
+## Spostare colonne
+
+## Riordinare in base ad una colonna
+
+
+</div>
