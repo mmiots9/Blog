@@ -20,7 +20,7 @@ series:
 - R base
 categories:
 - R teoria
-image: "/images/R/Teoria/r_dataset.jpeg"
+image: "/images/R/Teoria/r_dataset.it.jpeg"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
@@ -37,6 +37,43 @@ for (i in 1:15) {
 }
 
 ```
+<div class="expand">
+<button type="button" class="expand__button" aria-label="Expand Button">
+<span class="expand-icon expand-icon__right">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></path></svg>
+</span>
+Contenuto
+</button>
+<div class="expand__content expand__content--toc">
+<nav id="TableOfContents">
+<ul>
+<li><a href="#import">Import</a></li>
+<li><a href="#struttura-del-dataset">Struttura del dataset</a>
+<ul>
+<li><a href="#dimensioni">Dimensioni</a></li>
+<li><a href="#nomi-variabili">Nomi variabili</a></li>
+<li><a href="#head">Head</a></li>
+<li><a href="#structure">Structure</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+</li>
+<li><a href="#modificare-le-variabili">Modificare le variabili</a>
+<ul>
+<li><a href="#cambiare-type">Cambiare type</a></li>
+<li><a href="#relevel">Relevel</a></li>
+</ul>
+</li>
+<li><a href="#riordinare-il-dataset">Riordinare il dataset</a>
+<ul>
+<li><a href="#spostare-colonne">Spostare colonne</a></li>
+<li><a href="#riordinare-in-base-ai-valori-di-una-variabile">Riordinare in base ai valori di una variabile</a></li>
+</ul>
+</li>
+<li><a href="#conclusioni">Conclusioni</a></li>
+</ul>
+</nav>
+</div>
+</div>
 
 <div style="text-align: justify;">
 Capita spesso di trovarsi davanti a dataset mai visti prima e di doverli analizzare. Ci sono dei passaggi fondamentali da fare inizialmente; oggi ne vedremo alcuni, insieme a qualche piccolo tip su come maneggiare un dataset.  

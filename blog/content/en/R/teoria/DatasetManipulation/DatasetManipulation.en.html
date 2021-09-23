@@ -20,7 +20,7 @@ series:
 - R basic
 categories:
 - R theory
-image: "/images/R/Teoria/r_dataset.jpeg"
+image: "/images/R/Teoria/r_dataset.en.jpeg"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
@@ -29,6 +29,71 @@ authorImage: "/images/whoami/me.jpeg"
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<div class="expand">
+<button type="button" class="expand__button" aria-label="Expand Button">
+<span class="expand-icon expand-icon__right">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></path></svg>
+</span>
+What’s on this Page
+</button>
+<div class="expand__content expand__content--toc">
+<nav id="TableOfContents">
+<ul>
+<li>
+<a href="#import">Import</a>
+</li>
+<li>
+<a href="#dataset-structure">Dataset structure</a>
+<ul>
+<li>
+<a href="#dimensions">Dimensions</a>
+</li>
+<li>
+<a href="#variable-names">Variable names</a>
+</li>
+<li>
+<a href="#head">Head</a>
+</li>
+<li>
+<a href="#structure">Structure</a>
+</li>
+<li>
+<a href="#summary">Summary</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#variables-modification">Variables modification</a>
+<ul>
+<li>
+<a href="#change-type">Change type</a>
+</li>
+<li>
+<a href="#relevel">Relevel</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#reorder-the-dataset">Reorder the dataset</a>
+<ul>
+<li>
+<a href="#move-columns">Move columns</a>
+</li>
+<li>
+<a href="#reorder-based-on-the-values-of-a-variable">Reorder based on the values of a variable</a>
+</li>
+<li>
+<a href="#add-a-column">Add a column</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#conclusions">Conclusions</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
 <div style="text-align: justify;">
 It often happens to find never-seen-before datasets and to have to analyze them. There are some basic steps to take initially; today, we will see some of them, along with some tips on how to handle a dataset.
 Many of these operations can be done with the basic packages, but I will show you some functions of a very important package: the world <b>tidyverse</b>.
