@@ -113,6 +113,52 @@ Se si vuole caricare la history precedentemente salvata in un file:
 ``` R
 loadhistory("filename.Rhistory")
 ```
+
+``` R
+levels(people$glasses) <- c(0, 1) # importante ricordarsi che la N è prima della Y
+str(people$glasses)
+```
+
+``` R
+summary(people, maxsum = max(lengths(lapply(people, unique))))
+```
+
+``` R
+people %>%
+  select(name, glasses, sex, brothers, residence, sport, age, income, height) -> people
+
+colnames(people)
+```
+
+``` R
+people %>%
+  select(name, colnames(people)[unlist(lapply(people, is.factor))], 
+         colnames(people)[!unlist(lapply(people[, -c(1)], is.factor))]) -> people
+```
+``` R
+people %>%
+  select( sort( colnames(people)))
+```
+``` R
+people %>%
+  arrange(desc(income)) %>%
+  head(6)
+```
+
+``` R
+people %>%
+  arrange(desc(income)) %>%
+  head(6) %>%
+  select(name)
+```
+
+``` R
+people %>%
+  mutate(plusincome = factor(ifelse(income > mean(income), 1, 0))) -> people
+
+summary(people)
+```
+
 </div>
 
 

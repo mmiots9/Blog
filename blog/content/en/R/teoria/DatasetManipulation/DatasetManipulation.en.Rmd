@@ -1,10 +1,10 @@
 ---
-title: "Manipolazione di un nuovo dataset"
-h1title: "Manipolazione di un nuovo dataset"
-subtitle: "Alcune operazioni da effettuare la prima volta che si incontra un dataset"
+title: "Handling a new dataset"
+h1title: "Handling a new dataset"
+subtitle: "Some of the first-line operations on a new dataset"
 date: 2021-09-23
 modified:
-description: "Vediamo quali operazioni effettuare quando ci si trova davanti ad un nuovo dataset"
+description: "Let's see what operations to perform when you are faced with a new dataset"
 draft: false
 hideToc: true
 enableToc: false
@@ -15,11 +15,11 @@ tocLevels: ["h2", "h3", "h4"]
 tags:
 - R
 - Dataset
-- Analisi dati
+- Data analysis
 series:
-- R base
+- R basic
 categories:
-- R teoria
+- R theory
 image: "/images/R/Teoria/r_dataset.jpeg"
 author: Matteo Miotto
 authorEmoji: 🤖
@@ -39,82 +39,82 @@ for (i in 1:15) {
 ```
 
 <div style="text-align: justify;">
-Capita spesso di trovarsi davanti a dataset mai visti prima e di doverli analizzare. Ci sono dei passaggi fondamentali da fare inizialmente; oggi ne vedremo alcuni, insieme a qualche piccolo tip su come maneggiare un dataset.  
-Molte di queste operazioni possono essere effettuate coi pacchetti base, ma per comodità vi farò vedere alcune funzioni di un pacchetto molto importante: il mondo <b>tidyverse</b>.
+It often happens to find never-seen-before datasets and to have to analyze them. There are some basic steps to take initially; today, we will see some of them, along with some tips on how to handle a dataset.
+Many of these operations can be done with the basic packages, but I will show you some functions of a very important package: the world <b>tidyverse</b>.
 <br><br>
-Di seguito è mostrato un pezzo del dataset che useremo oggi:
+Shown below is a piece of the dataset we will use today:
 <figure id='dataxls'>
 <img src='/images/R/Teoria/datasedman.png' align='center' width=75%>
-<figcaption align='center'>Figura 1: Visualizzazione del dataset</figcaption>
+<figcaption align='center'>Figure 1: Dataset structure</figcaption>
 </figure>
-Questa sarà la prima e ultima volta che vedremo un dataset da Excel, ora vediamo come fare tutte le operazioni su R.
+This will be the first and last time we will see a dataset from Excel, now let's see how to do all the operations on R.
 
 ## Import
-Il primo passo è, ovviamente, quello di importare il dataset. La funzione base è `read.table` (ma ci sono anche le funzioni `read.csv` e `read.delim` che fanno la stessa cosa). 
-Questa funzione ha vari input, vediamo i principali:
-<li>file: il path del file da importare</li>
-<li>header: TRUE o FALSE in base a se la prima riga contiene i nomi delle colonne</li>
-<li>sep: il tipo di separatore usato. Normalmente, per i txt è " " e per i csv ","</li>
-<li>row.names: vettore che contiene i nomi delle righe</li>
-<li>dec: spesso in Italia usiamo la virgola come separatore dei decimali (grosso errore!). Questo input ci permette di indicare ad R come leggere il separatore dei decimali</li>
-<li>na.string: se ci sono valori mancanti, come leggerli. Questa è una cosa che o si sa a priori, o si fanno delle prove</li>
+The first step is, of course, to import the dataset. The base function is `read.table` (but there are also the `read.csv` and `read.delim` functions which do the same thing).
+This function has various inputs, let's see the main ones:
+<li>file: the path of the file to import </li>
+<li>header: TRUE or FALSE based on whether the first row contains the column names </li>
+<li>sep: the type of separator used. Normally, for txt it is "" and for csv "," </li>
+<li>row.names: vector containing row names </li>
+<li>dec: in Italy, we often use the comma as a decimal separator (huge mistake!). This input allows us to tell R how to read the decimal separator </li>
+<li>na.string: if there are missing values, how to read them. This is something that either you know a priori, or you try out </li>
 
-## Struttura del dataset
-Successivamente, bisogna guardare la struttura del dataset. Ci sono varie funzioni da utilizzare, analizziamole.
+## Dataset structure
+Next, we need to look at the structure of the dataset. There are various functions to use, let's analyze them.
 
-### Dimensioni
-La prima cosa da ricavare sono le dimensioni del dataset. Per fare questo c'è la funzione `dim`:
+### Dimensions
+The first thing to figure out is the size of the dataset. To do this there is the `dim` function:
 
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
 <div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">dim</span><span class="p">(</span><span class="p">people</span><span class="p">)</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="nf">dim</span><span class="p">(</span><span class="p">people</span><span class="p">)</span>
 </code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
 </div>
 </div>
 
 <div class="highlight"><div class="chroma">
 
-<pre class="chroma"><code class="language-R" data-lang="Risultato">[1] 250   9</code></pre>
+<pre class="chroma"><code class="language-R" data-lang="Result">[1] 250   9</code></pre>
 </div></div>
 
-Il risultato è un vettore di due valori, il primo relativo al numero di righe, il secondo a quello delle colonne.
+The result is a vector of two values, the first relating to the number of rows, the second to that of the columns.
 
-### Nomi variabili
-Un'altra cosa molto utile, sopratutto in dataset con poche variabili, è ricavare un vettore con i loro nomi.  
-Ci sono due funzioni che fanno il caso nostro e che forniscono lo stesso identico risultato: `colnames` e `names`.
+### Variable names
+Another very useful thing, especially in datasets with few variables, is to retrieve a vector with their names.
+There are two functions that work for us and that give the exact same result: `colnames` and` names`.
 
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
 <div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">colnames</span><span class="p">(</span><span class="n">people</span><span class="p">)</span><span class="c1"> # con names sarebbe venuto lo stesso risultato</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="nf">colnames</span><span class="p">(</span><span class="n">people</span><span class="p">)</span><span class="c1"> # with names we would have had the same result</span>
 </code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
 </div>
 </div>
 
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato">[1] "name"      "age"       "sex"       "income"    "height"    "glasses"  
+<pre class="chroma"><code class="language-R" data-lang="Result">[1] "name"      "age"       "sex"       "income"    "height"    "glasses"  
 [7] "brothers"  "residence" "sport"    </code></pre>
 </div></div>
 
 ### Head
-Per vedere il dataset come fosse nella figura <a href='#dataxls'>1</a> su R si usa la funzione `head`. Questa funzione prende come input il nome del dataset e il numero di righe da printare. Questa funzione è molto utile quando si ha a che fare con dataset di grandi dimensioni, per vedere a grandi linee la sua struttura.
+To see the dataset as it were in the figure <a href='#dataxls'>1</a> on R use the `head` function. This function takes as input the name of the dataset and the number of lines to print. This function is very useful when dealing with large datasets, to see its structure in outline.
 
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
 <div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">head</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="m">10</span><span class="p">)</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="nf">head</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="m">10</span><span class="p">)</span>
 </code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
 </div>
 </div>
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato">          name age sex income height glasses brothers  residence      sport
+<pre class="chroma"><code class="language-R" data-lang="Result">          name age sex income height glasses brothers  residence      sport
 1    Kassandra  26   F  56000    171       N        0      Paris   Football
 2       Amanda  24   F  86000    195       N        1 Manchester       None
 3      Kristen  41   F  62000    158       N        4      Basel     Tennis
@@ -127,21 +127,21 @@ Per vedere il dataset come fosse nella figura <a href='#dataxls'>1</a> su R si u
 10        Luke  41   M  70000    184       N        2  Liverpool Basketball</code></pre></tbody></table>
 </div></div>
 
-In questo caso ho deciso di printare le prime 10 righe. 
+In this case, I decided to print the first 10 lines.
 
 ### Structure
-La funzione `str` ci permette di analizzare la struttura del dataset. 
+The `str` function allows us to analyze the structure of the dataset.
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
 <div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">str</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="nf">str</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
 </code></pre></td></tr></tbody></table>
 </div>
 </div>
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato">          'data.frame':   250 obs. of  9 variables:
+<pre class="chroma"><code class="language-R" data-lang="Result">          'data.frame':   250 obs. of  9 variables:
  $ name     : chr  "Kassandra" "Amanda" "Kristen" "Morgan" ...
  $ age      : int  26 24 41 26 36 19 30 34 34 41 ...
  $ sex      : chr  "F" "F" "F" "F" ...
@@ -153,24 +153,24 @@ La funzione `str` ci permette di analizzare la struttura del dataset.
  $ sport    : chr  "Football" "None" "Tennis" "Football" ...</code></pre></tbody></table>
 </div></div>
 
-Come possiamo vedere, questa funzione ci fornisce subito le dimensioni del dataset (andando quindi ad inglobare la funzione *dim*). Successivamente, fornisce un elenco delle variabili (le colonne) in questa forma:  
-nome della colonna: tipo di dato&nbsp;&nbsp;&nbsp;primi valori
+As we can see, this function immediately gives us the dimensions of the dataset (thus going to incorporate the *dim* function). Next, it provides a list of the variables (the columns) in this form:
+column name: data type &nbsp;&nbsp;&nbsp; first values
 
 ### Summary
-Il passo successivo è ricavare delle statistiche di base sulle variabili. 
-La funzione `summary` fa il caso nostro: ci fornisce informazioni su quartili, media e range per le variabili numeriche e i count per le variabili categoriche.
+The next step is to get some basic statistics on the variables.
+The `summary` function does this: it gives us information on quartiles, mean and range for numeric variables and counts for categorical variables.
 
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
 <div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">summary</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="nf">summary</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
 </code></pre></td></tr></tbody></table>
 </div>
 </div>
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato">               name                age            sex                income      
+<pre class="chroma"><code class="language-R" data-lang="Result">               name                age            sex                income      
  Length:250         Min.   :18.00   Length:250         Min.   : 10000  
  Class :character   1st Qu.:23.00   Class :character   1st Qu.: 31125  
  Mode  :character   Median :30.00   Mode  :character   Median : 54500  
@@ -192,16 +192,16 @@ La funzione `summary` fa il caso nostro: ci fornisce informazioni su quartili, m
  Mode  :character </code></pre></tbody></table>
 </div></div>
 
-Come si vede, la funzione fornisce le statistiche per le varie variabili; inoltre, fornisce il numero di NA per ogni variabile.
+As you can see, the function provides the statistics for the various variables; moreover, it provides the number of NAs for each of them
 
-Ciò che notiamo però è che le variabili sex, residence, sport e glasses sono codificate come characters e non ci viene fornito il numero di counts. Una cosa simile avviene per il numero di fratelli, che R interpreta come variabile numerica continua e ci fornisce le statistiche, quando a noi sarebbe più utile avere i counts.
+What we notice, however, is that the variables sex, residence, sport and glasses are encoded as characters and we are not given the number of counts. A similar thing happens for the number of siblings, which R interprets as a continuous numeric variable and gives us the statistics, when it would be more useful for us to have the counts.
 
-## Modificare le variabili
-A questo punto, c'è bisogno di modificare alcune variabili. Vediamo quali sono le modifiche più comuni.
+## Variables modification
+At this point, some variables need to be changed. Let's see what the most common changes are.
 
-### Cambiare type
-Come detto poco fa, c'è bisogno che alcune variabili diventino categoriche. La funzione che si può usare per fare ciò è `as.factor` (o semplicemente `factor`), e può essere usata singolarmente per ogni variabile da cambiare oppure all'interno della funzione `lapply`.  
-Vediamo entrambi gli approcci:
+### Change type
+As mentioned earlier, some variables need to become categorical. The function you can use to do this is `as.factor` (or simply `factor`), and it can be used individually for each variable to be changed or within the `lapply` function.
+Let's see both approaches:
 
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
@@ -209,31 +209,31 @@ Vediamo entrambi gli approcci:
 </span><span class="lnt">2
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="n">people</span><span class="o">$</span><span class="n">sex</span> <span class="o">&lt;-</span> <span class="nf">factor</span><span class="p">(</span><span class="n">people</span><span class="o">$</span><span class="n">sex</span><span class="p">)</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="n">people</span><span class="o">$</span><span class="n">sex</span> <span class="o">&lt;-</span> <span class="nf">factor</span><span class="p">(</span><span class="n">people</span><span class="o">$</span><span class="n">sex</span><span class="p">)</span>
 <span class="nf">str</span><span class="p">(</span><span class="n">people</span><span class="o">$</span><span class="n">sex</span><span class="p">)</span>
 </code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
 </div>
 </div>
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato"> Factor w/ 2 levels "F","M": 1 1 1 1 2 2 1 1 1 2 ...</code></pre></tbody></table>
+<pre class="chroma"><code class="language-R" data-lang="Result"> Factor w/ 2 levels "F","M": 1 1 1 1 2 2 1 1 1 2 ...</code></pre></tbody></table>
 </div></div>
 
-Vediamo ora come sia stato trasformato in una variabile di tipo *factor* (il termine usato in R per quello che noi consideriamo categorico). Da notare come ci sia l'operazione di assegnazione (<-), fondamentale affinchè il cambiamento sia memorizzato all'interno del dataset.
+Now let's see how it was transformed into a variable of type *factor* (the term used in R for what we consider categorical). Note that there is the assignment operation (<-), which is essential for the change to be stored within the dataset.
 
-Vediamo ora come effettuare i cambiamenti su tutte le variabili in un solo comando. Questo viene fatto tramite la funzione `lapply` che si struttura in questo modo: `lapply(colonne, funzione da applicare)`. Nel nostro caso sarà:
+Now let's see how to make changes on all variables in one command. This is done via the `lapply` function which is structured like this: `lapply (columns, function to apply)`. In our case it will be:
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
 <div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="n">people[</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">9</span><span class="p">)</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">people[</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">9</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="n">people[</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">9</span><span class="p">)</span><span class="n">]</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">people[</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">9</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span>
 <span class="nf">str</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
 </code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
 </div>
 </div>
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato"> 'data.frame':   250 obs. of  9 variables:
+<pre class="chroma"><code class="language-R" data-lang="Result"> 'data.frame':   250 obs. of  9 variables:
  $ name     : chr  "Kassandra" "Amanda" "Kristen" "Morgan" ...
  $ age      : int  26 24 41 26 36 19 30 34 34 41 ...
  $ sex      : Factor w/ 2 levels "F","M": 1 1 1 1 2 2 1 1 1 2 ...
@@ -244,41 +244,41 @@ Vediamo ora come effettuare i cambiamenti su tutte le variabili in un solo coman
  $ residence: Factor w/ 15 levels "Amsterdam","Barcelona",..: 13 9 3 8 6 9 7 10 6 6 ...
  $ sport    : Factor w/ 8 levels "Athletics","Basketball",..: 4 6 8 4 6 4 8 4 5 2 ...</code></pre></tbody></table>
 </div></div>
-In questo caso ho usato i numeri per indicizzare le colonne, ma avrei potuto anche usare direttamente i nomi stessi delle colonne (il che renderebbe l'operazione più chiara). Il risultato è quello desiderato; anche se ora si nota come la variabile *glasses* abbia due livelli ("N" e "Y"), ma noi vorremmo avere lo 0 per il "N" e l'1 per il "Y" (codifica standard per variabili booleane).
+In this case, I used numbers to index the columns, but I could also have used the column names themselves directly (which would make the operation clearer). The result is the desired one; even if now we notice how the variable *glasses* has two levels ("N" and "Y"), but we would like to have 0 for "N" and 1 for "Y" (standard encoding for Boolean variables ).
 
 ### Relevel
-A nostro soccorso arriva la possibilità di fare un cambio dei *levels* con l'omonima funzione:
+To help us, it comes the possibility of changing the *levels* with the function of the same name:
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
 <div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">levels</span><span class="p">(</span><span class="n">people</span><span class="o">$</span><span class="n">glasses</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># importante ricordarsi che la N è prima della Y</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="nf">levels</span><span class="p">(</span><span class="n">people</span><span class="o">$</span><span class="n">glasses</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># It is important to remember that the N is before the Y</span>
 <span class="nf">str</span><span class="p">(</span><span class="n">people</span><span class="o">$</span><span class="n">glasses</span><span class="p">)</span>
 </code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
 </div>
 </div>
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato"> chr [1:250] "N" "N" "N" "Y" "N" "Y" "Y" "N" "N" "N" "Y" "N" "N" "N" "N" ...
+<pre class="chroma"><code class="language-R" data-lang="Result"> chr [1:250] "N" "N" "N" "Y" "N" "Y" "Y" "N" "N" "N" "Y" "N" "N" "N" "N" ...
  - attr(*, "levels")= num [1:2] 0 1</code></pre></tbody></table>
 </div></div>
 
-Non ci si deve spaventare se dopo i ":" ci siano l'1 e il 2; quei valori indicano quale è l'indice del livello a cui corrisponde quel valore.
+Don't be frightened if after the ":" there are 1 and 2; those values indicate which is the index of the level to which that value corresponds.
 
-Ora tutte le variabili dovrebbero essere sistemate, vediamo ora se la funzione *summary* ci fornisce il risultato desiderato:
+Now all the variables should be fixed, now let's see if the *summary* function gives us the desired result:
 
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
 <div data-lang="Code" class="language-code"><pre class="chroma"><code><span class="lnt">1
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="nf">summary</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="n">maxsum</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="nf">lengths</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="n">unique</span><span class="p">))))</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="nf">summary</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="n">maxsum</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="nf">lengths</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="n">unique</span><span class="p">))))</span>
 </code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
 </div>
 </div>
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato">     name                age            sex                income      
+<pre class="chroma"><code class="language-R" data-lang="Result">     name                age            sex                income      
  Length:250         Min.   :18.00   Length:250         Min.   : 10000  
  Class :character   1st Qu.:23.00   Class :character   1st Qu.: 31125  
  Mode  :character   Median :30.00   Mode  :character   Median : 54500  
@@ -304,17 +304,17 @@ Ora tutte le variabili dovrebbero essere sistemate, vediamo ora se la funzione *
 </code></pre></tbody></table>
 </div></div>
 
-Sì, il risultato è esattamente quello desiderato. Ora sappiamo che ci sono 127 femmine e 121 maschi, che 112 persone portano gli occhiali e che 33 non fanno alcuno sport.
+Yes, the result is exactly what you want. We now know that there are 127 females and 121 males, that 112 people wear glasses and that 33 do not engage in any sport.
 
-Ora possiamo passare a vedere come riordinare il dataset.
+Now we can move on to see how to reorder the dataset.
 
-## Riordinare il dataset
-Ci sono delle volte in cui si vuole riordinare il dataset, spostando colonne, creando colonne, ordinando per dei valori,... Vediamo come fare.
+## Reorder the dataset
+There are times when you want to reorder the dataset, moving columns, creating columns, sorting by values,... Let's see how.
 
-### Spostare colonne
-Può essere utile spostare delle colonne, per esempio avere tutte le fattoriali prima e le non fattoriali dopo, riordinarle in ordine alfabetico o per proprie necessità. Ecco qui un paio di esempi.
+### Move columns
+It may be useful to move columns, for example to have all factorials before and non-factorials after, reorder them alphabetically or for your own needs. Here are a couple of examples.
 
-Iniziamo spostando tutte le variabili fattoriali subito dopo la colonna coi nomi delle persone:
+Let's start by moving all the factorial variables right after the column with the names of the people:
 
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
@@ -324,7 +324,7 @@ Iniziamo spostando tutte le variabili fattoriali subito dopo la colonna coi nomi
 </span><span class="lnt">4
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="n">people</span> <span class="o">%&gt;%</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="n">people</span> <span class="o">%&gt;%</span>
   <span class="nf">select</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">glasses</span><span class="p">,</span> <span class="n">sex</span><span class="p">,</span> <span class="n">brothers</span><span class="p">,</span> <span class="n">residence</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">income</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">people</span>
 
 <span class="nf">colnames</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
@@ -332,13 +332,13 @@ Iniziamo spostando tutte le variabili fattoriali subito dopo la colonna coi nomi
 </div>
 </div>
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato">[1] "name"      "glasses"   "sex"       "brothers"  "residence" "sport"    
+<pre class="chroma"><code class="language-R" data-lang="Result">[1] "name"      "glasses"   "sex"       "brothers"  "residence" "sport"    
 [7] "age"       "income"    "height"   </code></pre></tbody></table>
 </div></div>
 
 
-Questo metodo utilizza la funzione `select`, la quale seleziona solo le colonne indicate nell'ordine fornito. 
-Questo metodo però implica la conoscenza dei nomi di tutte le variabili fattoriali. Un modo per generalizzare il tutto è il seguente:
+This method uses the `select` function, which selects only the given columns in the given order.
+However, this method implies knowing the names of all the factorial variables. One way to generalize this is as follows:
 
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
@@ -347,21 +347,21 @@ Questo metodo però implica la conoscenza dei nomi di tutte le variabili fattori
 </span><span class="lnt">3
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="n">people</span> <span class="o">%&gt;%</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="n">people</span> <span class="o">%&gt;%</span>
   <span class="nf">select</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nf">colnames</span><span class="p">(</span><span class="n">people</span><span class="p">)</span><span class="nf">[unlist</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="n">is.factor</span><span class="p">))</span><span class="n">]</span><span class="p">,</span> 
          <span class="nf">colnames</span><span class="p">(</span><span class="n">people</span><span class="p">)</span><span class="n">[</span><span class="o">!</span><span class="nf">unlist</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">people[</span><span class="p">,</span> <span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="n">]</span><span class="p">,</span> <span class="n">is.factor</span><span class="p">))</span><span class="n">]</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">people</span>
 </code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
 </div>
 </div>
 
-Può sembrare complicata vista così, ma ciò che fa è:
+It may seem complicated when viewed like this, but what it does is:
 <ol>
-<li>Selezionare la colonna name</li>
-<li>Selezionare le colonne che sono fattoriali tramite un indexing del vettore colnames con un vettore booleano che indica se una colonna è fattoriale o meno</li>
-<li>Selezionare le colonne non fattoriali tramite lo stesso metodo del punto 2, con la differenza dell'esclusione della variabile *name* in quanto già selezionata al punto 1</li>
+<li>Select the name column </li>
+<li>Select columns that are factorial by indexing the colnames vector with a boolean vector indicating whether a column is factorial or not </li>
+<li>Select the non-factorial columns using the same method as in point 2, with the difference of excluding the variable *name* as it is already selected in point 1 </li>
 </ol>
 
-Vi lascio qui di seguito il codice per ordinare le colonne in ordine alfabetico:
+I leave below the code to sort the columns in alphabetical order:
 
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tbody><tr><td class="lntd">
@@ -369,18 +369,18 @@ Vi lascio qui di seguito il codice per ordinare le colonne in ordine alfabetico:
 </span><span class="lnt">2
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="n">people</span> <span class="o">%&gt;%</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="n">people</span> <span class="o">%&gt;%</span>
   <span class="nf">select</span><span class="p">(</span> <span class="nf">sort</span><span class="p">(</span> <span class="nf">colnames</span><span class="p">(</span><span class="n">people</span><span class="p">)))</span>
 </code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
 </div>
 </div>
 
-### Riordinare in base ai valori di una variabile
-Spesso si vuole riordinare l'intero dataset in base a valori crescenti o decrescenti di una variabile.  
-Questa operazione ci è resa semplice dal comando `arrange`. Dal momento che l'applicazione di questa funzione è molto immediata, vi fornisco un esempio che ha un passaggio successivo
+### Reorder based on the values of a variable
+Often, you want to reorder the entire dataset based on increasing or decreasing values of a variable.
+This is made easy by the `arrange` command. Since the application of this function is very immediate, I give you an example that has a next step
 
 ```{example top6}
-Selezionare le righe relative alle 6 persone che guadagnano di più in un anno.
+Select the rows for the 6 people who earn the most in a year.
 ```
 
 <div class="highlight"><div class="chroma">
@@ -390,14 +390,14 @@ Selezionare le righe relative alle 6 persone che guadagnano di più in un anno.
 </span><span class="lnt">3
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="n">people</span> <span class="o">%&gt;%</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="n">people</span> <span class="o">%&gt;%</span>
   <span class="nf">arrange</span><span class="p">(</span><span class="nf">desc</span><span class="p">(</span><span class="n">income</span><span class="p">))</span> <span class="o">%&gt;%</span>
   <span class="nf">head</span><span class="p">(</span><span class="m">6</span><span class="p">)</span>
 </code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></td></tr></tbody></table>
 </div>
 </div>
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato">        name glasses sex brothers residence      sport age income height
+<pre class="chroma"><code class="language-R" data-lang="Result">        name glasses sex brothers residence      sport age income height
 1    Branden       N   M        1 Amsterdam Basketball  43 100000    199
 2     Andrew       Y   M        4 Barcelona   Football  45 100000    179
 3    Barbara       Y   F        1    Madrid        Gym  35  99500    172
@@ -405,10 +405,10 @@ Selezionare le righe relative alle 6 persone che guadagnano di più in un anno.
 5 Margariete       Y   F        0    Vienna Basketball  37  99000    157
 6      Kevin       Y   M        4   Lisbona   Football  43  98000    172</code></pre></tbody></table>
 </div></div>
-Ecco un dataset delle 6 persone che guadagnano di più.
+Here is a dataset of the 6 people who earn the most.
 
 ```{example top6n}
-E se volessi solo i nomi?
+What if I just want the names?
 ```
 
 <div class="highlight"><div class="chroma">
@@ -419,7 +419,7 @@ E se volessi solo i nomi?
 </span><span class="lnt">4
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="n">people</span> <span class="o">%&gt;%</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="n">people</span> <span class="o">%&gt;%</span>
   <span class="nf">arrange</span><span class="p">(</span><span class="nf">desc</span><span class="p">(</span><span class="n">income</span><span class="p">))</span> <span class="o">%&gt;%</span>
   <span class="nf">head</span><span class="p">(</span><span class="m">6</span><span class="p">)</span> <span class="o">%&gt;%</span>
   <span class="nf">select</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
@@ -427,7 +427,7 @@ E se volessi solo i nomi?
 </div>
 </div>
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato">        name
+<pre class="chroma"><code class="language-R" data-lang="Result">        name
 1    Branden
 2     Andrew
 3    Barbara
@@ -435,15 +435,16 @@ E se volessi solo i nomi?
 5 Margariete
 6      Kevin</code></pre></tbody></table>
 </div></div>
-### Aggiungere una colonna
-Infine, vediamo come aggiungere una colonna al nostro dataset.  
-Il modo più semplice per aggiungere al dataset una colonna fatta da un vettore già costruito è `cbind(dataframe, vettore)`.  
-Io, invece, vi mostro qualcosa di diverso, ovvero creare una colonna in base a valori di un'altra colonna del dataset.
+
+### Add a column
+Finally, let's see how to add a column to our dataset.
+The simplest way to add a column made from an already constructed vector to the dataset is `cbind(dataframe, vector)`.
+Here, I show you something different, which is to create a column based on the values of another column in the dataset.
 
 ```{example income}
-Creare una colonna con valori 0 o 1 sulla base del fatto che il valore dell'income annuale sia inferiore (0) o superiore(1) alla media, e chiamarla plusincome.
+Create a column with values of 0 or 1 based on whether the annual as value is lower (0) or higher (1) than the average, and name it plusincome.
 ```
-Per fare ciò usiamo la funzione `mutate`, che ci permette di creare una nuova variabile eseguendo operazioni su altre variabili:
+To do this we use the `mutate` function, which allows us to create a new variable by performing operations on other variables:
 
 
 <div class="highlight"><div class="chroma">
@@ -454,7 +455,7 @@ Per fare ciò usiamo la funzione `mutate`, che ci permette di creare una nuova v
 </span><span class="lnt">4
 </span></code></pre><span class="copy-to-clipboard" title="Copy to clipboard"></span></div></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-R" data-lang="Codice"><span class="n">people</span> <span class="o">%&gt;%</span>
+<pre class="chroma"><code class="language-R" data-lang="Code"><span class="n">people</span> <span class="o">%&gt;%</span>
   <span class="nf">mutate</span><span class="p">(</span><span class="n">plusincome</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="nf">ifelse</span><span class="p">(</span><span class="n">income</span> <span class="o">&gt;</span> <span class="nf">mean</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">)))</span> <span class="o">-&gt;</span> <span class="n">people</span>
 
 <span class="nf">summary</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
@@ -462,7 +463,7 @@ Per fare ciò usiamo la funzione `mutate`, che ci permette di creare una nuova v
 </div>
 </div>
 <div class="highlight"><div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Risultato">     name             glasses              sex               brothers   
+<pre class="chroma"><code class="language-R" data-lang="Result">     name             glasses              sex               brothers   
  Length:250         Length:250         Length:250         Min.   :0.00  
  Class :character   Class :character   Class :character   1st Qu.:0.00  
  Mode  :character   Mode  :character   Mode  :character   Median :2.00  
@@ -487,10 +488,10 @@ Per fare ciò usiamo la funzione `mutate`, che ci permette di creare una nuova v
  Max.   :213.0             
  NA's   :3                 </code></pre></tbody></table>
 </div></div>
-Vediamo come ci siano 127 persone che hanno un income minore della media e 123 che lo hanno superiore.
+We see that there are 127 people who have a lower income than the average and 123 who have a higher income.
 
-## Conclusioni
-Mi auguro che questo post introduttivo all'analisi di un dataset, in particolare di un nuovo dataset, sia stato utile. Ci sono concetti basilari che prevedono anche l'utilizzo di codici più strutturati. Il mio consiglio è, come sempre, **provare**, **provare** e **riprovare** (quasi "giocare") con i dataset e R: è il modo migliore per imparare e familiarizzare con questo linguaggio. 
+## Conclusions
+I hope this introductory post to analyzing a dataset, especially a new dataset, has been helpful. There are basic concepts that also involve the use of more structured codes. My advice is, as always, **try**, **try** and **try again** (almost "play") with datasets and R: it's the best way to learn and familiarize yourself with this language.
 
 
 </div>
