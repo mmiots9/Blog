@@ -3,7 +3,7 @@ title: "Diario del terminale"
 h1title: "Funzioni diary: creare un diario delle funzioni del terminale"
 date: 2021-10-06
 modified: 
-description: "Save portions of history in a separate file"
+description: "Salvare porzioni di history in un file separato"
 draft: false
 hideToc: false
 enableToc: true

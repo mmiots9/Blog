@@ -3,7 +3,7 @@ title: "Bash diary"
 h1title: "Diary functions: create a diary of the terminal functions"
 date: 2021-10-06
 modified: 
-description: "Salavre porzioni di history in un file separato"
+description: "Save portions of history in a separate file"
 draft: false
 hideToc: false
 enableToc: true
