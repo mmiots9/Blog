@@ -2,7 +2,7 @@
 title: "Diario del terminale"
 h1title: "Funzioni diary: creare un diario delle funzioni del terminale"
 date: 2021-10-06
-modified: 
+modified: 2021-10-10
 description: "Salvare porzioni di history in un file separato"
 draft: false
 hideToc: false
@@ -39,7 +39,8 @@ In questo momento il file <u>non</u> viene ancora creato.
 
 <p style="margin-bottom:0;">Ci sono 2 cose da tenere in considerazione:</p>
 <li> <b>non</b> usare <u>mai</u> un filename già esistente sulla macchina, in quanto il comando successivo lo sovrascriverebbe</li>
-<li> <b>non</b> creare <u>mai</u> un alias di questa funzione, in quanto quella successiva va alla ricerca del comando <i>diarystart</i> nella history. Se proprio si vuole creare un alias, modificare la funzione diaryend di conseguenza</li>
+<li> <b>non</b> creare <u>mai</u> un alias di questa funzione, in quanto quella successiva va alla ricerca del comando <i>diarystart</i> nella history.</li> 
+Se proprio si vuole creare un alias, modificare la funzione diaryend di conseguenza.
   
 A questo punto, si è liberi di eseguire i comandi di interesse e lavorare sul terminale.
 
@@ -56,8 +57,11 @@ Di seguito un piccolo esempio del funzionamento di queste funzioni:
 </video>
 </div>
 
+## Come possono tornare utili?
+<p style="margin-bottom:0;">Ecco alcuni utilizzi che mi sono venuti in mente quando ho deciso di creare queste funzioni:</p>
+<li>Tenere traccia dei comandi lanciati nel terminale, separandoli in base alla giornata, alla pipeline, allo scopo, ecc</li>
+<li>Creare un file .sh da rilanciare con tutti i comandi di una analisi dati. Infatti, salvando il file con quella estensione, è possibile far sì che tutti i comandi salvati vengano rilanciati, uno dopo l'altro, nello stesso ordine con cui sono stati scritti. Questo può essere utile nel caso si voglia eseguire nuovamente un'analisi dati.</li>
 
-
-
+Potete scaricare queste funzioni dal mio <a href="https://github.com/mmiots9/bash-functions" target="_blank">github</a>.
 
 </div>

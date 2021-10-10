@@ -2,7 +2,7 @@
 title: "Bash diary"
 h1title: "Diary functions: create a diary of the terminal functions"
 date: 2021-10-06
-modified: 
+modified: 2021-10-10
 description: "Save portions of history in a separate file"
 draft: false
 hideToc: false
@@ -39,7 +39,8 @@ By now, the file is <u>not</u> created yet.
 
 <p style="margin-bottom:0;">There are 2 things to take into account:</p>
 <li> <b>never</b> use a filename that already exists on the machine, as the next command would overwrite it</li>
-<li> <b>never</b> create an alias for this function, as the next one looks for the last <i>diarystart</i> command in the history. If you really want to create an alias, modify the diaryend function accordingly</li>
+<li> <b>never</b> create an alias for this function, as the next one looks for the last <i>diarystart</i> command in the history. </li>  
+If you really want to create an alias, modify the diaryend function accordingly.
   
 At this point, you are free to execute the commands of interest and work on the terminal.
 
@@ -56,8 +57,11 @@ Below is a small example of how these functions work:
 </video>
 </div>
 
+## How can they come in handy?
+<p style="margin-bottom:0;">Here are some uses that came to my mind when I decided to create these functions:</p>
+<li>Keep track of commands launched in the terminal, separating them by day, pipeline, purpose, etc.</li>
+<li>Create a .sh file that cold be re-launched with all the commands of a data analysis. In fact, by saving the file with that extension, it is possible to ensure that all the saved commands are re-launched, one after the other, in the same order in which they were written. This can be useful if you want to run a data analysis again.</li>
 
-
-
+You can download these functions from my <a href="https://github.com/mmiots9/bash-functions" target="_blank">github</a>.
 
 </div>
