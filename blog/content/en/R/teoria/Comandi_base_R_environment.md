@@ -17,7 +17,7 @@ series:
 - R basic
 categories:
 - R theory
-image: "/images/R/Teoria/r_symbol.jpeg"
+image: "/images/R/Teoria/basicenv.en.png"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"

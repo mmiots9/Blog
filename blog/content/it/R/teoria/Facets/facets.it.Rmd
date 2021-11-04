@@ -20,7 +20,7 @@ series:
 - Grafica con ggplot2
 categories:
 - Grafici
-image: "/images/R/Teoria/facets.png"
+image: "/images/R/Teoria/facets.it.png"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"

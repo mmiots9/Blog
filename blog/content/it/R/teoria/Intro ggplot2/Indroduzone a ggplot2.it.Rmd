@@ -18,7 +18,7 @@ series:
 - Grafica con ggplot2
 categories:
 - Grafici
-image: "/images/R/Teoria/ggplot2_logo.png"
+image: "/images/R/Teoria/introggplot2.it.png"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"

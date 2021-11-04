@@ -20,7 +20,7 @@ series:
 - Grafica con ggplot2
 categories:
 - Grafici
-image: "/images/R/Teoria/facets.png"
+image: "/images/R/Teoria/facets.it.png"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
@@ -46,7 +46,7 @@ Vediamone subito come usarla: il comando è <code>facet_wrap( ~ categorica)</cod
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
   facet_wrap(~ cyl)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:facetwrap"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:facetwrap"></span>
 <img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetwrap-1.png" alt="Esempio dell'uso di facet_wrap" width="672" />
 <p class="caption">
 Figura 1: Esempio dell’uso di facet_wrap
@@ -74,7 +74,7 @@ Vediamo ora quali altri input si possono dare alla funzione:
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
   facet_wrap(~ cyl, dir = &quot;v&quot;, strip.position = &quot;right&quot;)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:facetwrapexamplefig"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:facetwrapexamplefig"></span>
 <img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetwrapexamplefig-1.png" alt="Esempio di grafico suddiviso per riga e con le etichette della variabile categorica a destra" width="672" />
 <p class="caption">
 Figura 2: Esempio di grafico suddiviso per riga e con le etichette della variabile categorica a destra
@@ -86,7 +86,7 @@ Vediamo subito un esempio, lasciando libero l’asse x della figura <a href="#fi
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
   facet_wrap(~ cyl, scales = &quot;free_x&quot;)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:facetwrapscales"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:facetwrapscales"></span>
 <img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetwrapscales-1.png" alt="Esempio di *scales* libero sull'asse x" width="672" />
 <p class="caption">
 Figura 3: Esempio di <em>scales</em> libero sull’asse x
@@ -100,7 +100,7 @@ Scales risulta molto utile quando si ha a che fare con barplot, vediamone un ese
 <span id="exm:facetwrapscalesexm" class="example"><strong>Esempio 2  </strong></span>Si vuole visualizzare il numero di auto di una stessa casa automobilistica in base alla classe (dataset mpg).
 </div>
 <p>Con il codice base <code>facet_wrap(~ class, nrow = 1)</code>, si ottiene il seguente grafico:</p>
-<div class="figure" style="text-align: center"><span id="fig:facetwrapscalesx1"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:facetwrapscalesx1"></span>
 <img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetwrapscalesx1-1.png" alt="Senza *scales*" width="672" />
 <p class="caption">
 Figura 4: Senza <em>scales</em>
@@ -108,7 +108,7 @@ Figura 4: Senza <em>scales</em>
 </div>
 <p>Lo dico io: non si capisce niente| Se notate, ci sono un sacco di case automobilistiche che non hanno auto in certe classi, che lasciano quindi dei vuoti che creano difficoltà nella lettura dei nomi delle case automobilistiche stesse e nella visualizzazione ottimale dei valori.<br />
 Per aggiustare questa oscenità, usiamo <code>facet_wrap(~ class, nrow = 1, scales = "free_x")</code>:</p>
-<div class="figure" style="text-align: center"><span id="fig:facetwrapscalesx2"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:facetwrapscalesx2"></span>
 <img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetwrapscalesx2-1.png" alt="Con *scales* = &quot;free_x&quot;" width="672" />
 <p class="caption">
 Figura 5: Con <em>scales</em> = “free_x”
@@ -125,7 +125,7 @@ Il comando della funzione base è <code>facet_wrap(categorica_righe ~ categorica
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
   facet_grid(am ~ cyl)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:facetgrid"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:facetgrid"></span>
 <img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetgrid-1.png" alt="Esempio dell'uso di facet_grid()" width="672" />
 <p class="caption">
 Figura 6: Esempio dell’uso di facet_grid()
@@ -155,7 +155,7 @@ Quali sono le impostazioni che si possono chiamare?<br />
 <pre class="r"><code>ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), color = &quot;blue&quot;) +
   facet_grid(am ~ cyl, margins = &quot;am&quot;, switch = &quot;x&quot;)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:facetgridmargins"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:facetgridmargins"></span>
 <img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetgridmargins-1.png" alt="Esempio dell'uso di *margins* in facet_grid" width="672" />
 <p class="caption">
 Figura 7: Esempio dell’uso di <em>margins</em> in facet_grid
@@ -171,7 +171,7 @@ Vediamo subito come funziona, perchè risulta più facile da visualizzare che sp
   geom_bar(aes(x = manufacturer)) +
   facet_grid(. ~ class, scales = &quot;free_x&quot;, space = &quot;free_x&quot;) + 
   theme(axis.text.x = element_text(angle = 45, hjust=1))</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:facetgridscalesspace"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:facetgridscalesspace"></span>
 <img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetgridscalesspace-1.png" alt="Con *scales* e *space* = &quot;free_x&quot;" width="672" />
 <p class="caption">
 Figura 8: Con <em>scales</em> e <em>space</em> = “free_x”
@@ -189,7 +189,7 @@ cambiare tipologia di grafico: una delle opzioni migliori in quanto bisogna capi
 avere conoscenze avanzate di ggplot2 e creare il grafico seguente:
 </li>
 <br>
-<div class="figure" style="text-align: center"><span id="fig:facetgridscalesspace2"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:facetgridscalesspace2"></span>
 <img src="/it/R/teoria/Facets/facets.it_files/figure-html/facetgridscalesspace2-1.png" alt="Grafico avanzato che permette di distinguere bene i nomi delle classi" width="672" />
 <p class="caption">
 Figura 9: Grafico avanzato che permette di distinguere bene i nomi delle classi

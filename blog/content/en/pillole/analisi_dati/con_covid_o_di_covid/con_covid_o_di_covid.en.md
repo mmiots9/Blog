@@ -18,7 +18,7 @@ series:
 - Covid
 categories:
 - Data analysis pills
-image: "/images/Pillole/Analisi_dati/di_covid_o_con_covid/coronavirus.jpg"
+image: "/images/Pillole/Analisi_dati/di_covid_o_con_covid/cover.en.png"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
