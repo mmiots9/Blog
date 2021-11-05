@@ -21,7 +21,7 @@ series:
 - Grafica con ggplot2
 categories:
 - Grafici
-image: "/images/R/Teoria/stat.png"
+image: "/images/R/Teoria/statistics.it.png"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
@@ -60,7 +60,7 @@ Ma a cosa ci riferiamo con stat? Stat sta per <em>statistics</em>, e riguarda le
 <div class="example">
 <span id="exm:barplotex1" class="example"><strong>Esempio 1  </strong></span>Geom_bar è associata ad una statistica ben precisa: count(). Vediamo in pratica cosa succede con <code>geom_bar(aes(x = class))</code> nel dataset <em>mpg</em>.
 </div>
-<div class="figure" style="text-align: center"><span id="fig:barplotex1plot"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:barplotex1plot"></span>
 <img src="/it/R/teoria/Statistics ggplot2/statistics.it_files/figure-html/barplotex1plot-1.png" alt="Esempio di geom_bar" width="672" />
 <p class="caption">
 Figura 1: Esempio di geom_bar
@@ -84,7 +84,7 @@ Ovviamente, le statistiche di default possono essere sostituite all’occorrenza
 <span id="exm:geombaridex" class="example"><strong>Esempio 2  </strong></span>Se volessi usare geom_bar con due vettori x ed y noti, associando ad ogni x una y, dovrei usare la statistica “identity”.<br />
 La funzione diventerebbe <code>geom_bar(aes(x, y), stat = "identity")</code>. Il risultato sarebbe:
 </div>
-<div class="figure" style="text-align: center"><span id="fig:geombaridplot"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:geombaridplot"></span>
 <img src="/it/R/teoria/Statistics ggplot2/statistics.it_files/figure-html/geombaridplot-1.png" alt="Cambiare la statistica permette di usare geom_bar con due vettori" width="672" />
 <p class="caption">
 Figura 2: Cambiare la statistica permette di usare geom_bar con due vettori
@@ -97,7 +97,7 @@ Figura 2: Cambiare la statistica permette di usare geom_bar con due vettori
 <div class="example">
 <span id="exm:geombarafterex" class="example"><strong>Esempio 3  </strong></span>Se volessi plottare sull’asse y di un barplot le percentuali relative ad ogni classe del dataset <em>mpg</em>, userei <code>geom_bar(aes(x = class, y = after_stat(100*count / sum(count))))</code>:
 </div>
-<div class="figure" style="text-align: center"><span id="fig:geombarafterplot"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:geombarafterplot"></span>
 <img src="/it/R/teoria/Statistics ggplot2/statistics.it_files/figure-html/geombarafterplot-1.png" alt="Come l'uso di *after_stat* permetta di ottenere le percentuali direttamente sul grafico, senza averle calcolate prima" width="672" />
 <p class="caption">
 Figura 3: Come l’uso di <em>after_stat</em> permetta di ottenere le percentuali direttamente sul grafico, senza averle calcolate prima
@@ -118,7 +118,7 @@ Vediamone subito un esempio di applicazione.</p>
 <pre class="r"><code>ggplot(mtcars) +
   stat_summary(aes(x = factor(cyl), y = mpg), fun = min, color = &quot;blue&quot;) +
   stat_summary(aes(x = factor(cyl), y = mpg), fun = max, color = &quot;red&quot;) </code></pre>
-<div class="figure" style="text-align: center"><span id="fig:statsummaryplot"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:statsummaryplot"></span>
 <img src="/it/R/teoria/Statistics ggplot2/statistics.it_files/figure-html/statsummaryplot-1.png" alt="Esempio di utilizzo di *stat_summary*" width="672" />
 <p class="caption">
 Figura 4: Esempio di utilizzo di <em>stat_summary</em>

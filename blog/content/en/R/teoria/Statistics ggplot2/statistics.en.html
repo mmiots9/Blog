@@ -21,7 +21,7 @@ series:
 - Graphic with ggplot2
 categories:
 - Graphs
-image: "/images/R/Teoria/stat.png"
+image: "/images/R/Teoria/statistics.en.png"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
@@ -60,7 +60,7 @@ But, what are we referring to with stat? Stat stands for <em>statistics</em>, an
 <div class="example">
 <span id="exm:barplotex1" class="example"><strong>Example 1  </strong></span>Geom_bar is associated with a very specific statistic: count (). Let’s see in practice what happens with <code>geom_bar (aes (x = class))</code> in the <em>mpg</em> dataset.
 </div>
-<div class="figure" style="text-align: center"><span id="fig:barplotex1plot"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:barplotex1plot"></span>
 <img src="/en/R/teoria/Statistics ggplot2/statistics.en_files/figure-html/barplotex1plot-1.png" alt="geom_bar example" width="672" />
 <p class="caption">
 Figure 1: geom_bar example
@@ -84,7 +84,7 @@ Obviously, the default statistics can be replaced if necessary.
 <span id="exm:geombaridex" class="example"><strong>Example 2  </strong></span>If I wanted to use geom_bar with two known vectors (x and y), associating each x with a y, I would have to use the “identity” statistic.
 The function would become <code>geom_bar(aes(x, y), stat = "identity")</code>. The result would be:
 </div>
-<div class="figure" style="text-align: center"><span id="fig:geombaridplot"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:geombaridplot"></span>
 <img src="/en/R/teoria/Statistics ggplot2/statistics.en_files/figure-html/geombaridplot-1.png" alt="Changing stat allowes two vectors to be the inputs of *geom_bar*" width="672" />
 <p class="caption">
 Figure 2: Changing stat allowes two vectors to be the inputs of <em>geom_bar</em>
@@ -97,7 +97,7 @@ Another way to modify the values on the y axis (I always say y axis by conventio
 <div class="example">
 <span id="exm:geombarafterex" class="example"><strong>Example 3  </strong></span>If I wanted to plot on the y-axis of a barplot the proportion (in %) of each class of the dataset <em>mpg</em>, I would use <code>geom_bar(aes(x = class, y = after_stat(100 * count / sum (count))))</code>:
 </div>
-<div class="figure" style="text-align: center"><span id="fig:geombarafterplot"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:geombarafterplot"></span>
 <img src="/en/R/teoria/Statistics ggplot2/statistics.en_files/figure-html/geombarafterplot-1.png" alt="Using *after_stat* allow to do mathematical operations" width="672" />
 <p class="caption">
 Figure 3: Using <em>after_stat</em> allow to do mathematical operations
@@ -118,7 +118,7 @@ Let’s immediately see an example.</p>
 <pre class="r"><code>ggplot(mtcars) +
   stat_summary(aes(x = factor(cyl), y = mpg), fun = min, color = &quot;blue&quot;) +
   stat_summary(aes(x = factor(cyl), y = mpg), fun = max, color = &quot;red&quot;) </code></pre>
-<div class="figure" style="text-align: center"><span id="fig:statsummaryplot"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:statsummaryplot"></span>
 <img src="/en/R/teoria/Statistics ggplot2/statistics.en_files/figure-html/statsummaryplot-1.png" alt="*stat_summary* example" width="672" />
 <p class="caption">
 Figure 4: <em>stat_summary</em> example
