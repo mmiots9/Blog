@@ -18,7 +18,7 @@ series:
 - Welcome to celltropolis
 categories:
 - Science pills
-image: "/images/Pillole/scienza/cell.jpg"
+image: "/images/Pillole/scienza/metropoli.en.png"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"

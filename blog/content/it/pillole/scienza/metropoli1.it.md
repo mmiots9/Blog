@@ -18,7 +18,7 @@ series:
 - Quella metropoli che è la cellula
 categories:
 - Pillole scienza
-image: "/images/Pillole/scienza/cell.jpg"
+image: "/images/Pillole/scienza/metropoli.it.png"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
