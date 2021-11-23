@@ -1,10 +1,10 @@
 ---
 title: "Normal distribution"
-h1title: "Normal distribution"
-subtitle: "Quali sono e come usarli per descrivere i dati"
-date: 2021-11-22
+h1title: "Normal distribution: why is it so important?"
+subtitle: ""
+date: 2021-11-23
 modified: 
-description: "Gli indici di dispersione sono alla base della statistica descrittiva. Vediamo quali sono e i loro utilizzi."
+description: "Characteristics and usefulness of The distribution underlying the descriptive statistics"
 draft: false
 hideToc: true
 enableToc: false
@@ -13,19 +13,17 @@ tocFolding: false
 tocPosition: inner
 tocLevels: ["h2", "h3", "h4"]
 tags:
-- Pillole
-- Analisi dati
-- Statistica descrittiva
-- Range
-- Varianza
-- Deviazione standard
-- Variabilità
-- Coefficiente di variabilità
+- Pills
+- Data analysis
+- Descriptive statistics
+- Bell
+- Mean
+- Standard deviation
 series:
-- Statistica descrittiva
+- Descriptive statistics
 categories:
-- Pillole analisi dati
-image: "/images/Pillole/Analisi_dati/indicidispersione.png"
+- Data analysis pills
+image: "/images/Pillole/Analisi_dati/distnormale/cover.en.png"
 author: Matteo Miotto
 authorEmoji: 🤖
 authorImage: "/images/whoami/me.jpeg"
@@ -33,7 +31,7 @@ authorImage: "/images/whoami/me.jpeg"
 
 <div style="text-align: justify;">
 
-One of the foundations of statistical analysis is the <b>normal distribution</b>. In this post we will see what it is, its characteristics and why it is so important in statistics.
+One of the foundations of statistical analysis is the <b>normal distribution</b>. In this post we will see what it is, its characteristics and why it is so important in this field.
 This will allow us to get closer and closer to the answer to the question "Do the glucose values collected in the two hospitals really differ?". If you need to refresh your memory, the story begins in the article on the measures of <a href="https://miotsdata.netlify.app/en/pillole/analisi_dati/indici_centralita/indici_centralita/" target="_blank">central tendency</a> and continues in the one on the measures of <a href="https://miotsdata.netlify.app/en/pillole/analisi_dati/indici_dispersione/indici_dispersione/" target="_blank">dispersions</a>.
 
 ## Normal distribution
@@ -73,7 +71,7 @@ Various examples can be seen in the windows below:
 <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26px" height="26px"><path d="M 5.5625 0 C 4.136719 0 2.707031 0.542969 1.625 1.625 C -0.539063 3.789063 -0.539063 7.335938 1.625 9.5 L 5.28125 13.15625 C 5.667969 13.554688 6.304688 13.558594 6.703125 13.171875 C 7.101563 12.785156 7.105469 12.148438 6.71875 11.75 L 3.03125 8.0625 C 1.632813 6.664063 1.632813 4.429688 3.03125 3.03125 C 4.429688 1.632813 6.664063 1.632813 8.0625 3.03125 L 12.96875 7.9375 C 14.367188 9.335938 14.367188 11.570313 12.96875 12.96875 C 12.804688 13.132813 12.621094 13.25 12.4375 13.375 C 11.980469 13.6875 11.859375 14.308594 12.171875 14.765625 C 12.484375 15.222656 13.105469 15.34375 13.5625 15.03125 C 13.847656 14.835938 14.125 14.625 14.375 14.375 C 16.539063 12.210938 16.539063 8.664063 14.375 6.5 L 9.5 1.625 C 8.417969 0.542969 6.988281 0 5.5625 0 Z M 10.78125 8.875 C 10.738281 8.882813 10.695313 8.894531 10.65625 8.90625 C 10.507813 8.9375 10.371094 9 10.25 9.09375 C 10.039063 9.253906 9.820313 9.429688 9.625 9.625 C 7.460938 11.789063 7.460938 15.335938 9.625 17.5 L 14.5 22.375 C 16.664063 24.539063 20.210938 24.539063 22.375 22.375 C 24.539063 20.210938 24.539063 16.664063 22.375 14.5 L 18.71875 10.875 C 18.476563 10.578125 18.089844 10.441406 17.714844 10.527344 C 17.34375 10.613281 17.050781 10.90625 16.964844 11.277344 C 16.878906 11.652344 17.015625 12.039063 17.3125 12.28125 L 20.96875 15.9375 C 22.367188 17.335938 22.367188 19.570313 20.96875 20.96875 C 19.570313 22.367188 17.335938 22.367188 15.9375 20.96875 L 11.03125 16.0625 C 9.632813 14.664063 9.632813 12.429688 11.03125 11.03125 C 11.152344 10.90625 11.300781 10.820313 11.4375 10.71875 C 11.839844 10.472656 12.015625 9.976563 11.855469 9.53125 C 11.699219 9.085938 11.25 8.8125 10.78125 8.875 Z"></path></svg></span></span></h3>
 
 <figure id="mediavar">
-  <img src="/images/Pillole/Analisi_dati/distnormale/mediavar.it.png" alt="Distribuzioni normali con media variabile" width=90%>
+  <img src="/images/Pillole/Analisi_dati/distnormale/mediavar.en.png" alt="Distribuzioni normali con media variabile" width=90%>
 </figure>
 
 
@@ -84,7 +82,7 @@ Various examples can be seen in the windows below:
 <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26px" height="26px"><path d="M 5.5625 0 C 4.136719 0 2.707031 0.542969 1.625 1.625 C -0.539063 3.789063 -0.539063 7.335938 1.625 9.5 L 5.28125 13.15625 C 5.667969 13.554688 6.304688 13.558594 6.703125 13.171875 C 7.101563 12.785156 7.105469 12.148438 6.71875 11.75 L 3.03125 8.0625 C 1.632813 6.664063 1.632813 4.429688 3.03125 3.03125 C 4.429688 1.632813 6.664063 1.632813 8.0625 3.03125 L 12.96875 7.9375 C 14.367188 9.335938 14.367188 11.570313 12.96875 12.96875 C 12.804688 13.132813 12.621094 13.25 12.4375 13.375 C 11.980469 13.6875 11.859375 14.308594 12.171875 14.765625 C 12.484375 15.222656 13.105469 15.34375 13.5625 15.03125 C 13.847656 14.835938 14.125 14.625 14.375 14.375 C 16.539063 12.210938 16.539063 8.664063 14.375 6.5 L 9.5 1.625 C 8.417969 0.542969 6.988281 0 5.5625 0 Z M 10.78125 8.875 C 10.738281 8.882813 10.695313 8.894531 10.65625 8.90625 C 10.507813 8.9375 10.371094 9 10.25 9.09375 C 10.039063 9.253906 9.820313 9.429688 9.625 9.625 C 7.460938 11.789063 7.460938 15.335938 9.625 17.5 L 14.5 22.375 C 16.664063 24.539063 20.210938 24.539063 22.375 22.375 C 24.539063 20.210938 24.539063 16.664063 22.375 14.5 L 18.71875 10.875 C 18.476563 10.578125 18.089844 10.441406 17.714844 10.527344 C 17.34375 10.613281 17.050781 10.90625 16.964844 11.277344 C 16.878906 11.652344 17.015625 12.039063 17.3125 12.28125 L 20.96875 15.9375 C 22.367188 17.335938 22.367188 19.570313 20.96875 20.96875 C 19.570313 22.367188 17.335938 22.367188 15.9375 20.96875 L 11.03125 16.0625 C 9.632813 14.664063 9.632813 12.429688 11.03125 11.03125 C 11.152344 10.90625 11.300781 10.820313 11.4375 10.71875 C 11.839844 10.472656 12.015625 9.976563 11.855469 9.53125 C 11.699219 9.085938 11.25 8.8125 10.78125 8.875 Z"></path></svg></span></span></h3>
 
 <figure id="sdvar">
-  <img src="/images/Pillole/Analisi_dati/distnormale/sdvar.it.png" alt="Distribuzioni normali con SD variabile" width=90%>
+  <img src="/images/Pillole/Analisi_dati/distnormale/sdvar.en.png" alt="Distribuzioni normali con SD variabile" width=90%>
 </figure>
 
 </div>
@@ -94,7 +92,7 @@ Various examples can be seen in the windows below:
 <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26px" height="26px"><path d="M 5.5625 0 C 4.136719 0 2.707031 0.542969 1.625 1.625 C -0.539063 3.789063 -0.539063 7.335938 1.625 9.5 L 5.28125 13.15625 C 5.667969 13.554688 6.304688 13.558594 6.703125 13.171875 C 7.101563 12.785156 7.105469 12.148438 6.71875 11.75 L 3.03125 8.0625 C 1.632813 6.664063 1.632813 4.429688 3.03125 3.03125 C 4.429688 1.632813 6.664063 1.632813 8.0625 3.03125 L 12.96875 7.9375 C 14.367188 9.335938 14.367188 11.570313 12.96875 12.96875 C 12.804688 13.132813 12.621094 13.25 12.4375 13.375 C 11.980469 13.6875 11.859375 14.308594 12.171875 14.765625 C 12.484375 15.222656 13.105469 15.34375 13.5625 15.03125 C 13.847656 14.835938 14.125 14.625 14.375 14.375 C 16.539063 12.210938 16.539063 8.664063 14.375 6.5 L 9.5 1.625 C 8.417969 0.542969 6.988281 0 5.5625 0 Z M 10.78125 8.875 C 10.738281 8.882813 10.695313 8.894531 10.65625 8.90625 C 10.507813 8.9375 10.371094 9 10.25 9.09375 C 10.039063 9.253906 9.820313 9.429688 9.625 9.625 C 7.460938 11.789063 7.460938 15.335938 9.625 17.5 L 14.5 22.375 C 16.664063 24.539063 20.210938 24.539063 22.375 22.375 C 24.539063 20.210938 24.539063 16.664063 22.375 14.5 L 18.71875 10.875 C 18.476563 10.578125 18.089844 10.441406 17.714844 10.527344 C 17.34375 10.613281 17.050781 10.90625 16.964844 11.277344 C 16.878906 11.652344 17.015625 12.039063 17.3125 12.28125 L 20.96875 15.9375 C 22.367188 17.335938 22.367188 19.570313 20.96875 20.96875 C 19.570313 22.367188 17.335938 22.367188 15.9375 20.96875 L 11.03125 16.0625 C 9.632813 14.664063 9.632813 12.429688 11.03125 11.03125 C 11.152344 10.90625 11.300781 10.820313 11.4375 10.71875 C 11.839844 10.472656 12.015625 9.976563 11.855469 9.53125 C 11.699219 9.085938 11.25 8.8125 10.78125 8.875 Z"></path></svg></span></span></h3>
 
 <figure id="sdmediavar">
-  <img src="/images/Pillole/Analisi_dati/distnormale/sdmediavar.it.png" alt="Distribuzioni normali con media e SD variabili" width=90%>
+  <img src="/images/Pillole/Analisi_dati/distnormale/sdmediavar.en.png" alt="Distribuzioni normali con media e SD variabili" width=90%>
 </figure>
 
 </div>
@@ -112,7 +110,7 @@ Let's start by remembering that the area subtended by the curve indicates the fr
 In the figure below we can see some examples.
 
 <figure id="rangecode">
-  <img src="/images/Pillole/Analisi_dati/distnormale/rangecode.it.png" alt="Range and tails in normal distribution" width="70%">
+  <img src="/images/Pillole/Analisi_dati/distnormale/rangecode.en.png" alt="Range and tails in normal distribution" width="70%">
   <figcaption style="text-align:center;">Figur2 2: Range and tails of a standard normal distribution</figcaption>
 </figure>
 
@@ -134,6 +132,12 @@ It is known that in a population height is distributed according to a normal wit
 
 To answer the first question, you have to transform 150 into the corresponding Z-score and use the table. So, <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-10-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>Z</mi><mo>=</mo><mfrac><mrow><mn>150</mn><mo>&amp;#x2212;</mo><mn>171</mn></mrow><mn>23</mn></mfrac><mo>=</mo><mo>&amp;#x2212;</mo><mn>0.9130435</mn></math>" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-88" style="width: 13.396em; display: inline-block;"><span style="display: inline-block; position: relative; width: 11.134em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.372em, 1011.07em, 3.158em, -999.997em); top: -2.557em; left: 0em;"><span class="mrow" id="MathJax-Span-89"><span class="mi" id="MathJax-Span-90" style="font-family: STIXGeneral-Italic;">Z<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.063em;"></span></span><span class="mo" id="MathJax-Span-91" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="mfrac" id="MathJax-Span-92" style="padding-left: 0.301em;"><span style="display: inline-block; position: relative; width: 2.741em; height: 0px; margin-right: 0.122em; margin-left: 0.122em;"><span style="position: absolute; clip: rect(3.336em, 1002.56em, 4.289em, -999.997em); top: -4.521em; left: 50%; margin-left: -1.307em;"><span class="mrow" id="MathJax-Span-93"><span class="mn" id="MathJax-Span-94" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">150</span><span class="mo" id="MathJax-Span-95" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">−</span><span class="mn" id="MathJax-Span-96" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">171</span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.336em, 1000.66em, 4.17em, -999.997em); top: -3.568em; left: 50%; margin-left: -0.354em;"><span class="mn" id="MathJax-Span-97" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">23</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(0.836em, 1002.74em, 1.253em, -999.997em); top: -1.307em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top: 1.3px solid; width: 2.741em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.074em;"></span></span></span></span><span class="mo" id="MathJax-Span-98" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="mo" id="MathJax-Span-99" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">−</span><span class="mn" id="MathJax-Span-100" style="font-family: STIXGeneral-Regular;">0.9130435</span></span><span style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.568em; border-left: 0px solid; width: 0px; height: 1.861em;"></span></span></nobr>. Approximating to -0.91, we find the value 0.18141; therefore, the answer is about 18%.
 For the second question, the same thing has to be done: <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-11-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>Z</mi><mo>=</mo><mfrac><mrow><mn>210</mn><mo>&amp;#x2212;</mo><mn>171</mn></mrow><mn>23</mn></mfrac><mo>=</mo><mn>1.695652</mn></math>" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-101" style="width: 11.967em; display: inline-block;"><span style="display: inline-block; position: relative; width: 9.943em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.372em, 1009.94em, 3.158em, -999.997em); top: -2.557em; left: 0em;"><span class="mrow" id="MathJax-Span-102"><span class="mi" id="MathJax-Span-103" style="font-family: STIXGeneral-Italic;">Z<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.063em;"></span></span><span class="mo" id="MathJax-Span-104" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="mfrac" id="MathJax-Span-105" style="padding-left: 0.301em;"><span style="display: inline-block; position: relative; width: 2.741em; height: 0px; margin-right: 0.122em; margin-left: 0.122em;"><span style="position: absolute; clip: rect(3.336em, 1002.56em, 4.289em, -999.997em); top: -4.521em; left: 50%; margin-left: -1.307em;"><span class="mrow" id="MathJax-Span-106"><span class="mn" id="MathJax-Span-107" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">210</span><span class="mo" id="MathJax-Span-108" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">−</span><span class="mn" id="MathJax-Span-109" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">171</span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.336em, 1000.66em, 4.17em, -999.997em); top: -3.568em; left: 50%; margin-left: -0.354em;"><span class="mn" id="MathJax-Span-110" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">23</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(0.836em, 1002.74em, 1.253em, -999.997em); top: -1.307em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top: 1.3px solid; width: 2.741em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.074em;"></span></span></span></span><span class="mo" id="MathJax-Span-111" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">=</span><span class="mn" id="MathJax-Span-112" style="font-family: STIXGeneral-Regular; padding-left: 0.301em;">1.695652</span></span><span style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.568em; border-left: 0px solid; width: 0px; height: 1.861em;"></span></span></nobr>. Approximating to 1.70, the table yields 0.95543. It must be remembered that the question asked for the right tail, while here is the value of the left one; subtracting this value from 1.00 we find the real answer to the question, that is 1 - 0.95543 = 0.04457 (4.4%).
+
+## Why is it important
+Now that we have seen the characteristics and properties of the normal distribution, let's try to understand its importance: as we said, the normal distribution is characterized by two values (mean and standard deviation) that are able to describe the sample in a fairly exhaustive way. In fact, we know the mean value and, consequently, the median; we are aware of how the values are distributed around the mean value, thanks to the standard deviation.
+We therefore have the two <u>fundamental</u> indexes that give us the idea of the sample and its values.
+Furthermore, with the possibility of standardizing any normal distribution, we are able to calculate the fraction of a very large sample (because we must remember that we are talking about large samples) that has values greater or less than a threshold.
+
 
 ## Conclusions
 Today we have seen what the normal distribution is and its peculiarities. It is one of the most famous distributions in statistics and will help us get closer to the answer to the question <i>"Do the glucose values collected in the two hospitals really differ?"</i>. We will find out why in a future post.
