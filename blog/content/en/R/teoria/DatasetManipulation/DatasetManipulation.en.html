@@ -117,7 +117,7 @@ file: the path of the file to import
 header: TRUE or FALSE based on whether the first row contains the column names
 </li>
 <li>
-sep: the type of separator used. Normally, for txt it is "" and for csv “,”
+sep: the type of separator used. Normally, for txt it is “” and for csv “,”
 </li>
 <li>
 row.names: vector containing row names
@@ -311,7 +311,7 @@ The <code>summary</code> function does this: it gives us information on quartile
 </div>
 <div class="highlight">
 <div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Result">               name                age            sex                income      
+<pre class="chroma"><code class="language-R" data-lang="Result">     name                age            sex                income      
  Length:250         Min.   :18.00   Length:250         Min.   : 10000  
  Class :character   1st Qu.:23.00   Class :character   1st Qu.: 31125  
  Mode  :character   Median :30.00   Mode  :character   Median : 54500  
@@ -330,7 +330,7 @@ The <code>summary</code> function does this: it gives us information on quartile
     sport          
  Length:250        
  Class :character  
- Mode  :character </code></pre>
+ Mode  :character  </code></pre>
 </tbody>
 </table>
 </div>
@@ -450,8 +450,7 @@ To help us, it comes the possibility of changing the <em>levels</em> with the fu
 </div>
 <div class="highlight">
 <div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Result"> chr [1:250] "N" "N" "N" "Y" "N" "Y" "Y" "N" "N" "N" "Y" "N" "N" "N" "N" ...
- - attr(*, "levels")= num [1:2] 0 1</code></pre>
+<pre class="chroma"><code class="language-R" data-lang="Result"> Factor w/ 2 levels "0","1": 1 1 1 2 1 2 2 1 1 1 ...</code></pre>
 </tbody>
 </table>
 </div>
@@ -482,29 +481,31 @@ To help us, it comes the possibility of changing the <em>levels</em> with the fu
 </div>
 <div class="highlight">
 <div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Result">     name                age            sex                income      
- Length:250         Min.   :18.00   Length:250         Min.   : 10000  
- Class :character   1st Qu.:23.00   Class :character   1st Qu.: 31125  
- Mode  :character   Median :30.00   Mode  :character   Median : 54500  
-                    Mean   :30.58                      Mean   : 54702  
-                    3rd Qu.:38.00                      3rd Qu.: 76875  
-                    Max.   :45.00                      Max.   :100000  
-                    NA's   :3                                          
-     height        glasses             brothers     residence        
- Min.   :151.0   Length:250         Min.   :0.00   Length:250        
- 1st Qu.:168.0   Class :character   1st Qu.:0.00   Class :character  
- Median :176.0   Mode  :character   Median :2.00   Mode  :character  
- Mean   :175.4                      Mean   :2.19                     
- 3rd Qu.:182.0                      3rd Qu.:4.00                     
- Max.   :213.0                      Max.   :5.00                     
- NA's   :3                          NA's   :2                        
-    sport          
- Length:250        
- Class :character  
- Mode  :character  
-                   
-                   
-                   
+<pre class="chroma"><code class="language-R" data-lang="Result">     name                age          sex          income           height     
+ Length:250         Min.   :18.00   F   :127   Min.   : 10000   Min.   :151.0  
+ Class :character   1st Qu.:23.00   M   :121   1st Qu.: 31125   1st Qu.:168.0  
+ Mode  :character   Median :30.00   NA's:  2   Median : 54500   Median :176.0  
+                    Mean   :30.58              Mean   : 54702   Mean   :175.4  
+                    3rd Qu.:38.00              3rd Qu.: 76875   3rd Qu.:182.0  
+                    Max.   :45.00              Max.   :100000   Max.   :213.0  
+                    NA's   :3                                   NA's   :3      
+                                                                      
+ glasses    brothers    residence         sport   
+ 0   :137   0   :66   Amsterdam :15   Athletics :19  
+ 1   :112   1   :45   Barcelona :17   Basketball:33  
+ NA's:  1   2   :25   Basel     :23   Dance     : 7  
+            3   : 7   Dublin    :21   Football  :91  
+            4   :98   Lisbona   :12   Gym       :18  
+            5   : 7   Liverpool :11   None      :33  
+            NA's: 2   London    :21   Swimming  :15  
+                      Madrid    :23   Tennis    :31  
+                      Manchester:21   NA's      : 3  
+                      Milan     :10                  
+                      Munich    :15                  
+                      Oslo      :18                  
+                      Paris     :15                  
+                      Rome      :14                  
+                      Vienna    :14  
 </code></pre>
 </tbody>
 </table>
@@ -757,30 +758,26 @@ Here, I show you something different, which is to create a column based on the v
 </div>
 <div class="highlight">
 <div class="chroma">
-<pre class="chroma"><code class="language-R" data-lang="Result">     name             glasses              sex               brothers   
- Length:250         Length:250         Length:250         Min.   :0.00  
- Class :character   Class :character   Class :character   1st Qu.:0.00  
- Mode  :character   Mode  :character   Mode  :character   Median :2.00  
-                                                          Mean   :2.19  
-                                                          3rd Qu.:4.00  
-                                                          Max.   :5.00  
-                                                          NA's   :2     
-  residence            sport                age            income      
- Length:250         Length:250         Min.   :18.00   Min.   : 10000  
- Class :character   Class :character   1st Qu.:23.00   1st Qu.: 31125  
- Mode  :character   Mode  :character   Median :30.00   Median : 54500  
-                                       Mean   :30.58   Mean   : 54702  
-                                       3rd Qu.:38.00   3rd Qu.: 76875  
-                                       Max.   :45.00   Max.   :100000  
-                                       NA's   :3                       
-     height      plusincome
- Min.   :151.0   0:127     
- 1st Qu.:168.0   1:123     
- Median :176.0             
- Mean   :175.4             
- 3rd Qu.:182.0             
- Max.   :213.0             
- NA's   :3                 </code></pre>
+<pre class="chroma"><code class="language-R" data-lang="Result">     name           glasses      sex      brothers       residence  
+ Length:250         0   :137   F   :127   0   :66   Basel     : 23  
+ Class :character   1   :112   M   :121   1   :45   Madrid    : 23  
+ Mode  :character   NA's:  1   NA's:  2   2   :25   Dublin    : 21  
+                                          3   : 7   London    : 21  
+                                          4   :98   Manchester: 21  
+                                          5   : 7   Oslo      : 18  
+                                          NA's: 2   (Other)   :123  
+        sport         age            income            height    
+ Football  :91   Min.   :18.00   Min.   : 10000      Min.   :151.0
+ Basketball:33   1st Qu.:23.00   1st Qu.: 31125      1st Qu.:168.0
+ None      :33   Median :30.00   Median : 54500      Median :176.0          
+ Tennis    :31   Mean   :30.58   Mean   : 54702      Mean   :175.4          
+ Athletics :19   3rd Qu.:38.00   3rd Qu.: 76875      3rd Qu.:182.0      
+ (Other)   :40   Max.   :45.00   Max.   :100000      Max.   :213.0     
+ NA's      : 3   NA's   :3                           NA's   :3   
+ 
+  plusincome
+    0:127     
+    1:123    </code></pre>
 </tbody>
 </table>
 </div>
