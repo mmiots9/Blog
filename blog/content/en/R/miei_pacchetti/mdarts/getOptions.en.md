@@ -2,7 +2,7 @@
 title: "Getting info from package classes"
 h1title: "Players, date, ID and more of a match/set/leg"
 subtitle: "How to get this information with specific functions"
-date: 2021-11-04
+date: 2021-11-30
 modified: 
 description: "How to get this information with specific functions"
 draft: false
