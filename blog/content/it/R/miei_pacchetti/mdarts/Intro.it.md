@@ -29,7 +29,7 @@ authorImage: "/images/whoami/me.jpeg"
 Ciao a tutti! <br> 
 In questo post vi parlo brevemente di questo nuovo progetto: come è nato, come si svilupperà e aspettative future.<br>
 Parto spiegando il perchè. Questo progetto nasce dalla combinazione di tre mie passioni: la programmazione, l'analisi dati e, ovviamente, il gioco per le freccette.  
-Ci sono tante app per smartphone che permettono di giocare a freccette, ed esiste già un pacchietto di R per questo; ma io volevo qualcosa di diverso! <br><br>
+Ci sono tante app per smartphone che permettono di giocare a freccette, ed esiste già un pacchetto di R per questo; ma io volevo qualcosa di diverso! <br><br>
 Oltre ad essere un ottimo allenamento per la programmazione, io volevo un pacchetto che, oltre a tener conto dei punteggi ecc, andasse anche a fare un'analisi dei dati che ne vengono fuori.  
 <p style="margin-bottom:0;">E qua entra in gioco la struttura che vorrei dare a questo progetto:</p>
 <li>Funzioni per lo svolgimento dei classici giochi di freccette: 501, round the clock, e altri</li>
@@ -43,6 +43,6 @@ Sul blog pubblicherò man mano dei post relativi alle funzioni, con spiegazioni 
 <br>
 <br>
 Ma, ovviamente, non potevo fare un post in cui non dicevo nulla di concreto veramente: per questo vi dico che su <a href="https://github.com/mmiots9/mdarts" target="_blank">github</a> è uscita la v1.0, con le prime funzioni, tutte da scoprire.  
-Nei prossimi giorni uscirà il primo post, che rigudarda la funzione per fare le partite 501. 
+Nei prossimi giorni uscirà il primo post, che riguarda la funzione per fare le partite 501. 
 <br>Stay tuned!
 </div>
