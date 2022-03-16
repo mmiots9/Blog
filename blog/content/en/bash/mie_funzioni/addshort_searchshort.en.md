@@ -16,7 +16,7 @@ tags:
 - Bash
 - Shortcut
 series:
-- My bash function
+- My bash functions
 categories:
 - Bash
 image: "/images/Bash/addshort_searchshort/shortcut.jpg"
